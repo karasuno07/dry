@@ -36,11 +36,14 @@
   }
 
   .user-info {
-    width: 200px;
+    min-width: 180px;
+    max-width: 220px;
+    width: max-content;
     padding: 0 5px;
     text-align: left;
 
     & > p, span {
+      max-width: 150px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

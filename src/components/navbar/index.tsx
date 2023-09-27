@@ -45,7 +45,7 @@ function NavBar({}: Props) {
           ) : (
             <>
               <Menu
-                hover
+                // hover
                 position='right'
                 anchor={
                   <Image
