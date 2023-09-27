@@ -105,10 +105,14 @@ function Menu({
           const itemProps = item.props as ClickableElementProps;
           const itemComponent = React.cloneElement(item, {
             ...itemProps,
-            onClick: (evt: React.MouseEvent<Element>) => {
-              inboundOnClickHandler();
-              if (itemProps.onClick) itemProps.onClick(evt);
-            },
+            onClick: itemProps.onClick
+              ? (evt: React.MouseEvent<Element>) => {
+                  inboundOnClickHandler();
+                  if (itemProps.onClick) {
+                    itemProps.onClick(evt);
+                  }
+                }
+              : undefined,
           });
 
           return elementType.name === 'Divider' ? (
@@ -117,7 +121,7 @@ function Menu({
             <li
               key={idx}
               className={cx('menu-item', classes?.menuItemClassName)}
-              onClick={inboundOnClickHandler}
+              onClick={itemProps.onClick ? undefined : inboundOnClickHandler}
             >
               {itemComponent}
             </li>

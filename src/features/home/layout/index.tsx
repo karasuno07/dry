@@ -13,12 +13,14 @@ type Props = {
 };
 
 export default async function HomeLayout({ fullSize, searchParams }: Props) {
-  const mode = (searchParams?.mode as LayoutMode) || 'grid';
+  const layoutMode = (searchParams.mode as LayoutMode) || 'grid';
   const page = (searchParams.page as string) || '1';
+  const categorySlug = (searchParams.category as string) || null;
+
   const categories = await CategoryService.getCategories();
   const videos = new Array(12);
 
-  const Layout = mode === 'grid' ? Grid : 'div';
+  const Layout = layoutMode === 'grid' ? Grid : 'div';
 
   return (
     <div
@@ -26,7 +28,15 @@ export default async function HomeLayout({ fullSize, searchParams }: Props) {
         ['w-full h-full']: fullSize,
       })}
     >
-      <FunctionBar categoryList={categories} mode={mode} page={page} />
+      <FunctionBar
+        categoryList={categories}
+        categoryTitle={categories.find((c) => c.slug === categorySlug)?.name}
+        params={{
+          layoutMode,
+          page,
+          categorySlug,
+        }}
+      />
       <Layout template='cols'>
         {videos.fill(0).map((video, idx) => (
           <Previewer key={idx} />

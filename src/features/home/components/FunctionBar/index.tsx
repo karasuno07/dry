@@ -14,19 +14,32 @@ const cx = classNames.bind(styles);
 
 type Props = {
   categoryList: CategoryResponse[];
-  title?: string;
-  mode: LayoutMode;
-  page: string;
+  categoryTitle?: string;
+  params: {
+    layoutMode: LayoutMode;
+    page: string;
+    categorySlug: string | null;
+  };
 };
 
 export default function FunctionBar({
   categoryList,
-  title = 'All Categories',
-  mode,
-  page,
+  categoryTitle = 'All Categories',
+  params: { layoutMode, page, categorySlug },
 }: Props) {
-  const buildSearchParams = (mode: LayoutMode) => {
-    const newSearchParams: { [key: string]: any } = { mode };
+  const buildSearchParams = ({
+    nextLayoutMode,
+    nextCategorySlug,
+  }: {
+    nextLayoutMode?: LayoutMode;
+    nextCategorySlug?: string;
+  }) => {
+    const newSearchParams: { [key: string]: any } = {
+      mode: nextLayoutMode || layoutMode,
+    };
+    if (nextCategorySlug || categorySlug) {
+      newSearchParams.category = nextCategorySlug || categorySlug;
+    }
     if (isNumber(page)) {
       newSearchParams.page = page;
     }
@@ -45,21 +58,27 @@ export default function FunctionBar({
           }}
           anchor={<FaThList className={cx('selector')} size={24} />}
           items={categoryList.map((category) => (
-            <span key={category.id}>{category.name}</span>
+            <Link
+              key={category.id}
+              className='block w-full h-full'
+              href={buildSearchParams({ nextCategorySlug: category.slug })}
+            >
+              {category.name}
+            </Link>
           ))}
         />
-        <span className={cx('title')}>{title}</span>
+        <span className={cx('title')}>{categoryTitle}</span>
       </div>
       <div className={cx('modes')}>
         <Link
-          className={cx('mode-selector', { active: mode === 'stack' })}
-          href={buildSearchParams('stack')}
+          className={cx('mode-selector', { active: layoutMode === 'stack' })}
+          href={buildSearchParams({ nextLayoutMode: 'stack' })}
         >
           <HiSquare3Stack3D size={28} />
         </Link>
         <Link
-          className={cx('mode-selector', { active: mode === 'grid' })}
-          href={buildSearchParams('grid')}
+          className={cx('mode-selector', { active: layoutMode === 'grid' })}
+          href={buildSearchParams({ nextLayoutMode: 'grid' })}
         >
           <BiSolidGridAlt size={32} />
         </Link>
