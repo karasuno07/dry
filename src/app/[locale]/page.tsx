@@ -1,4 +1,4 @@
-import HomeLayout from '@features/home/components/layout';
+import HomeLayout from '@features/home/layout';
 import { SearchParams } from 'api';
 
 type Props = {

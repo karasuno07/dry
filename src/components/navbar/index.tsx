@@ -2,6 +2,7 @@
 
 import Button from '@components/elements/Button';
 import Divider from '@components/elements/Divider';
+import Icon from '@components/elements/Icon';
 import Menu from '@components/elements/Menu';
 import UserInfo from '@components/navbar/UserInfo';
 import useSession from '@features/authentication/hooks/useSession';
@@ -38,7 +39,7 @@ function NavBar({}: Props) {
         <div className={cx('flex justify-center items-center gap-4')}>
           {isEmpty(session) ? (
             <Button variant='success' onClick={() => router.push('/sign-in')}>
-              <FaUser size={18} />
+              <Icon component={<FaUser size={18} />} />
               <span>{translate('signInBtn')}</span>
             </Button>
           ) : (

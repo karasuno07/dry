@@ -27,7 +27,7 @@ export default async function HomeLayout({ fullSize, searchParams }: Props) {
       })}
     >
       <FunctionBar categoryList={categories} mode={mode} page={page} />
-      <Layout>
+      <Layout template='cols'>
         {videos.fill(0).map((video, idx) => (
           <Previewer key={idx} />
         ))}

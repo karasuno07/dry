@@ -1,4 +1,4 @@
-import { LayoutMode } from '@features/home/components/layout';
+import { LayoutMode } from '@features/home/layout';
 import { CategoryResponse } from '@features/home/model/Categories';
 import classNames from 'classnames/bind';
 import { isNumber } from 'lodash';
