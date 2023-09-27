@@ -1,6 +1,7 @@
 'use client';
 
 import Button, { ButtonProps } from '@components/elements/Button';
+import Icon from '@components/elements/Icon';
 import useOAuth2Provider, {
   ProviderData,
 } from '@features/authentication/hooks/useOAuthProvider';
@@ -73,7 +74,7 @@ function OAuthSignIn({
         onClick={onOAuth2AuthorizeHandler}
         {...buttonProps}
       >
-        {icon}
+        <Icon component={icon} />
         <span className={cx('text')}>
           {translate('oauth', { provider: providerInfo.name })}
         </span>

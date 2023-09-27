@@ -73,7 +73,7 @@ function NavBar({}: Props) {
                     variant='danger'
                     onClick={() => router.push('/sign-out')}
                   >
-                    <IoLogOut size={20} />
+                    <Icon component={<IoLogOut size={20} />} />
                     <span>{translate('signOutBtn')}</span>
                   </Button>,
                 ]}

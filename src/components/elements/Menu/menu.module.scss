@@ -17,7 +17,6 @@ $distance: 10px;
   position: relative;
 
   &.hover:hover .menu-list {
-    margin-top: 0;
     &.flex {
       @include flex-visible-menu;
     }
@@ -29,6 +28,7 @@ $distance: 10px;
 }
 
 .hoverable-space {
+  position: absolute;
   width: 100%;
   height: $distance;
   background-color: transparent;

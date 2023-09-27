@@ -102,15 +102,24 @@ function Menu({
       >
         {items.map((item, idx) => {
           const elementType = item.type as JSXElementConstructor<any>;
+          const itemProps = item.props as ClickableElementProps;
+          const itemComponent = React.cloneElement(item, {
+            ...itemProps,
+            onClick: (evt: React.MouseEvent<Element>) => {
+              inboundOnClickHandler();
+              if (itemProps.onClick) itemProps.onClick(evt);
+            },
+          });
+
           return elementType.name === 'Divider' ? (
-            item
+            itemComponent
           ) : (
             <li
               key={idx}
               className={cx('menu-item', classes?.menuItemClassName)}
               onClick={inboundOnClickHandler}
             >
-              {item}
+              {itemComponent}
             </li>
           );
         })}
