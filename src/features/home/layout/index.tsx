@@ -1,5 +1,6 @@
 import FunctionBar from '@features/home/components/FunctionBar';
 import Grid from '@features/home/components/Grid';
+import Pagination from '@features/home/components/Pagination';
 import Previewer from '@features/home/components/VideoPreviewer';
 import CategoryService from '@features/home/service/categories';
 import { SearchParams } from 'api';
@@ -42,6 +43,7 @@ export default async function HomeLayout({ fullSize, searchParams }: Props) {
           <Previewer key={idx} />
         ))}
       </Layout>
+      <Pagination totalItems={12} itemPerPage={6} />
     </div>
   );
 }
