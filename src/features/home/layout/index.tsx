@@ -13,10 +13,16 @@ type Props = {
   searchParams: SearchParams;
 };
 
+export async function generateStaticParams() {
+  const categories = await CategoryService.getCategories();
+
+  return {
+    categories,
+  };
+}
+
 export default async function HomeLayout({ fullSize, searchParams }: Props) {
   const layoutMode = (searchParams.mode as LayoutMode) || 'grid';
-  const page = (searchParams.page as string) || '1';
-  const categorySlug = (searchParams.category as string) || null;
 
   const categories = await CategoryService.getCategories();
   const videos = new Array(12);
@@ -29,21 +35,13 @@ export default async function HomeLayout({ fullSize, searchParams }: Props) {
         ['w-full h-full']: fullSize,
       })}
     >
-      <FunctionBar
-        categoryList={categories}
-        categoryTitle={categories.find((c) => c.slug === categorySlug)?.name}
-        params={{
-          layoutMode,
-          page,
-          categorySlug,
-        }}
-      />
+      <FunctionBar categoryList={categories} params={searchParams} />
       <Layout template='cols'>
         {videos.fill(0).map((video, idx) => (
           <Previewer key={idx} />
         ))}
       </Layout>
-      <Pagination totalItems={12} itemPerPage={6} />
+      <Pagination totalItems={121} params={searchParams} />
     </div>
   );
 }
