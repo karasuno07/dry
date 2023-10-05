@@ -1,9 +1,12 @@
+import cache from '@lib/cache';
 import { Prisma } from '@prisma/client';
 import { HttpClientError, HttpMethod, HttpServerError } from 'api';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
-type HttpConfig<D> = Omit<AxiosRequestConfig<D>, 'url' | 'method'>;
+interface HttpConfig<D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
+  revalidateSeconds?: number;
+}
 
 const axiosInstance = axios.create({
   baseURL: process.env.DOMAIN_URL || 'http://localhost:3000',
@@ -14,12 +17,32 @@ export const http = (method: HttpMethod) => {
     url: string,
     config?: HttpConfig<D>
   ): Promise<T> {
+    const cachedKey = `${method}-${url}${
+      config?.params ? '-' + config.params : ''
+    }`;
+    const revalidateSeconds = config?.revalidateSeconds || 300;
+
+    const cachedData = cache.get<T>(cachedKey);
+
+    if (
+      cachedData !== undefined &&
+      cache.getTtl(cachedKey) !== undefined &&
+      (cache.getTtl(cachedKey) as number) > 0
+    ) {
+      return convertObjectToPromise(cachedData);
+    }
+
     return axiosInstance<T, AxiosResponse<T, any>, D>({
       method,
       url,
       ...config,
     })
-      .then((response) => response.data)
+      .then((response) => {
+        const data = response.data;
+        cache.set(cachedKey, data, revalidateSeconds);
+
+        return data;
+      })
       .catch((error) => Promise.reject(error));
   };
 };
@@ -74,4 +97,10 @@ function errorHandler(error: unknown) {
       HttpServerError.internalServerError(error as string)
     );
   }
+}
+
+function convertObjectToPromise<T>(obj: T): Promise<T> {
+  return new Promise<T>((resolve, _) => {
+    resolve(obj);
+  });
 }
