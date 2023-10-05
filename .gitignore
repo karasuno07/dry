@@ -36,3 +36,7 @@ next-env.d.ts
 
 # docker volumes
 volumes/
+
+# javascript runtime alternative lock files
+yarn.lock
+package.lock.json
