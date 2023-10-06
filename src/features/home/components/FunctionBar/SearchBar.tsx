@@ -10,9 +10,11 @@ import styles from './FunctionBar.module.scss';
 
 const cx = classNames.bind(styles);
 
-type Props = {};
+type Props = {
+  expandAsDefault?: boolean;
+};
 
-export default function SearchBar({}: Props) {
+export default function SearchBar({ expandAsDefault }: Props) {
   const translate = useTranslations('components.searchBar');
   const searchBarRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,7 +28,12 @@ export default function SearchBar({}: Props) {
   };
 
   return (
-    <div ref={searchBarRef} className={cx('search-bar')}>
+    <div
+      ref={searchBarRef}
+      className={cx('search-bar', {
+        expanded: expandAsDefault,
+      })}
+    >
       <input
         ref={inputRef}
         type='search'

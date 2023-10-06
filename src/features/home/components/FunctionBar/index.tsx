@@ -67,7 +67,7 @@ export default function FunctionBar({ categoryList, params }: Props) {
         />
         <span className={cx('title')}>{title}</span>
       </div>
-      <SearchBar />
+      <SearchBar expandAsDefault />
       <div className={cx('modes')}>
         <Link
           className={cx('mode-selector', {
