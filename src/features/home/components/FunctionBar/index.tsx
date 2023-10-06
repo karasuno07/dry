@@ -85,7 +85,6 @@ export default function FunctionBar({ categoryList, params }: Props) {
         >
           <BiSolidGridAlt size={32} />
         </Link>
-        S
       </div>
     </div>
   );
