@@ -25,6 +25,10 @@ module.exports = {
           },
         },
         white: '#fff',
+        'white-liked': {
+          25: '#ffffff25',
+          50: '#ffffff50',
+        },
         corn: '#fbec5d',
       },
       margin: {

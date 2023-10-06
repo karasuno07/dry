@@ -58,6 +58,76 @@
   }
 }
 
+.search-bar {
+  $bar-height: 30px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: {
+    left: 20px;
+    right: 20px;
+  };
+  flex-grow: 1;
+  margin-right: auto;
+
+  .search-icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    width: $bar-height;
+    height: $bar-height;
+    color: theme('colors.teal.600');
+    cursor: pointer;
+  }
+
+  input {
+    width: $bar-height;
+    height: $bar-height;
+    padding: 4px 8px;
+    background-color: transparent;
+    color: transparent;
+    border: 1px solid theme('colors.white-liked.25');
+    border-radius: 4px;
+    font-weight: 450;
+    font-size: 14px;
+    transition: all 0.5s linear;
+    transform-origin: left;
+
+    &::-webkit-input-placeholder {
+      color: inherit;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  &.expanded {
+    input {
+      width: 250px;
+      padding-left: 34px;
+      border-radius: 8px;
+      background-color: theme('colors.gray.800');
+      color: theme('colors.gray.300');
+      border-color: theme('colors.white-liked.50');
+
+      &::-webkit-input-placeholder {
+        color: theme('colors.gray.400');
+      }
+
+      &:focus-visible {
+        &::-webkit-input-placeholder {
+          color: inherit;
+        }
+
+        & + .search-icon {
+          color: theme('colors.teal.500');
+        }
+      }
+    }
+  }
+}
 
 
 .modes {
@@ -81,4 +151,5 @@
     }
   }
 }
+
 

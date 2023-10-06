@@ -1,9 +1,14 @@
+import cx from 'classnames';
 import { IconBaseProps } from 'react-icons';
 
-type Props = {
+interface Props extends React.HTMLAttributes<HTMLSpanElement> {
   component: React.FunctionComponentElement<IconBaseProps>;
-};
+}
 
-export default function Icon({ component }: Props) {
-  return <span className='react-icons'>{component}</span>;
+export default function Icon({ className, component, ...elementProps }: Props) {
+  return (
+    <span className={cx('react-icons', className)} {...elementProps}>
+      {component}
+    </span>
+  );
 }

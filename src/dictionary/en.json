@@ -18,6 +18,9 @@
     "navBar": {
       "signInBtn": "Sign In",
       "signOutBtn": "Sign Out"
+    },
+    "searchBar": {
+      "placeholder": "Filter by keywords: name, tags, etc..."
     }
   },
   "features": {
