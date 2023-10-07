@@ -1,7 +1,18 @@
 @mixin visible {
   opacity: 1;
-  transform: scale(1, 1);
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  &.scale-animate {
+    animation: scaleDown 0.34s ease-in-out forwards;
+  }
+
+  &.grow-animate {
+    animation: growDown 0.34s ease-in-out forwards;
+  }
+
+  &.pulse-animate {
+    animation: scaleDown 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
   transform-origin: top left;
 
   &.position-right {
@@ -15,8 +26,6 @@
   align-items: center;
   flex-direction: column;
   @include visible;
-
-
 }
 
 @mixin grid-visible-menu {
@@ -90,7 +99,26 @@ $distance: 10px;
     width: 100%;
     height: inherit;
   }
-  
 }
 
+@keyframes scaleDown {
+  0% {
+    transform: scale(0, 0);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
 

@@ -50,6 +50,7 @@ export default function FunctionBar({ categoryList, params }: Props) {
       <div className={cx('list')}>
         <Menu
           menuType='grid'
+          dropdownAnimation='pulse'
           classes={{
             menuClassName: cx('category-menu'),
             menuListClassName: 'grid-rows-4 grid-flow-col gap-y-1',

@@ -25,6 +25,7 @@ interface MenuProps extends React.HTMLProps<HTMLDivElement> {
   position?: 'left' | 'right';
   hover?: boolean;
   menuType?: 'flex' | 'grid';
+  dropdownAnimation?: 'scale' | 'grow' | 'pulse';
   anchor: React.ReactElement;
   items: React.ReactElement[];
 }
@@ -34,6 +35,7 @@ function Menu({
   position,
   hover,
   menuType = 'flex',
+  dropdownAnimation = 'scale',
   anchor,
   items,
   ...componentProps
@@ -97,6 +99,9 @@ function Menu({
             visible: show,
             'position-left': position === 'left',
             'position-right': position === 'right',
+            'scale-animate': dropdownAnimation === 'scale',
+            'grow-animate': dropdownAnimation === 'grow',
+            'pulse-animate': dropdownAnimation === 'pulse',
           },
           classes?.menuListClassName
         )}
