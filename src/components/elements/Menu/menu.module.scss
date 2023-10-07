@@ -1,14 +1,29 @@
+@mixin visible {
+  opacity: 1;
+  transform: scale(1, 1);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: top left;
+
+  &.position-right {
+    transform-origin: top right;
+  }
+}
+
 @mixin flex-visible-menu {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  @include visible;
+
+
 }
 
 @mixin grid-visible-menu {
   display: grid;
   grid-auto-rows: minmax(120px, auto);
   grid-auto-columns: minmax(120px, auto);
+  @include visible;
 }
 
 $distance: 10px;
@@ -36,7 +51,9 @@ $distance: 10px;
 
 .menu-list {
   position: absolute;
-  display: none;
+  display: block;
+  opacity: 0;
+  transform: scale(0, 0);
 
   margin: {
     top: $distance;
@@ -71,6 +88,7 @@ $distance: 10px;
     margin: 0;
     padding: 5px;
     width: 100%;
+    height: inherit;
   }
   
 }

@@ -4,7 +4,7 @@ import Button from '@components/elements/Button';
 import Divider from '@components/elements/Divider';
 import Icon from '@components/elements/Icon';
 import Menu from '@components/elements/Menu';
-import UserInfo from '@components/navbar/UserInfo';
+import UserInfo from '@components/Navbar/UserInfo';
 import useSession from '@features/authentication/hooks/useSession';
 import { default as defaultUser } from '@icons/user-default-64.png';
 import classNames from 'classnames/bind';
@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { FaUser } from 'react-icons/fa6';
 import { IoLogOut } from 'react-icons/io5';
 
-import styles from './navbar.module.scss';
+import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
 

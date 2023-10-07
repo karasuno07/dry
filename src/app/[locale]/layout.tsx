@@ -1,4 +1,4 @@
-import NavBar from '@components/navbar';
+import NavBar from '@components/Navbar';
 import { Session } from 'next-auth';
 import { NextIntlClientProvider as IntlProvider } from 'next-intl';
 import { notFound } from 'next/navigation';

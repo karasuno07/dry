@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 
-import styles from './menu.module.scss';
+import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -79,6 +79,7 @@ function Menu({
     }
     return anchor;
   };
+
   return (
     <div
       ref={menuRef}

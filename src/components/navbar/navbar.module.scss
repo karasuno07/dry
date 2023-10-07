@@ -10,6 +10,7 @@
   height: theme('variables.header-height');
   background-color: theme('colors.black.35');
   color: theme('colors.white');
+  box-shadow: 1.5px 0px 3px theme('boxShadowColor.stone.700');
 
   & > *:first-child {
     margin-left: 10px;
