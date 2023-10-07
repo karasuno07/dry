@@ -5,44 +5,35 @@ import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
-import { ImSearch } from 'react-icons/im';
+import { MdFilterAlt as Filter } from 'react-icons/md';
 import styles from './FunctionBar.module.scss';
 
 const cx = classNames.bind(styles);
 
-type Props = {
-  expandAsDefault?: boolean;
-};
-
-export default function SearchBar({ expandAsDefault }: Props) {
+export default function SearchBar() {
   const translate = useTranslations('components.searchBar');
-  const searchBarRef = useRef<HTMLDivElement>(null);
+  const filterBar = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onClickSearchIconHandler = () => {
+  const onClickFilterIconHandler = () => {
     if (isEmpty(inputRef.current?.value)) {
-      searchBarRef.current?.classList.toggle(cx('expanded'));
+      filterBar.current?.classList.toggle(cx('expanded'));
     } else {
-      // TODO: search API handler
+      // TODO: search/filter API handler
     }
   };
 
   return (
-    <div
-      ref={searchBarRef}
-      className={cx('search-bar', {
-        expanded: expandAsDefault,
-      })}
-    >
+    <div ref={filterBar} className={cx('filter-bar')}>
       <input
         ref={inputRef}
         type='search'
         placeholder={translate('placeholder')}
       />
       <Icon
-        className={cx('search-icon')}
-        component={<ImSearch size={21} />}
-        onClick={onClickSearchIconHandler}
+        className={cx('filter-icon')}
+        component={<Filter size={21} />}
+        onClick={onClickFilterIconHandler}
       />
     </div>
   );

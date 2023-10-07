@@ -58,7 +58,7 @@
   }
 }
 
-.search-bar {
+.filter-bar {
   $bar-height: 30px;
 
   position: relative;
@@ -71,7 +71,7 @@
   flex-grow: 1;
   margin-right: auto;
 
-  .search-icon {
+  .filter-icon {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -106,7 +106,7 @@
   &.expanded {
     input {
       width: 250px;
-      padding-left: 34px;
+      padding-left: 30px;
       border-radius: 8px;
       background-color: theme('colors.gray.800');
       color: theme('colors.gray.300');
@@ -121,7 +121,7 @@
           color: inherit;
         }
 
-        & + .search-icon {
+        & + .filter-icon {
           color: theme('colors.teal.500');
         }
       }

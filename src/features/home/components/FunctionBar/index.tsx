@@ -8,9 +8,8 @@ import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { FaThList } from 'react-icons/fa';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
-
+import FilterBar from './FilterBar';
 import styles from './FunctionBar.module.scss';
-import SearchBar from './SearchBar';
 
 const cx = classNames.bind(styles);
 
@@ -68,7 +67,7 @@ export default function FunctionBar({ categoryList, params }: Props) {
         />
         <span className={cx('title')}>{title}</span>
       </div>
-      <SearchBar expandAsDefault />
+      <FilterBar />
       <div className={cx('modes')}>
         <Link
           className={cx('mode-selector', {
