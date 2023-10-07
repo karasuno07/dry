@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       variables: {
-        'header-height': '50px',
+        'header-height': '54px',
       },
       colors: {
         black: {
