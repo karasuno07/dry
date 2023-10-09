@@ -1,10 +1,11 @@
 'use client';
 
+import SearchBar from '@components/Navbar/SearchBar';
+import UserInfo from '@components/Navbar/UserInfo';
 import Button from '@components/elements/Button';
 import Divider from '@components/elements/Divider';
 import Icon from '@components/elements/Icon';
 import Menu from '@components/elements/Menu';
-import UserInfo from '@components/Navbar/UserInfo';
 import useSession from '@features/authentication/hooks/useSession';
 import { default as defaultUser } from '@icons/user-default-64.png';
 import classNames from 'classnames/bind';
@@ -15,7 +16,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FaUser } from 'react-icons/fa6';
 import { IoLogOut } from 'react-icons/io5';
-
 import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
@@ -35,6 +35,7 @@ function NavBar({}: Props) {
   return (
     <nav className={cx('root')}>
       <Link className={cx('logo')} href='/'></Link>
+      <SearchBar />
       <div className={cx('auth-container')}>
         <div className={cx('flex justify-center items-center gap-4')}>
           {isEmpty(session) ? (

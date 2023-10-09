@@ -28,8 +28,8 @@ export default function Grid({
     defaultClass = template === 'rows' ? 'grid-rows-1' : 'grid-cols-1';
   if (!sm) sm = template === 'rows' ? 'sm:grid-rows-2' : 'sm:grid-cols-2';
   if (!md) md = template === 'rows' ? 'md:grid-rows-3' : 'md:grid-cols-3';
-  if (!lg) lg = template === 'rows' ? 'lg:grid-rows-4' : 'lg:grid-cols-4';
-  if (!xl) xl = template === 'rows' ? 'xl:grid-rows-5' : 'xl:grid-cols-5';
+  if (!lg) lg = template === 'rows' ? 'lg:grid-rows-3' : 'lg:grid-cols-3';
+  if (!xl) xl = template === 'rows' ? 'xl:grid-rows-4' : 'xl:grid-cols-4';
 
   const className = cx(
     'grid',

@@ -25,7 +25,7 @@ export default async function HomeLayout({ fullSize, searchParams }: Props) {
   const layoutMode = (searchParams.mode as LayoutMode) || 'grid';
 
   const categories = await CategoryService.getCategories();
-  const videos = new Array(15);
+  const videos = new Array(12);
 
   const Layout = layoutMode === 'grid' ? Grid : 'div';
 

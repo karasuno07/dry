@@ -10,8 +10,8 @@ import styles from './FunctionBar.module.scss';
 
 const cx = classNames.bind(styles);
 
-export default function SearchBar() {
-  const translate = useTranslations('components.searchBar');
+export default function FilterBar() {
+  const translate = useTranslations('components.functionBar.filter');
   const filterBar = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 

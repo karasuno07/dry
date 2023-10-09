@@ -6,20 +6,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: {
+    left: 10px;
+    right: 10px;
+  }
+  z-index: 1000;
 
   height: theme('variables.header-height');
   background-color: theme('colors.black.35');
   background-image: linear-gradient(0deg, #30373f 0%, #282e35 20%, #1c1f24 74%);
   color: theme('colors.white');
   box-shadow: 1.5px 0px 3px theme('boxShadowColor.stone.700');
-
-  & > *:first-child {
-    margin-left: 10px;
-  }
-
-  & > *:last-child {
-    margin-right: 10px;
-  }
 
   .logo {
     display: block;
@@ -29,11 +26,67 @@
     background-color: dimgrey;
   }
 
-  .auth-container {
-    margin-left: auto;
+  .search-bar {
+    $background-color: theme('colors.black.75');
+    $border-radius: 8px;
 
-    & > div {
-      margin: 5px 0px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    width: fit-content;
+    height: 40px;
+    border-radius: $border-radius;
+    margin: {
+      right: 10px;
+    }
+    overflow: hidden;
+
+    input[type=search] {
+      width: 0;
+      margin-right: 40px;
+      height: 40px;
+      color: theme('colors.gray.300');
+      font-size: 15px;
+      background-color: $background-color;
+      // animation: slide 0.5s ease-in-out backwards;
+    }
+
+    .search-icon {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      border-radius: $border-radius;
+      padding: 4px;
+      background-color: theme('colors.white-liked.15');
+      color: theme('colors.white');
+      cursor: pointer;
+    }
+
+    &.expanded {
+      border: 1px solid theme('colors.white');
+
+      input[type='search'] {
+        animation: expanding 0.5s ease-in-out forwards;
+      }
+
+      .search-icon {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-color: $background-color;
+
+        &:active {
+          background-color: theme('colors.white-liked.15');
+        }
+      }
+    }
+
+    &.collapsed {
+      input[type='search'] {
+        animation: collapsing 0.4s ease-in-out forwards;  
+      }
     }
   }
 
@@ -63,5 +116,32 @@
       display: block;
       color: black;
     }
+  }
+
+  .auth-container {
+    & > div {
+      margin: 5px 0px;
+    }
+  }
+}
+
+@keyframes expanding {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 280px;
+    padding: 4px 0 4px 12px;
+  }
+}
+
+@keyframes collapsing {
+  0% {
+    width: 280px;
+    padding: 4px 0 4px 12px;
+  }
+  100% {
+    width: 0;
+    padding: 0;
   }
 }

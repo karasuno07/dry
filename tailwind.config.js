@@ -26,6 +26,7 @@ module.exports = {
         },
         white: '#fff',
         'white-liked': {
+          15: '#ffffff15',
           25: '#ffffff25',
           50: '#ffffff50',
         },
