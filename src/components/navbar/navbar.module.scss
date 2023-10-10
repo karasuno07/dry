@@ -10,13 +10,12 @@
     left: 10px;
     right: 10px;
   }
-  z-index: 1000;
-
   height: theme('variables.header-height');
   background-color: theme('colors.black.35');
   background-image: linear-gradient(0deg, #30373f 0%, #282e35 20%, #1c1f24 74%);
   color: theme('colors.white');
   box-shadow: 1.5px 0px 3px theme('boxShadowColor.stone.700');
+  z-index: 1000;
 
   .logo {
     display: block;
