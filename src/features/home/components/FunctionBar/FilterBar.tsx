@@ -31,8 +31,9 @@ export default function FilterBar() {
         placeholder={translate('placeholder')}
       />
       <Icon
+        icon={Filter}
         className={cx('filter-icon')}
-        component={<Filter size={21} />}
+        size={21}
         onClick={onClickFilterIconHandler}
       />
     </div>

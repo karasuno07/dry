@@ -40,7 +40,7 @@ function NavBar({}: Props) {
         <div className={cx('flex justify-center items-center gap-4')}>
           {isEmpty(session) ? (
             <Button variant='success' onClick={() => router.push('/sign-in')}>
-              <Icon component={<FaUser size={18} />} />
+              <Icon icon={FaUser} size={18} />
               <span>{translate('signInBtn')}</span>
             </Button>
           ) : (
@@ -74,7 +74,7 @@ function NavBar({}: Props) {
                     variant='danger'
                     onClick={() => router.push('/sign-out')}
                   >
-                    <Icon component={<IoLogOut size={20} />} />
+                    <Icon icon={IoLogOut} size={20} />
                     <span>{translate('signOutBtn')}</span>
                   </Button>,
                 ]}

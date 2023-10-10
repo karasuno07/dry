@@ -154,7 +154,7 @@ export default async function Pagination({
             href={buildSearchParams('first')}
             scroll={false}
           >
-            <Icon component={<LuChevronFirst />} />
+            <Icon icon={LuChevronFirst} />
           </Link>
         </li>
         <li className={cx('page-navigation', { disabled: currentPage === 1 })}>
@@ -163,7 +163,7 @@ export default async function Pagination({
             href={buildSearchParams('prev')}
             scroll={false}
           >
-            <Icon component={<LuChevronLeft />} />
+            <Icon icon={LuChevronLeft} />
           </Link>
         </li>
         {renderPageItems()}
@@ -177,7 +177,7 @@ export default async function Pagination({
             href={buildSearchParams('next')}
             scroll={false}
           >
-            <Icon component={<LuChevronRight />} />
+            <Icon icon={LuChevronRight} />
           </Link>
         </li>
         <li
@@ -190,7 +190,7 @@ export default async function Pagination({
             href={buildSearchParams('last')}
             scroll={false}
           >
-            <Icon component={<LuChevronLast />} />
+            <Icon icon={LuChevronLast} />
           </Link>
         </li>
       </ul>

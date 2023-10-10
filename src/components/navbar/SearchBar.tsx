@@ -52,7 +52,7 @@ export default function SearchBar({}: Props) {
         id='search-bar'
         placeholder={translate('placeholder')}
       />
-      <Icon className={cx('search-icon')} component={<Search size={30} />} />
+      <Icon className={cx('search-icon')} icon={Search} size={30} />
     </div>
   );
 }

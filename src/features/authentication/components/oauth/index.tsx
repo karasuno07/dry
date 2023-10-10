@@ -45,10 +45,10 @@ function OAuthSignIn({
     let icon = undefined;
     switch (provider) {
       case 'github':
-        icon = <FaGithub size={25} />;
+        icon = FaGithub;
         break;
       case 'google':
-        icon = <FcGoogle size={25} />;
+        icon = FcGoogle;
         break;
       default:
         return;
@@ -74,7 +74,7 @@ function OAuthSignIn({
         onClick={onOAuth2AuthorizeHandler}
         {...buttonProps}
       >
-        <Icon component={icon} />
+        <Icon icon={icon} size={25} />
         <span className={cx('text')}>
           {translate('oauth', { provider: providerInfo.name })}
         </span>

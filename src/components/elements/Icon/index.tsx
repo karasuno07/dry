@@ -1,14 +1,29 @@
 import cx from 'classnames';
-import { IconBaseProps } from 'react-icons';
+import { IconBaseProps, IconType } from 'react-icons';
 
-interface Props extends React.HTMLAttributes<HTMLSpanElement> {
-  component: React.FunctionComponentElement<IconBaseProps>;
+interface IconProps extends Omit<IconBaseProps, 'onClick'> {
+  icon: IconType;
+  onClick?: React.MouseEventHandler<HTMLSpanElement>;
+  iconClassName?: string;
 }
 
-export default function Icon({ className, component, ...elementProps }: Props) {
+export default function Icon({
+  icon,
+  className,
+  onClick,
+  onDoubleClick,
+  iconClassName,
+  ...props
+}: IconProps) {
+  const iconProps = {
+    ...props,
+    className: iconClassName,
+  };
+  const IconElement = icon;
+
   return (
-    <span className={cx('react-icons', className)} {...elementProps}>
-      {component}
+    <span className={cx('react-icons', className)} onClick={onClick}>
+      <IconElement {...iconProps} />
     </span>
   );
 }
