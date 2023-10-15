@@ -1,5 +1,6 @@
 @mixin visible {
   opacity: 1;
+  z-index: 9999;
 
   &.scale-animate {
     animation: scaleDown 0.34s ease-in-out forwards;
