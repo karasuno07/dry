@@ -34,53 +34,55 @@ function NavBar({}: Props) {
 
   return (
     <nav className={cx('root')}>
-      <Link className={cx('logo')} href='/'></Link>
-      <SearchBar />
-      <div className={cx('auth-container')}>
-        <div className={cx('flex justify-center items-center gap-4')}>
-          {isEmpty(session) ? (
-            <Button variant='success' onClick={() => router.push('/sign-in')}>
-              <Icon icon={FaUser} size={18} />
-              <span>{translate('signInBtn')}</span>
-            </Button>
-          ) : (
-            <>
-              <Menu
-                hover
-                position='right'
-                anchor={
-                  <Image
-                    className='rounded-full border border-gray-700'
-                    src={userImage}
-                    alt='user-avatar'
-                    width={40}
-                    height={40}
-                    onDragStart={preventDragAndDropEventHandler}
-                    onDrop={preventDragAndDropEventHandler}
-                  />
-                }
-                items={[
-                  <UserInfo
-                    key='user-info'
-                    username={capitalize(session.user.name)}
-                    email={session.user.email}
-                    icon={userImage}
-                    tooltipPosition='left'
-                  />,
-                  <Divider key='divider-01' />,
-                  <Button
-                    fullSize
-                    key={'sign-out'}
-                    variant='danger'
-                    onClick={() => router.push('/sign-out')}
-                  >
-                    <Icon icon={IoLogOut} size={20} />
-                    <span>{translate('signOutBtn')}</span>
-                  </Button>,
-                ]}
-              />
-            </>
-          )}
+      <div className={cx('container')}>
+        <Link className={cx('logo')} href='/'></Link>
+        <SearchBar />
+        <div className={cx('auth-container')}>
+          <div className={cx('flex justify-center items-center gap-4')}>
+            {isEmpty(session) ? (
+              <Button variant='success' onClick={() => router.push('/sign-in')}>
+                <Icon icon={FaUser} size={18} />
+                <span>{translate('signInBtn')}</span>
+              </Button>
+            ) : (
+              <>
+                <Menu
+                  hover
+                  position='right'
+                  anchor={
+                    <Image
+                      className='rounded-full border border-gray-700'
+                      src={userImage}
+                      alt='user-avatar'
+                      width={40}
+                      height={40}
+                      onDragStart={preventDragAndDropEventHandler}
+                      onDrop={preventDragAndDropEventHandler}
+                    />
+                  }
+                  items={[
+                    <UserInfo
+                      key='user-info'
+                      username={capitalize(session.user.name)}
+                      email={session.user.email}
+                      icon={userImage}
+                      tooltipPosition='left'
+                    />,
+                    <Divider key='divider-01' />,
+                    <Button
+                      fullSize
+                      key={'sign-out'}
+                      variant='danger'
+                      onClick={() => router.push('/sign-out')}
+                    >
+                      <Icon icon={IoLogOut} size={20} />
+                      <span>{translate('signOutBtn')}</span>
+                    </Button>,
+                  ]}
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>
