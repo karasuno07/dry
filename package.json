@@ -8,8 +8,8 @@
   "scripts": {
     "docker:start": "docker compose up --build -d",
     "prisma:generate": "bunx prisma generate",
-    "prisma:init-dev": "bunx prisma migrate dev",
-    "env:init": "bun run docker:start & bun run prisma:generate & bun run prisma:init-dev",
+    "prisma:seed": "bunx prisma migrate reset",
+    "env:init": "bun run docker:start & bun run prisma:generate & bun run prisma:seed",
     "dev": "next dev",
     "build": "prisma generate & next build",
     "start": "next start",
