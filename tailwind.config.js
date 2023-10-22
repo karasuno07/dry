@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       variables: {
-        'header-height': '50px',
+        'header-height': '54px',
       },
       colors: {
         black: {
@@ -15,7 +15,7 @@ module.exports = {
           25: '#0d1117',
           35: '#0f0f0f',
           50: '#161b22;',
-          75: '#1616169f',
+          75: '#17151575',
         },
         gray: {
           opacity: {
@@ -25,6 +25,11 @@ module.exports = {
           },
         },
         white: '#fff',
+        'white-liked': {
+          15: '#ffffff15',
+          25: '#ffffff25',
+          50: '#ffffff50',
+        },
         corn: '#fbec5d',
       },
       margin: {

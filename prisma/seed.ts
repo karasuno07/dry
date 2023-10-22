@@ -34,17 +34,17 @@ async function main() {
   await prisma.category.createMany({
     skipDuplicates: true,
     data: [
-      { name: 'Action' },
-      { name: 'Adventure' },
-      { name: 'Comedy' },
-      { name: 'Drama' },
-      { name: 'Fantasy' },
-      { name: 'Horror' },
-      { name: 'Historical' },
-      { name: 'Mistery' },
-      { name: 'Shounen' },
-      { name: 'Shoujo' },
-      { name: 'Romantic' },
+      { name: 'Action', slug: 'action' },
+      { name: 'Adventure', slug: 'adventure' },
+      { name: 'Comedy', slug: 'comedy' },
+      { name: 'Drama', slug: 'drama' },
+      { name: 'Fantasy', slug: 'fantasy' },
+      { name: 'Horror', slug: 'horror' },
+      { name: 'Historical', slug: 'historical' },
+      { name: 'Mystery', slug: 'mystery' },
+      { name: 'Shounen', slug: 'shounen' },
+      { name: 'Shoujo', slug: 'shoujo' },
+      { name: 'Romantic', slug: 'romantic' },
     ],
   });
 }

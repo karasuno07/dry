@@ -3,6 +3,7 @@ import { autoImplement } from '@lib/helper';
 interface ICategory {
   id: string;
   name: string;
+  slug: string;
 }
 
 export class CategoryResponse extends autoImplement<ICategory>() {
@@ -10,5 +11,6 @@ export class CategoryResponse extends autoImplement<ICategory>() {
     super();
     this.id = category.id;
     this.name = category.name;
+    this.slug = category.slug;
   }
 }

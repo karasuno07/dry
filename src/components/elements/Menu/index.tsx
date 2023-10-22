@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 
-import styles from './menu.module.scss';
+import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +25,7 @@ interface MenuProps extends React.HTMLProps<HTMLDivElement> {
   position?: 'left' | 'right';
   hover?: boolean;
   menuType?: 'flex' | 'grid';
+  dropdownAnimation?: 'scale' | 'grow' | 'pulse';
   anchor: React.ReactElement;
   items: React.ReactElement[];
 }
@@ -34,6 +35,7 @@ function Menu({
   position,
   hover,
   menuType = 'flex',
+  dropdownAnimation = 'scale',
   anchor,
   items,
   ...componentProps
@@ -79,6 +81,7 @@ function Menu({
     }
     return anchor;
   };
+
   return (
     <div
       ref={menuRef}
@@ -96,21 +99,37 @@ function Menu({
             visible: show,
             'position-left': position === 'left',
             'position-right': position === 'right',
+            'scale-animate': dropdownAnimation === 'scale',
+            'grow-animate': dropdownAnimation === 'grow',
+            'pulse-animate': dropdownAnimation === 'pulse',
           },
           classes?.menuListClassName
         )}
       >
         {items.map((item, idx) => {
           const elementType = item.type as JSXElementConstructor<any>;
+          const itemProps = item.props as ClickableElementProps;
+          const itemComponent = React.cloneElement(item, {
+            ...itemProps,
+            onClick: itemProps.onClick
+              ? (evt: React.MouseEvent<Element>) => {
+                  inboundOnClickHandler();
+                  if (itemProps.onClick) {
+                    itemProps.onClick(evt);
+                  }
+                }
+              : undefined,
+          });
+
           return elementType.name === 'Divider' ? (
-            item
+            itemComponent
           ) : (
             <li
               key={idx}
               className={cx('menu-item', classes?.menuItemClassName)}
-              onClick={inboundOnClickHandler}
+              onClick={itemProps.onClick ? undefined : inboundOnClickHandler}
             >
-              {item}
+              {itemComponent}
             </li>
           );
         })}

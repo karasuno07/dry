@@ -1,9 +1,9 @@
-import Providers from '@components/providers';
+import NavBar from '@components/Navbar';
 import { Session } from 'next-auth';
+import { NextIntlClientProvider as IntlProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import React from 'react';
 
-import NavBar from '@components/navbar';
 import '@stylesheets/global.scss';
 
 type LayoutProps = {
@@ -28,13 +28,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   }
 
   return (
-    <body>
-      <Providers nextIntlParams={{ locale: params.locale, messages }}>
-        <>
+    <html lang={params.locale}>
+      <body>
+        <IntlProvider locale={params.locale} messages={messages}>
           <NavBar />
           <main>{children}</main>
-        </>
-      </Providers>
-    </body>
+        </IntlProvider>
+      </body>
+    </html>
   );
 }

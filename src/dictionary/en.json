@@ -17,7 +17,15 @@
   "components": {
     "navBar": {
       "signInBtn": "Sign In",
-      "signOutBtn": "Sign Out"
+      "signOutBtn": "Sign Out",
+      "search": {
+        "placeholder": "Search any video name..."
+      }
+    },
+    "functionBar": {
+      "filter": {
+        "placeholder": "Filter by keywords: name, tags..."
+      }
     }
   },
   "features": {

@@ -1,5 +1,6 @@
 import FunctionBar from '@features/home/components/FunctionBar';
 import Grid from '@features/home/components/Grid';
+import Pagination from '@features/home/components/Pagination';
 import Previewer from '@features/home/components/VideoPreviewer';
 import CategoryService from '@features/home/service/categories';
 import { SearchParams } from 'api';
@@ -12,13 +13,21 @@ type Props = {
   searchParams: SearchParams;
 };
 
+export async function generateStaticParams() {
+  const categories = await CategoryService.getCategories();
+
+  return {
+    categories,
+  };
+}
+
 export default async function HomeLayout({ fullSize, searchParams }: Props) {
-  const mode = (searchParams?.mode as LayoutMode) || 'grid';
-  const page = (searchParams.page as string) || '1';
+  const layoutMode = (searchParams.mode as LayoutMode) || 'grid';
+
   const categories = await CategoryService.getCategories();
   const videos = new Array(12);
 
-  const Layout = mode === 'grid' ? Grid : 'div';
+  const Layout = layoutMode === 'grid' ? Grid : 'div';
 
   return (
     <div
@@ -26,12 +35,13 @@ export default async function HomeLayout({ fullSize, searchParams }: Props) {
         ['w-full h-full']: fullSize,
       })}
     >
-      <FunctionBar categoryList={categories} mode={mode} page={page} />
-      <Layout>
+      <FunctionBar categoryList={categories} params={searchParams} />
+      <Layout template='cols'>
         {videos.fill(0).map((video, idx) => (
           <Previewer key={idx} />
         ))}
       </Layout>
+      <Pagination totalItems={121} params={searchParams} />
     </div>
   );
 }
