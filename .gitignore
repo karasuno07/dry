@@ -38,5 +38,6 @@ next-env.d.ts
 volumes/
 
 # javascript runtime alternative lock files
-yarn.lock
-package.lock.json
+# yarn.lock
+# package.lock.json
+# bun.lockb

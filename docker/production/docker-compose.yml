@@ -13,7 +13,7 @@ services:
     volumes:
       - ./volumes/postgresql/:/var/lib/postgresql/data
   adminer:
-    container_name: database-managemetn
+    container_name: database-management
     image: adminer
     restart: always
     ports:
