@@ -37,6 +37,9 @@ next-env.d.ts
 # docker volumes
 volumes/
 
+# docker generated env file
+docker/**/.env
+
 # javascript runtime alternative lock files
 # yarn.lock
 # package.lock.json

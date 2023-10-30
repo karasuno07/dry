@@ -3,6 +3,7 @@ import { Session } from 'next-auth';
 import { NextIntlClientProvider as IntlProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import { customErrorHandler } from '~/dictionary/handler';
 
 import '@stylesheets/global.scss';
 
@@ -30,7 +31,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   return (
     <html lang={params.locale}>
       <body>
-        <IntlProvider locale={params.locale} messages={messages}>
+        <IntlProvider
+          locale={params.locale}
+          messages={messages}
+          onError={customErrorHandler}
+        >
           <NavBar />
           <main>{children}</main>
         </IntlProvider>
