@@ -18,10 +18,3 @@ services:
     restart: always
     ports:
       - "9000:8080"
-  # nextapp: 
-  #   build: 
-  #     context: ../../
-  #     dockerfile: docker/development/Dockerfile
-  #   image: video-streaming-app-development
-  #   ports:
-  #     - 3001:3000

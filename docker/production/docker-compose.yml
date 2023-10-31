@@ -11,3 +11,10 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - ./volumes/postgresql/:/var/lib/postgresql/data
+    nextapp: 
+      build: 
+        context: ../../
+        dockerfile: docker/production/Dockerfile
+      image: video-streaming-app-development
+      ports:
+        - 3001:3000
