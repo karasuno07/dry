@@ -22,7 +22,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # This will do the trick, use the corresponding env file for each environment.
-COPY .env.development .env.production
+COPY .env.production .env.production
+COPY .env .env
 RUN yarn build
 
 # 3. Production image, copy all the files and run next
@@ -47,6 +48,6 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
-ENV HOSTNAME localhost
+ENV HOSTNAME 0.0.0.0
 
 CMD ["node", "server.js"]
