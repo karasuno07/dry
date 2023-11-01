@@ -11,8 +11,6 @@ function SignOut() {
   const translate = useTranslations('pages.auth.signOut');
   const seconds = useCountdown();
 
-  console.log(session, seconds);
-
   if (session && !session.user) {
     redirect('/');
   } else if (seconds === 0) {

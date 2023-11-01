@@ -10,9 +10,10 @@
     "docker:prod": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d",
     "prisma:generate": "npx prisma generate",
     "prisma:seed": "dotenv -e .env.development -e .env -- npx prisma migrate reset --force",
+    "prisma:deploy": "dotenv -e .env.production -e .env -- npx prisma migrate deploy",
     "init:dev": "yarn install & yarn run docker:dev & yarn run prisma:generate & yarn run prisma:seed",
     "dev": "next dev",
-    "build": "yarn run prisma:generate & next build",
+    "build": "yarn run prisma:generate & yarn run prisma:deploy & next build",
     "start": "next start",
     "lint": "next lint"
   },
