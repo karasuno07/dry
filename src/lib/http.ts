@@ -9,18 +9,13 @@ interface HttpConfig<D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
 }
 
 const axiosInstance = axios.create({
-  baseURL: process.env.DOMAIN_URL || 'http://localhost:3000',
+  baseURL: process.env.DOMAIN_URL || `http://localhost:${process.env.SERVER_PORT || 3000}`,
 });
 
 export const http = (method: HttpMethod) => {
-  return function fetch<T = any, D = any>(
-    url: string,
-    config?: HttpConfig<D>
-  ): Promise<T> {
-    const cachedKey = `${method}-${url}${
-      config?.params ? '-' + config.params : ''
-    }`;
-    const revalidateSeconds = config?.revalidateSeconds || 300;
+  return function fetch<T = any, D = any>(url: string, config?: HttpConfig<D>): Promise<T> {
+    const cachedKey = `${method}-${url}${config?.params ? '-' + config.params : ''}`;
+    const revalidateSeconds = config?.revalidateSeconds || 1000;
 
     const cachedData = cache.get<T>(cachedKey);
 
@@ -43,7 +38,10 @@ export const http = (method: HttpMethod) => {
 
         return data;
       })
-      .catch((error) => Promise.reject(error));
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject(error);
+      });
   };
 };
 
