@@ -17,4 +17,4 @@ services:
       dockerfile: docker/production/Dockerfile
     image: video-streaming-app-development
     ports:
-      - "${SERVER_PORT}:3000"
+      - "3000:3000"
