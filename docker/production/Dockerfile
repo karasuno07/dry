@@ -15,7 +15,6 @@ RUN \
   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
   else echo "Lockfile not found." && exit 1; \
   fi
-
 # 2. Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
@@ -24,6 +23,8 @@ COPY . .
 # This will do the trick, use the corresponding env file for each environment.
 COPY .env.production .env.production
 COPY .env .env
+
+RUN yarn prisma:generate
 RUN yarn build
 
 # 3. Production image, copy all the files and run next
@@ -36,7 +37,7 @@ RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
 COPY --from=builder /app/public ./public
-
+COPY --from=builder /app/prisma ./prisma
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
@@ -49,4 +50,4 @@ EXPOSE 3000
 ENV PORT 3000
 ENV HOSTNAME 0.0.0.0
 
-CMD ["node", "server.js"]
+CMD ["yarn", "prisma:deploy", "start:server"]

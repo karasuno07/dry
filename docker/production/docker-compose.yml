@@ -1,4 +1,7 @@
 version: '3.9'
+networks:
+  datasource:
+   name: datasource_network
 services:
   postgres:
     container_name: postgresql-prod
@@ -10,7 +13,17 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PWD}
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-      - ./volumes/postgresql/:/var/lib/postgresql/data
+      - /db/postgresql/:/var/lib/postgresql/data
+    networks:
+      - datasource
+  adminer:
+    container_name: database-management
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - datasource
   nextapp: 
     build: 
       context: ../../
@@ -18,4 +31,8 @@ services:
     image: video-streaming-app-development
     env_file: .env
     ports:
-      - "${CONSUME_PORT}:3000"
+      - "${EXTERNAL_PORT}:3000"
+    depends_on:
+      - postgres
+    networks:
+      - datasource
