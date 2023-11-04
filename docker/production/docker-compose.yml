@@ -2,6 +2,9 @@ version: '3.9'
 networks:
   datasource:
    name: datasource_network
+volumes:
+  db:
+    name: postgres-database-storage
 services:
   postgres:
     container_name: postgresql-prod
@@ -13,11 +16,11 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PWD}
       - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-      - /db/postgresql/:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     networks:
       - datasource
   adminer:
-    container_name: database-management
+    container_name: database-monitor
     image: adminer
     restart: always
     ports:
