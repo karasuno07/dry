@@ -16,5 +16,6 @@ services:
       context: ../../
       dockerfile: docker/production/Dockerfile
     image: video-streaming-app-development
+    env_file: .env
     ports:
-      - "3000:3000"
+      - "${CONSUME_PORT}:3000"
