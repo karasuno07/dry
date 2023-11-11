@@ -22,7 +22,6 @@ services:
   adminer:
     container_name: database-monitor
     image: adminer
-    restart: always
     ports:
       - "8080:8080"
     networks:
