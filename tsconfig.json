@@ -26,6 +26,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@icons/*": ["./src/assets/icons/*"],
       "@features/*": ["./src/features/*"],
+      "@services/*": ["./src/services/*"],
       "*": ["./src/types/*"],
       "~/*": ["./src/*"]
     }
