@@ -4,7 +4,8 @@ import { HttpClientError, HttpMethod, HttpServerError } from 'api';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
-interface HttpConfig<D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
+interface HttpConfig<T, D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
+  bodyConverter?: new (data: any) => T;
   revalidateSeconds?: number;
 }
 
@@ -13,10 +14,9 @@ const axiosInstance = axios.create({
 });
 
 export const http = (method: HttpMethod) => {
-  return function fetch<T = any, D = any>(url: string, config?: HttpConfig<D>): Promise<T> {
+  return function fetch<T = any, D = any>(url: string, config?: HttpConfig<T, D>): Promise<T> {
     const cachedKey = `${method}-${url}${config?.params ? '-' + config.params : ''}`;
     const revalidateSeconds = config?.revalidateSeconds || 1000;
-
     const cachedData = cache.get<T>(cachedKey);
 
     if (
@@ -33,10 +33,12 @@ export const http = (method: HttpMethod) => {
       ...config,
     })
       .then((response) => {
-        const data = response.data;
+        const data = config?.bodyConverter
+          ? new config.bodyConverter(response.data)
+          : response.data;
         cache.set(cachedKey, data, revalidateSeconds);
 
-        return data;
+        return data satisfies T;
       })
       .catch((error) => {
         console.error(error);

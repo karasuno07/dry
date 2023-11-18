@@ -1,5 +1,5 @@
 import { http } from '@lib/http';
-import Genre from '@model/Genres';
+import { Genre } from '@model/Categories';
 import { BASE_URL, buildAuthorizationHeader } from './utils';
 
 type Genres = { genres: Genre[] };
