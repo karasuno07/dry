@@ -5,9 +5,9 @@ export type Genre = {
   name: string;
 };
 
-type Category = {
+type Category = Genre & {
   slug: string;
-} & Genre;
+};
 
 export class CategoryResponse extends autoImplement<Category>() {
   private generateSlug() {
