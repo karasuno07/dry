@@ -1,4 +1,6 @@
-export function buildAuthorizationHeader() {
+export const BASE_URL = 'https://api.themoviedb.org/3';
+
+export function buildAuthorizationHeader(): string {
   const accessToken = process.env.TMDB_READ_ACCESS_TOKEN;
   if (!accessToken) {
     throw new Error('Tmdb access token is invalid!');

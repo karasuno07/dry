@@ -1,6 +1,6 @@
 import Menu from '@components/elements/Menu';
 import { LayoutMode } from '@features/home/layout';
-import { CategoryResponse } from '@features/home/model/Categories';
+import { CategoryResponse } from '@model/Categories';
 import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { assign } from 'lodash';

@@ -5,6 +5,6 @@ type Props = {
   searchParams: SearchParams;
 };
 
-export default function Index({ searchParams }: Props) {
+export default async function Index({ searchParams }: Props) {
   return <HomeLayout fullSize searchParams={searchParams} />;
 }

@@ -23,12 +23,11 @@
     }
 
     li {
-      text-indent: 10px;
       color: theme('colors.gray.200');
       transition: text-indent .3s linear;
 
       &:hover {
-        text-indent: 20px;
+        text-indent: center;
         background-color: theme('colors.zinc.700');
         color: theme('colors.gray.200');
         font-weight: bold;

@@ -1,5 +1,5 @@
-import { CategoryResponse } from '@features/home/model/Categories';
 import { http } from '@lib/http';
+import { CategoryResponse } from '@model/Categories';
 
 export default class CategoryService {
   static async getCategories() {
