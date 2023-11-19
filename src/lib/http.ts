@@ -11,6 +11,7 @@ interface HttpConfig<T, D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'>
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000',
+  headers: {},
 });
 
 export const http = (method: HttpMethod) => {

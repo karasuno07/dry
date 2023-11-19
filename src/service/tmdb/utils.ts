@@ -7,3 +7,8 @@ export function buildAuthorizationHeader(): string {
   }
   return `Bearer ${accessToken}`;
 }
+
+export default class BaseService {
+  static baseUrl = 'https://api.themoviedb.org/3';
+  static header = buildAuthorizationHeader();
+}
