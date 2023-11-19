@@ -1,7 +1,7 @@
 import cache from '@lib/cache';
 import { Prisma } from '@prisma/client';
 import { HttpClientError, HttpMethod, HttpServerError } from 'api';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface HttpConfig<T, D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
@@ -9,13 +9,17 @@ interface HttpConfig<T, D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'>
   revalidateSeconds?: number;
 }
 
-const axiosInstance = axios.create({
+const defaultAxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000',
   headers: {},
 });
 
-export const http = (method: HttpMethod) => {
-  return function fetch<T = any, D = any>(url: string, config?: HttpConfig<T, D>): Promise<T> {
+export const http = (axiosInstance: AxiosInstance = defaultAxiosInstance) => {
+  async function fetch<T = any, D = any>(
+    method: HttpMethod,
+    url: string,
+    config?: HttpConfig<T, D>
+  ): Promise<T> {
     const cachedKey = `${method}-${url}${config?.params ? '-' + config.params : ''}`;
     const revalidateSeconds = config?.revalidateSeconds || 1000;
     const cachedData = cache.get<T>(cachedKey);
@@ -28,23 +32,34 @@ export const http = (method: HttpMethod) => {
       return convertObjectToPromise(cachedData);
     }
 
-    return axiosInstance<T, AxiosResponse<T, any>, D>({
-      method,
-      url,
-      ...config,
-    })
-      .then((response) => {
-        const data = config?.bodyConverter
-          ? new config.bodyConverter(response.data)
-          : response.data;
-        cache.set(cachedKey, data, revalidateSeconds);
-
-        return data satisfies T;
-      })
-      .catch((error) => {
-        console.error(error);
-        return Promise.reject(error);
+    try {
+      const response = await axiosInstance<T, AxiosResponse<T, any>, D>({
+        method,
+        url,
+        ...config,
       });
+      const data = config?.bodyConverter ? new config.bodyConverter(response.data) : response.data;
+      cache.set(cachedKey, data, revalidateSeconds);
+      return data satisfies T;
+    } catch (error) {
+      console.error(error);
+      return await Promise.reject(error);
+    }
+  }
+
+  return {
+    get<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
+      return fetch('GET', url, config);
+    },
+    post<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
+      return fetch('POST', url, config);
+    },
+    put<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
+      return fetch('PUT', url, config);
+    },
+    delete<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
+      return fetch('DELETE', url, config);
+    },
   };
 };
 

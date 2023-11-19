@@ -1,18 +1,10 @@
-import { http } from '@lib/http';
 import { Genre } from '@model/Categories';
-import { BASE_URL, buildAuthorizationHeader } from './utils';
+import BaseService from './base';
 
 type Genres = { genres: Genre[] };
 
-export default class GenresService {
-  static header = buildAuthorizationHeader();
-
+export default class GenresService extends BaseService {
   static getList() {
-    return http('GET')<Genres>('/genre/movie/list', {
-      baseURL: BASE_URL,
-      headers: {
-        Authorization: this.header,
-      },
-    });
+    return this.http.get<Genres>('/genre/movie/list');
   }
 }

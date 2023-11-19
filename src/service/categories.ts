@@ -3,6 +3,6 @@ import { CategoryResponse } from '@model/Categories';
 
 export default class CategoryService {
   static async getCategories() {
-    return await http('GET')<CategoryResponse[]>('/api/videos/categories');
+    return await http().get<CategoryResponse[]>('/api/videos/categories');
   }
 }

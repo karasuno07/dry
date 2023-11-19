@@ -11,10 +11,7 @@ type SessionData = {
 };
 
 export default function useSession() {
-  let { data: session } = useSWR<SessionData, any>(
-    '/api/auth/session',
-    http('GET')
-  );
+  let { data: session } = useSWR<SessionData, any>('/api/auth/session', http().get);
 
   return session;
 }

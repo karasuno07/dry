@@ -1,13 +1,7 @@
-import { http } from '@lib/http';
-import BaseService from './utils';
+import BaseService from './base';
 
 export default class MoviesService extends BaseService {
   static getRecommendations(videoId: number) {
-    return http('GET')(`/movie/${videoId}/recommendations`, {
-      baseURL: this.baseUrl,
-      headers: {
-        Authorization: this.header,
-      },
-    });
+    return this.http.get(`/movie/${videoId}/recommendations`);
   }
 }

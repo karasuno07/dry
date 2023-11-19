@@ -15,7 +15,7 @@ export default function useOAuth2Provider() {
       [provider: string]: ProviderData;
     },
     unknown
-  >('/api/auth/providers', http('GET'));
+  >('/api/auth/providers', http().get);
 
   if (providers === undefined) {
     return providers;
