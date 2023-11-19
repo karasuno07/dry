@@ -1,5 +1,6 @@
 import { http } from '@lib/http';
 import axios from 'axios';
+import { SUPPORTED_LOCALES } from '~/constants/locales';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -21,3 +22,8 @@ export default class BaseService {
     })
   );
 }
+
+export type QueryParams = {
+  language?: typeof SUPPORTED_LOCALES;
+  page?: number;
+};
