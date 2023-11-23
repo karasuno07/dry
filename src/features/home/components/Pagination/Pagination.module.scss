@@ -56,9 +56,11 @@
 
   &.center {
     justify-content: center;
+    margin-left: 20px;
   }
 
   &.right {
     justify-content: flex-end;
+    margin-right: 20px;
   }
 }
