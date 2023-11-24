@@ -4,7 +4,7 @@ import { BackdropSize, ImageType, LogoSize, PosterSize } from 'tmdb/image';
 import BaseService, { QueryParams, SearchParams } from './base';
 
 export default class MoviesService extends BaseService {
-  static search({ keywords, genre_ids, page, language = 'en' }: SearchParams & QueryParams) {
+  static search({ keywords, genre_ids, page = 1, language = 'en' }: SearchParams & QueryParams) {
     return this.http.get('/discover/movie', {
       params: {
         with_keywords: keywords,
