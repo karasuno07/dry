@@ -4,6 +4,7 @@ import { CategoryResponse } from '@model/Categories';
 import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { assign } from 'lodash';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { FaThList } from 'react-icons/fa';
@@ -19,20 +20,16 @@ type Props = {
 };
 
 export default function FunctionBar({ categoryList, params }: Props) {
+  const translate = useTranslations();
+
   const currentLayoutMode = (params.mode as string) || 'grid';
   const curentCategorySlug = (params.category as string) || null;
 
   const title =
     categoryList.find((c) => c.slug === curentCategorySlug)?.name ||
-    'All Categories';
+    translate('general.category.default');
 
-  const buildSearchParams = ({
-    mode,
-    category,
-  }: {
-    mode?: LayoutMode;
-    category?: string;
-  }) => {
+  const buildSearchParams = ({ mode, category }: { mode?: LayoutMode; category?: string }) => {
     const newSearchParams: { [key: string]: any } = { ...params };
     if (mode) {
       assign(newSearchParams, { mode });

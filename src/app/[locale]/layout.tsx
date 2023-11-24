@@ -1,8 +1,8 @@
 import NavBar from '@components/Navbar';
-import { Session } from 'next-auth';
-import { NextIntlClientProvider as IntlProvider } from 'next-intl';
+import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import React from 'react';
+import { SUPPORTED_LOCALES } from '~/constants/locales';
 import { customErrorHandler } from '~/dictionary/handler';
 
 import '@stylesheets/global.scss';
@@ -10,35 +10,28 @@ import '@stylesheets/global.scss';
 type LayoutProps = {
   params: {
     locale: string;
-    session: Session;
   };
   children: React.ReactNode;
 };
 
 export async function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'vi' }];
+  return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({ children, params }: LayoutProps) {
-  let messages;
-
-  try {
-    messages = (await import(`~/dictionary/${params.locale}.json`)).default;
-  } catch {
+export default async function LocaleLayout({ children, params: { locale } }: LayoutProps) {
+  if (!SUPPORTED_LOCALES.includes(locale as any)) {
     notFound();
   }
 
+  const messages = (await import(`~/dictionary/${locale}.json`)).default;
+
   return (
-    <html lang={params.locale}>
+    <html lang={locale}>
       <body>
-        <IntlProvider
-          locale={params.locale}
-          messages={messages}
-          onError={customErrorHandler}
-        >
+        <NextIntlClientProvider locale={locale} messages={messages} onError={customErrorHandler}>
           <NavBar />
           <main>{children}</main>
-        </IntlProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
