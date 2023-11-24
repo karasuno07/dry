@@ -1,7 +1,7 @@
-import FunctionBar from '@features/home/components/FunctionBar';
-import Grid from '@features/home/components/Grid';
-import Pagination from '@features/home/components/Pagination';
-import Previewer from '@features/home/components/VideoPreviewer';
+import Pagination from '@components/Pagination';
+import Grid from '@components/elements/Grid';
+import FunctionBar from '@features/video/components/FunctionBar';
+import Previewer from '@features/video/components/VideoPreviewer';
 import { CategoryResponse } from '@model/Categories';
 import { SearchParams } from 'api';
 import cx from 'classnames';
@@ -19,7 +19,7 @@ async function getCategories() {
   return genres.map((genre) => new CategoryResponse(genre));
 }
 
-export default async function HomeLayout({ fullSize, searchParams }: Props) {
+export default async function IndexLayout({ fullSize, searchParams }: Props) {
   const layoutMode = (searchParams.mode as LayoutMode) || 'grid';
 
   const categories = await getCategories();

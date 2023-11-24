@@ -1,5 +1,4 @@
 import Menu from '@components/elements/Menu';
-import { LayoutMode } from '@features/home/layout';
 import { CategoryResponse } from '@model/Categories';
 import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
@@ -9,6 +8,7 @@ import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { FaThList } from 'react-icons/fa';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
+import { LayoutMode } from '~/layout/IndexLayout';
 import FilterBar from './FilterBar';
 import styles from './FunctionBar.module.scss';
 
