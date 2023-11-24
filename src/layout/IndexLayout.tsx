@@ -1,7 +1,7 @@
 import Pagination from '@components/Pagination';
 import Grid from '@components/elements/Grid';
 import FunctionBar from '@features/video/components/FunctionBar';
-import Previewer from '@features/video/components/VideoPreviewer';
+import Previewer from '@features/video/components/Previewer';
 import { CategoryResponse } from '@model/Categories';
 import { SearchParams } from 'api';
 import cx from 'classnames';
@@ -34,7 +34,7 @@ export default async function IndexLayout({ fullSize, searchParams }: Props) {
         ['w-full h-full']: fullSize,
       })}
     >
-      <FunctionBar categoryList={categories} params={searchParams} />
+      <FunctionBar categories={categories} params={searchParams} />
       <Layout template='cols'>
         {videos.fill(0).map((video, idx) => (
           <Previewer key={idx} />
