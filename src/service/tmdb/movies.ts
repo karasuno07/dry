@@ -40,5 +40,3 @@ export default class MoviesService extends BaseService {
     return UTILS.findImageBySize(backdrops, size);
   }
 }
-
-

@@ -1,19 +1,8 @@
 import { Image, ImageResponse } from '@model/Images';
 import { BackdropSize, ImageType } from 'tmdb/image';
-import BaseService, { QueryParams, SearchParams } from './base';
+import BaseService, { QueryParams } from './base';
 
 export default class MoviesService extends BaseService {
-  static search({ keywords, genre_ids, page = 1, language = 'en' }: SearchParams & QueryParams) {
-    return this.http.get('/discover/tv', {
-      params: {
-        with_keywords: keywords,
-        with_genres: genre_ids,
-        page,
-        language,
-      },
-    });
-  }
-
   static getRecommendations(id: number, params?: QueryParams) {
     return this.http.get(`/tv/${id}/recommendations`, { params });
   }
