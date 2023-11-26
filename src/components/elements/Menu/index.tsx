@@ -1,13 +1,9 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import React, {
-  JSXElementConstructor,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { JSXElementConstructor, useEffect, useRef, useState } from 'react';
 
+import { isArray } from 'lodash';
 import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,10 +20,10 @@ interface MenuProps extends React.HTMLProps<HTMLDivElement> {
   };
   position?: 'left' | 'right';
   hover?: boolean;
-  menuType?: 'flex' | 'grid';
+  menuType?: 'flex' | 'grid' | 'free';
   dropdownAnimation?: 'scale' | 'grow' | 'pulse';
   anchor: React.ReactElement;
-  items: React.ReactElement[];
+  items: React.ReactElement | React.ReactElement[];
 }
 
 function Menu({
@@ -44,7 +40,11 @@ function Menu({
   const listRef = useRef<HTMLUListElement>(null);
   const [show, setShow] = useState<boolean>(false);
 
-  const inboundOnClickHandler = () => {
+  const inboundOnClickHandler = (evt: React.MouseEvent<Element>) => {
+    const target = evt.target as HTMLElement;
+    if (target.classList.contains('bypass-evt')) {
+      return;
+    }
     setShow((prevState) => !prevState);
   };
 
@@ -82,6 +82,42 @@ function Menu({
     return anchor;
   };
 
+  const renderItems = () => {
+    function processItem(item: React.ReactElement, key?: string | number) {
+      const elementType = item.type as JSXElementConstructor<any>;
+      const itemProps = item.props as ClickableElementProps;
+      const itemComponent = React.cloneElement(item, {
+        ...itemProps,
+        onClick: itemProps.onClick
+          ? (evt: React.MouseEvent<Element>) => {
+              inboundOnClickHandler(evt);
+              if (itemProps.onClick) {
+                itemProps.onClick(evt);
+              }
+            }
+          : undefined,
+      });
+
+      return elementType.name === 'Divider' ? (
+        itemComponent
+      ) : (
+        <li
+          key={key}
+          className={cx('menu-item', classes?.menuItemClassName)}
+          onClick={itemProps.onClick ? undefined : inboundOnClickHandler}
+        >
+          {itemComponent}
+        </li>
+      );
+    }
+
+    if (isArray(items)) {
+      return items.map((item, idx) => processItem(item, idx));
+    } else {
+      return processItem(items);
+    }
+  };
+
   return (
     <div
       ref={menuRef}
@@ -106,33 +142,7 @@ function Menu({
           classes?.menuListClassName
         )}
       >
-        {items.map((item, idx) => {
-          const elementType = item.type as JSXElementConstructor<any>;
-          const itemProps = item.props as ClickableElementProps;
-          const itemComponent = React.cloneElement(item, {
-            ...itemProps,
-            onClick: itemProps.onClick
-              ? (evt: React.MouseEvent<Element>) => {
-                  inboundOnClickHandler();
-                  if (itemProps.onClick) {
-                    itemProps.onClick(evt);
-                  }
-                }
-              : undefined,
-          });
-
-          return elementType.name === 'Divider' ? (
-            itemComponent
-          ) : (
-            <li
-              key={idx}
-              className={cx('menu-item', classes?.menuItemClassName)}
-              onClick={itemProps.onClick ? undefined : inboundOnClickHandler}
-            >
-              {itemComponent}
-            </li>
-          );
-        })}
+        {renderItems()}
       </ul>
     </div>
   );

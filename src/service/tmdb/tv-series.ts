@@ -4,7 +4,7 @@ import BaseService, { QueryParams, SearchParams } from './base';
 
 export default class MoviesService extends BaseService {
   static search({ keywords, genre_ids, page = 1, language = 'en' }: SearchParams & QueryParams) {
-    return this.http.get('/discover/movie', {
+    return this.http.get('/discover/tv', {
       params: {
         with_keywords: keywords,
         with_genres: genre_ids,
@@ -15,15 +15,15 @@ export default class MoviesService extends BaseService {
   }
 
   static getRecommendations(id: number, params?: QueryParams) {
-    return this.http.get(`/movie/${id}/recommendations`, { params });
+    return this.http.get(`/tv/${id}/recommendations`, { params });
   }
 
   static getSimilarities(id: number, params?: QueryParams) {
-    return this.http.get(`/movie/${id}/similar`, { params });
+    return this.http.get(`/tv/${id}/similar`, { params });
   }
 
   static async getImages(id: number, params?: Omit<QueryParams, 'page'>, type?: ImageType) {
-    const response = this.http.get<ImageResponse>(`/movie/${id}/images`, { params });
+    const response = this.http.get<ImageResponse>(`/tv/${id}/images`, { params });
     if (type === undefined) {
       return response;
     } else {
@@ -51,4 +51,3 @@ export default class MoviesService extends BaseService {
     return this.findImageBySize(backdrops, size);
   }
 }
-

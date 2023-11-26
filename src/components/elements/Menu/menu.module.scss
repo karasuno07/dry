@@ -49,6 +49,9 @@ $distance: 10px;
     &.grid {
       @include grid-visible-menu;
     }
+    &.free {
+      @include visible;
+    }
   }
 }
 
@@ -92,6 +95,10 @@ $distance: 10px;
 
   &.grid.visible {
     @include grid-visible-menu;
+  }
+
+  &.free.visible {
+    @include visible;
   }
 
   .menu-item {

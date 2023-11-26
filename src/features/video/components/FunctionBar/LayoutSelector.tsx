@@ -4,7 +4,7 @@ import { assign } from 'lodash';
 import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
-import { LayoutMode } from '~/layout/IndexLayout';
+import { LayoutMode } from 'ui';
 import styles from './FunctionBar.module.scss';
 
 const cx = classNames.bind(styles);

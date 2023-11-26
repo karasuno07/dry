@@ -97,5 +97,11 @@
         "required": "Email is required."
       }
     }
+  },
+  "videos": {
+    "types": {
+      "movie": "Movie",
+      "tv-series": "TV-Series"
+    }
   }
 }

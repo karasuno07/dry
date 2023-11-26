@@ -4,7 +4,11 @@ import BaseService from './base';
 type Genres = { genres: Genre[] };
 
 export default class GenresService extends BaseService {
-  static getList() {
+  static getMovieGenres() {
     return this.http.get<Genres>('/genre/movie/list');
+  }
+
+  static getTvSeriesGenres() {
+    return this.http.get<Genres>('/genre/tv/list');
   }
 }
