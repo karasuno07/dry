@@ -1,9 +1,14 @@
-import BaseService, { SearchParams } from './base';
+import { DiscoverVideo } from '@model/Videos';
+import { DiscoverType, PaginationResponse, SearchParams, SearchType, SortParams } from 'tmdb/api';
+import BaseService from './base';
 
-type SearchType = 'collection' | 'movie' | 'tv' | 'person' | 'company' | 'keyword' | 'multi';
+export type SearchResponse = PaginationResponse<DiscoverVideo>;
 
 export default class SearchService extends BaseService {
-  static search(type: SearchType, params: SearchParams) {
-    return this.http.get(`/search/${type}`, { params });
+  static search(type: SearchType, params: SearchParams & SortParams) {
+    return this.http.get<SearchResponse>(`search/${type}`, { params });
+  }
+  static discover(type: DiscoverType, params: SearchParams & SortParams) {
+    return this.http.get<SearchResponse>(`/discover/${type}`, { params });
   }
 }

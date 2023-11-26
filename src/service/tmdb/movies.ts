@@ -1,6 +1,7 @@
 import { Image, ImageResponse } from '@model/Images';
+import { QueryParams } from 'tmdb/api';
 import { BackdropSize, ImageType } from 'tmdb/image';
-import BaseService, { QueryParams, UTILS } from './base';
+import BaseService, { UTILS } from './base';
 
 export default class MoviesService extends BaseService {
   static getRecommendations(id: number, params?: QueryParams) {

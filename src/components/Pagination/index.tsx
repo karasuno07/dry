@@ -1,47 +1,49 @@
 import Icon from '@components/elements/Icon';
 import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
-import { ceil } from 'lodash';
+import { ceil, isUndefined } from 'lodash';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  LuChevronFirst,
-  LuChevronLast,
-  LuChevronLeft,
-  LuChevronRight,
-} from 'react-icons/lu';
+import { LuChevronFirst, LuChevronLast, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 import styles from './Pagination.module.scss';
 
 const cx = classNames.bind(styles);
 
-type PaginationOption =
-  | 'first'
-  | 'last'
-  | 'prev'
-  | 'next'
-  | 'prev-part'
-  | 'next-part';
+type PaginationOption = 'first' | 'last' | 'prev' | 'next' | 'prev-part' | 'next-part';
 
 type Props = {
-  totalItems: number;
-  params: SearchParams;
+  totalItems?: number;
+  totalPage?: number;
+  currentPage?: number;
+  itemPerPage?: number;
   maxDisplayedPage?: number;
   position?: 'left' | 'center' | 'right';
+  params?: SearchParams;
 };
 
 export default async function Pagination({
   totalItems,
+  totalPage,
+  currentPage = 1,
+  itemPerPage = 12,
   maxDisplayedPage = 5,
-  params,
   position = 'center',
+  params,
 }: Props) {
-  const currentPage = Number(params.page as string) || 1;
-  const itemPerPage = Number(params.limit as string) || 12;
-  const totalPage = ceil(totalItems / itemPerPage);
-  const partNumber = ceil(currentPage / maxDisplayedPage);
+  if (isUndefined(totalItems) && isUndefined(totalPage)) {
+    throw new Error(
+      `Can not initialize pagination bar due to lack of neccessary props: ['totalItems', 'totalPage']\n
+      Provide at least one of these props to render component`
+    );
+  }
 
-  if (currentPage > totalPage) {
+  const _currentPage = (params && Number(params.page as string)) || currentPage;
+  const _itemPerPage = (params && Number(params.limit as string)) || itemPerPage;
+  const _totalPage = totalPage || ceil((totalItems as number) / _itemPerPage);
+  const _partNumber = ceil(_currentPage / maxDisplayedPage);
+
+  if (_currentPage > _totalPage) {
     notFound();
   }
 
@@ -53,22 +55,22 @@ export default async function Pagination({
         page = 1;
         break;
       case 'prev-part':
-        page = (partNumber - 1) * maxDisplayedPage;
+        page = (_partNumber - 1) * maxDisplayedPage;
         break;
       case 'prev':
-        page = currentPage > 1 ? currentPage - 1 : currentPage;
+        page = _currentPage > 1 ? _currentPage - 1 : _currentPage;
         break;
       case 'next':
-        page = currentPage < totalPage ? currentPage + 1 : totalPage;
+        page = _currentPage < _totalPage ? _currentPage + 1 : _totalPage;
         break;
       case 'next-part':
         page =
-          (partNumber + 1) * maxDisplayedPage <= totalPage
-            ? partNumber * maxDisplayedPage + 1
-            : totalPage;
+          (_partNumber + 1) * maxDisplayedPage <= _totalPage
+            ? _partNumber * maxDisplayedPage + 1
+            : _totalPage;
         break;
       case 'last':
-        page = totalPage;
+        page = _totalPage;
         break;
       default:
         page = toPage;
@@ -90,7 +92,7 @@ export default async function Pagination({
 
     return (
       <>
-        {currentPage > maxDisplayedPage && (
+        {_currentPage > maxDisplayedPage && (
           <li className={cx('page-navigation')}>
             <Link
               className={cx('page-item', 'font-black')}
@@ -102,31 +104,25 @@ export default async function Pagination({
           </li>
         )}
         {generateArrayValues(
-          (partNumber - 1) * maxDisplayedPage,
-          partNumber * maxDisplayedPage <= totalPage
-            ? partNumber * maxDisplayedPage
-            : totalPage
+          (_partNumber - 1) * maxDisplayedPage,
+          _partNumber * maxDisplayedPage <= _totalPage ? _partNumber * maxDisplayedPage : _totalPage
         ).map((val) => {
           const pageNumber = val + 1;
           return (
             <li
               key={`page-${pageNumber}`}
               className={cx({
-                active: pageNumber === currentPage,
+                active: pageNumber === _currentPage,
               })}
             >
-              <Link
-                className={cx('page-item')}
-                href={buildSearchParams(pageNumber)}
-                scroll={false}
-              >
+              <Link className={cx('page-item')} href={buildSearchParams(pageNumber)} scroll={false}>
                 {pageNumber}
               </Link>
             </li>
           );
         })}
-        {maxDisplayedPage * partNumber < totalPage &&
-          maxDisplayedPage * partNumber >= maxDisplayedPage && (
+        {maxDisplayedPage * _partNumber < _totalPage &&
+          maxDisplayedPage * _partNumber >= maxDisplayedPage && (
             <li className={cx('page-navigation')}>
               <Link
                 className={cx('page-item', 'font-black')}
@@ -148,48 +144,32 @@ export default async function Pagination({
       })}
     >
       <ul className={cx('container')}>
-        <li className={cx('page-navigation', { disabled: currentPage === 1 })}>
-          <Link
-            className={cx('page-item')}
-            href={buildSearchParams('first')}
-            scroll={false}
-          >
+        <li className={cx('page-navigation', { disabled: _currentPage === 1 })}>
+          <Link className={cx('page-item')} href={buildSearchParams('first')} scroll={false}>
             <Icon icon={LuChevronFirst} />
           </Link>
         </li>
-        <li className={cx('page-navigation', { disabled: currentPage === 1 })}>
-          <Link
-            className={cx('page-item')}
-            href={buildSearchParams('prev')}
-            scroll={false}
-          >
+        <li className={cx('page-navigation', { disabled: _currentPage === 1 })}>
+          <Link className={cx('page-item')} href={buildSearchParams('prev')} scroll={false}>
             <Icon icon={LuChevronLeft} />
           </Link>
         </li>
         {renderPageItems()}
         <li
           className={cx('page-navigation', {
-            disabled: currentPage === totalPage,
+            disabled: _currentPage === _totalPage,
           })}
         >
-          <Link
-            className={cx('page-item')}
-            href={buildSearchParams('next')}
-            scroll={false}
-          >
+          <Link className={cx('page-item')} href={buildSearchParams('next')} scroll={false}>
             <Icon icon={LuChevronRight} />
           </Link>
         </li>
         <li
           className={cx('page-navigation', {
-            disabled: currentPage === totalPage,
+            disabled: _currentPage === _totalPage,
           })}
         >
-          <Link
-            className={cx('page-item')}
-            href={buildSearchParams('last')}
-            scroll={false}
-          >
+          <Link className={cx('page-item')} href={buildSearchParams('last')} scroll={false}>
             <Icon icon={LuChevronLast} />
           </Link>
         </li>

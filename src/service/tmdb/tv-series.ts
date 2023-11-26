@@ -1,6 +1,7 @@
 import { Image, ImageResponse } from '@model/Images';
+import { QueryParams } from 'tmdb/api';
 import { BackdropSize, ImageType } from 'tmdb/image';
-import BaseService, { QueryParams } from './base';
+import BaseService, { UTILS } from './base';
 
 export default class MoviesService extends BaseService {
   static getRecommendations(id: number, params?: QueryParams) {
@@ -27,16 +28,16 @@ export default class MoviesService extends BaseService {
     params?: Omit<QueryParams, 'page'>
   ) {
     const backdrops = (await this.getImages(id, params, 'backdrops')) as Image[];
-    return this.findImageBySize(backdrops, size);
+    return UTILS.findImageBySize(backdrops, size);
   }
 
   static async getLogoImage(id: number, size: BackdropSize, params?: Omit<QueryParams, 'page'>) {
     const backdrops = (await this.getImages(id, params, 'logos')) as Image[];
-    return this.findImageBySize(backdrops, size);
+    return UTILS.findImageBySize(backdrops, size);
   }
 
   static async getPosterImage(id: number, size: BackdropSize, params?: Omit<QueryParams, 'page'>) {
     const backdrops = (await this.getImages(id, params, 'posters')) as Image[];
-    return this.findImageBySize(backdrops, size);
+    return UTILS.findImageBySize(backdrops, size);
   }
 }
