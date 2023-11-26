@@ -51,6 +51,13 @@ export type SearchParams = {
   year?: number;
 } & QueryParams;
 
+export type PaginationPayload<T = any> = {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: T[];
+};
+
 export const UTILS = {
   findImageBySize(images: Image[], size: BackdropSize | LogoSize | PosterSize) {
     const compareSize = toNumber(size.substring(1));
