@@ -1,19 +1,8 @@
 import { Image, ImageResponse } from '@model/Images';
 import { BackdropSize, ImageType } from 'tmdb/image';
-import BaseService, { QueryParams, SearchParams } from './base';
+import BaseService, { QueryParams, UTILS } from './base';
 
 export default class MoviesService extends BaseService {
-  static search({ keywords, genre_ids, page = 1, language = 'en' }: SearchParams & QueryParams) {
-    return this.http.get('/discover/movie', {
-      params: {
-        with_keywords: keywords,
-        with_genres: genre_ids,
-        page,
-        language,
-      },
-    });
-  }
-
   static getRecommendations(id: number, params?: QueryParams) {
     return this.http.get(`/movie/${id}/recommendations`, { params });
   }
@@ -38,17 +27,18 @@ export default class MoviesService extends BaseService {
     params?: Omit<QueryParams, 'page'>
   ) {
     const backdrops = (await this.getImages(id, params, 'backdrops')) as Image[];
-    return this.findImageBySize(backdrops, size);
+    return UTILS.findImageBySize(backdrops, size);
   }
 
   static async getLogoImage(id: number, size: BackdropSize, params?: Omit<QueryParams, 'page'>) {
     const backdrops = (await this.getImages(id, params, 'logos')) as Image[];
-    return this.findImageBySize(backdrops, size);
+    return UTILS.findImageBySize(backdrops, size);
   }
 
   static async getPosterImage(id: number, size: BackdropSize, params?: Omit<QueryParams, 'page'>) {
     const backdrops = (await this.getImages(id, params, 'posters')) as Image[];
-    return this.findImageBySize(backdrops, size);
+    return UTILS.findImageBySize(backdrops, size);
   }
 }
+
 

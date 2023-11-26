@@ -43,6 +43,23 @@ export type QueryParams = {
 };
 
 export type SearchParams = {
-  keywords?: string;
-  genre_ids: number[] | null;
+  query?: string;
+  include_adult?: boolean;
+  primary_release_year?: number;
+  first_air_date_year?: number;
+  region?: string;
+  year?: number;
+} & QueryParams;
+
+export const UTILS = {
+  findImageBySize(images: Image[], size: BackdropSize | LogoSize | PosterSize) {
+    const compareSize = toNumber(size.substring(1));
+    return images.find((image) => {
+      if (size.startsWith('h')) {
+        return image.height === compareSize;
+      } else {
+        return image.width === compareSize;
+      }
+    });
+  },
 };
