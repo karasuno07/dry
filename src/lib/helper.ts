@@ -1,6 +1,8 @@
 import { HttpClientError } from 'api';
 import { forEach } from 'lodash';
+import { getPlaiceholder } from 'plaiceholder';
 import { ValidationSchema } from 'validation';
+import { http } from './http';
 
 export function autoImplement<T>(defaults?: Partial<T>) {
   return class {
@@ -33,9 +35,7 @@ export class ModelVaidation<T extends object> {
     }
 
     if (unknownFields.length > 0) {
-      const cause = `Field${
-        unknownFields.length > 1 ? 's' : ''
-      } [${unknownFields.join(', ')}] ${
+      const cause = `Field${unknownFields.length > 1 ? 's' : ''} [${unknownFields.join(', ')}] ${
         unknownFields.length > 1 ? 'are' : 'is'
       } not defined in the  model schema.`;
       throw HttpClientError.badClient('Field validation error.', cause);
@@ -49,9 +49,7 @@ export class ModelVaidation<T extends object> {
       });
 
       if (missingFields.length > 0) {
-        const cause = `Field${
-          missingFields.length > 1 ? 's' : ''
-        } [${missingFields.join(', ')}] ${
+        const cause = `Field${missingFields.length > 1 ? 's' : ''} [${missingFields.join(', ')}] ${
           missingFields.length > 1 ? 'are' : 'is'
         } required but not appear in the model schema.`;
         throw HttpClientError.badClient('Field validation error.', cause);
@@ -60,4 +58,19 @@ export class ModelVaidation<T extends object> {
 
     return model;
   }
+}
+
+export async function generatePlaceholderImage(src: string) {
+  const res = await http().get(src, { responseType: 'arraybuffer' });
+  const buffer = Buffer.from(res);
+
+  const {
+    metadata: { height, width },
+    ...plaiceholder
+  } = await getPlaiceholder(buffer, { size: 10 });
+
+  return {
+    img: { src, width, height },
+    ...plaiceholder,
+  };
 }

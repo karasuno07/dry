@@ -1,5 +1,4 @@
 import { autoImplement } from '@lib/helper';
-import { UTILS } from '~/service/tmdb/base';
 
 export type DiscoverVideo = {
   id: number;
@@ -19,20 +18,17 @@ export type DiscoverVideo = {
 };
 
 export class VideoResponse extends autoImplement<DiscoverVideo>() {
-  backdrop_url: string;
-  poster_url: string;
-
   constructor(data: any) {
     super();
     this.id = data.id;
-    this.title = data.title;
+    this.title = data.title || data.name;
     this.original_language = data.original_language;
-    this.original_title = data.original_title;
+    this.original_title = data.original_title || data.original_name;
     this.genre_ids = data.genre_ids;
     this.overview = data.overview;
     this.adult = data.adult;
-    this.backdrop_url = UTILS.buildImageUrl(data.backdrop_path, 'original');
-    this.poster_url = UTILS.buildImageUrl(data.poster_path, 'original');
+    this.backdrop_path = data.backdrop_path;
+    this.poster_path = data.poster_path;
     this.popularity = data.popularity;
     this.release_date = data.release_date;
     this.first_air_date = data.first_air_date;

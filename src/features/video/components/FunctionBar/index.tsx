@@ -18,12 +18,14 @@ export default function FunctionBar({ params }: Props) {
     const newSearchParams: { [key: string]: any } = { ...params };
     assign(newSearchParams, { type });
     unset(newSearchParams, 'category');
+    unset(newSearchParams, 'page');
     return `?${new URLSearchParams(newSearchParams)}`;
   };
 
   const onChangeCategoryHandler = (category: string) => {
     const newSearchParams: { [key: string]: any } = { ...params };
     assign(newSearchParams, { category });
+    unset(newSearchParams, 'page');
     return `?${new URLSearchParams(newSearchParams)}`;
   };
 

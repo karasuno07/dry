@@ -31,6 +31,11 @@ export type SearchParams = {
   year?: number;
 } & QueryParams;
 
+export type DiscoverParams = {
+  with_genres?: string;
+  with_original_language?: string;
+};
+
 export type PaginationResponse<T = any> = {
   page: number;
   total_pages: number;

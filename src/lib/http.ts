@@ -4,8 +4,7 @@ import { HttpClientError, HttpMethod, HttpServerError } from 'api';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
-interface HttpConfig<T, D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
-  bodyConverter?: new (data: any) => T;
+interface HttpConfig<D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
   revalidateSeconds?: number;
 }
 
@@ -18,9 +17,11 @@ export const http = (axiosInstance: AxiosInstance = defaultAxiosInstance) => {
   async function fetch<T = any, D = any>(
     method: HttpMethod,
     url: string,
-    config?: HttpConfig<T, D>
+    config?: HttpConfig<D>
   ): Promise<T> {
-    const cachedKey = `${method}-${url}${config?.params ? '-' + config.params : ''}`;
+    const cachedKey = `${method}-${url}${
+      config?.params ? '-' + JSON.stringify(config.params) : ''
+    }`;
     const revalidateSeconds = config?.revalidateSeconds || 1000;
     const cachedData = cache.get<T>(cachedKey);
 
@@ -38,7 +39,7 @@ export const http = (axiosInstance: AxiosInstance = defaultAxiosInstance) => {
         url,
         ...config,
       });
-      const data = config?.bodyConverter ? new config.bodyConverter(response.data) : response.data;
+      const data = response.data;
       cache.set(cachedKey, data, revalidateSeconds);
       return data satisfies T;
     } catch (error) {
@@ -48,17 +49,17 @@ export const http = (axiosInstance: AxiosInstance = defaultAxiosInstance) => {
   }
 
   return {
-    get<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
-      return fetch('GET', url, config);
+    get<T = any, D = any>(url: string, config?: HttpConfig<D>) {
+      return fetch<T, D>('GET', url, config);
     },
-    post<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
-      return fetch('POST', url, config);
+    post<T = any, D = any>(url: string, config?: HttpConfig<D>) {
+      return fetch<T, D>('POST', url, config);
     },
-    put<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
-      return fetch('PUT', url, config);
+    put<T = any, D = any>(url: string, config?: HttpConfig<D>) {
+      return fetch<T, D>('PUT', url, config);
     },
-    delete<T = any, D = any>(url: string, config?: HttpConfig<T, D>) {
-      return fetch('DELETE', url, config);
+    delete<T = any, D = any>(url: string, config?: HttpConfig<D>) {
+      return fetch<T, D>('DELETE', url, config);
     },
   };
 };

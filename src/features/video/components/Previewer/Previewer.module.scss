@@ -2,7 +2,40 @@
   position: relative;
   background-color: #272626fb;
   min-width: 300px;
-  max-width: 600px;
-  height: 240px;
+  max-width: 400px;
+  height: 260px;
+  padding: {
+    top: 7.5px;
+    left: 7.5px;
+    right: 7.5px;
+    bottom: 0;
+  }
   border-radius: 6px;
+
+  .backdrop-container {
+    position: relative;
+    width: 100%;
+    height: 85%;
+    img {
+      border-radius: 8px;
+    }
+  }
+  .info {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    color: theme('colors.white');
+
+    .title {
+      max-width: 290px;
+      font-size: 16px;
+      font-weight: 550;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 }

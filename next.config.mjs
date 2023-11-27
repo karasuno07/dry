@@ -1,4 +1,7 @@
-const withNextIntl = require('next-intl/plugin')();
+// const withNextIntl = require('next-intl/plugin')();
+// const withPlaiceholder = require('@plaiceholder/next');
+import withPlaiceholder from '@plaiceholder/next';
+import withNextIntl from 'next-intl/plugin';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -26,4 +29,5 @@ const nextConfig = {
   },
 };
 
-module.exports = withNextIntl(nextConfig);
+// module.exports = withNextIntl(withPlaiceholder(nextConfig));
+export default withNextIntl()(withPlaiceholder(nextConfig));

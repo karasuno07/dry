@@ -1,7 +1,7 @@
 import { autoImplement } from '@lib/helper';
 
 export type Genre = {
-  id: string;
+  id: number;
   name: string;
 };
 
