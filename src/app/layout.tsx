@@ -1,5 +1,4 @@
-import { Metadata } from 'next';
-import { Viewport } from 'next/dist/lib/metadata/types/extra-types';
+import { Metadata, Viewport } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
