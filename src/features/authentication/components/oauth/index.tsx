@@ -7,7 +7,7 @@ import useOAuth2Provider, {
 } from '@features/authentication/hooks/useOAuthProvider';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { FaGithub } from 'react-icons/fa6';
 import { FcGoogle } from 'react-icons/fc';
@@ -22,11 +22,8 @@ interface OAuthSignInProps extends Omit<ButtonProps, 'fullSize' | 'onClick'> {
   provider: SupportedProvidersType;
 }
 
-function OAuthSignIn({
-  provider,
-  className,
-  ...buttonProps
-}: OAuthSignInProps) {
+function OAuthSignIn({ provider, className, ...buttonProps }: OAuthSignInProps) {
+  const locale = useLocale();
   const router = useRouter();
   const providers = useOAuth2Provider();
   const translate = useTranslations('features.authentication');
@@ -63,7 +60,7 @@ function OAuthSignIn({
         { prompt: 'login' }
       );
       if (response?.error) {
-        router.push(`?${new URLSearchParams({ error: response.error })}`);
+        router.push(`?${new URLSearchParams({ error: response.error })}`, { locale });
       }
     };
 
@@ -75,9 +72,7 @@ function OAuthSignIn({
         {...buttonProps}
       >
         <Icon icon={icon} size={25} />
-        <span className={cx('text')}>
-          {translate('oauth', { provider: providerInfo.name })}
-        </span>
+        <span className={cx('text')}>{translate('oauth', { provider: providerInfo.name })}</span>
       </Button>
     );
   }

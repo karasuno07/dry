@@ -74,7 +74,7 @@ function NavBar({}: Props) {
                       fullSize
                       key={'sign-out'}
                       variant='danger'
-                      onClick={() => router.push('/sign-out')}
+                      onClick={() => router.push('/sign-out', { locale })}
                     >
                       <Icon icon={IoLogOut} size={20} />
                       <span>{translate('signOutBtn')}</span>

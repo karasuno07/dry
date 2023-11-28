@@ -20,6 +20,12 @@ import styles from './SignUp.module.scss';
 
 const cx = classNames.bind(styles);
 
+type Props = {
+  params: {
+    locale: string;
+  };
+};
+
 type FormData = {
   username: string;
   password: string;
@@ -29,7 +35,7 @@ type FormData = {
   email: string;
 };
 
-function SignUp() {
+function SignUp({ params: { locale } }: Props) {
   const router = useRouter();
   const translate = useTranslations('pages.auth');
   const messages = useTranslations('messages.validation');
@@ -70,10 +76,7 @@ function SignUp() {
         .required(messages('name.required.last')),
       email: yup
         .string()
-        .matches(
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-          messages('email.pattern')
-        )
+        .matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, messages('email.pattern'))
         .required(messages('email.required')),
     })
     .required();
@@ -86,14 +89,10 @@ function SignUp() {
         resolver={yupResolver(validationSchema)}
       >
         {({ formState: { errors, dirtyFields }, handleSubmit }) => {
-          const isDirtyAll =
-            entries(dirtyFields).length === entries(defaultValues).length;
+          const isDirtyAll = entries(dirtyFields).length === entries(defaultValues).length;
           const isDisabled = !isDirtyAll || !isEmpty(errors);
 
-          const onSubmitCreateUserHandlder = async (
-            formData: FormData,
-            evt: any
-          ) => {
+          const onSubmitCreateUserHandlder = async (formData: FormData, evt: any) => {
             const requestBody: UserUpsertRequest = {
               username: formData.username,
               password: formData.password,
@@ -106,7 +105,7 @@ function SignUp() {
             });
 
             if (status?.code === 201) {
-              router.replace('registered');
+              router.replace('registered', { locale });
             }
           };
 

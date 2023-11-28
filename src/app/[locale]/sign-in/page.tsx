@@ -17,10 +17,15 @@ import { redirect, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-
 import styles from './SignIn.module.scss';
 
 const cx = classNames.bind(styles);
+
+type Props = {
+  params: {
+    locale: string;
+  };
+};
 
 type FormData = {
   username: string;
@@ -68,8 +73,7 @@ function SignIn() {
         resolver={yupResolver(validationSchema)}
       >
         {({ formState: { errors, dirtyFields }, reset, handleSubmit }) => {
-          const isDirtyAll =
-            entries(dirtyFields).length === entries(defaultValues).length;
+          const isDirtyAll = entries(dirtyFields).length === entries(defaultValues).length;
           const isDisabled = !isDirtyAll || !isEmpty(errors);
 
           const onSubmitLoginHandler = async (data: FormData, evt: any) => {
@@ -85,16 +89,14 @@ function SignIn() {
             }
 
             if (response?.error) {
-              router.push(`?${new URLSearchParams({ error: response.error })}`);
+              router.push(`?${new URLSearchParams({ error: response.error })}`, { locale });
               switch (response.error) {
                 case AUTH_ERROR.MISSING_AUTH_PARAMS:
                   toast.error(translate('signIn.messages.missingParamsError'));
                   reset();
                   break;
                 case AUTH_ERROR.CREDENTIALS_MISMATCH:
-                  toast.error(
-                    translate('signIn.messages.credentialsMismatchError')
-                  );
+                  toast.error(translate('signIn.messages.credentialsMismatchError'));
                   reset();
                   break;
                 default:

@@ -6,7 +6,13 @@ import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { redirect } from 'next/navigation';
 
-function SignOut() {
+type Props = {
+  params: {
+    locale: string;
+  };
+};
+
+function SignOut({ params: { locale } }: Props) {
   const session = useSession();
   const translate = useTranslations('pages.auth.signOut');
   const seconds = useCountdown();

@@ -6,6 +6,9 @@ import { redirect } from 'next/navigation';
 
 type Props = {
   searchParams: SearchParams;
+  params: {
+    locale: string;
+  };
 };
 
 async function Registered({ searchParams }: Props) {
@@ -22,10 +25,8 @@ async function Registered({ searchParams }: Props) {
         <p>You have just registered successfully.</p>
         <p>
           Please check your verification email on{' '}
-          <span className='text-blue-700 font-bold underline'>
-            {registeredUser.email}
-          </span>{' '}
-          to active full account feature.
+          <span className='text-blue-700 font-bold underline'>{registeredUser.email}</span> to
+          active full account feature.
         </p>
       </div>
     </AuthLayout>
