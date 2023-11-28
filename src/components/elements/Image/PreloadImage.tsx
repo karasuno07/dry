@@ -3,11 +3,17 @@ import { isEmpty } from 'lodash';
 import Image, { ImageProps } from 'next/image';
 import notFound from '~/assets/images/404-not-found.svg';
 
-type Props = ImageProps & {};
-
-async function LoadableImage({ src, alt, fill, ...imageProps }: Props) {
+async function PreloadImage({ src, alt, fill, ...imageProps }: ImageProps) {
   if (isEmpty(src)) {
-    return <Image priority src={notFound} alt='not found image' fill {...imageProps} />;
+    return (
+      <Image
+        src={notFound}
+        alt='Not Found Image'
+        fill
+        sizes='(min-width: 1024px) 370px'
+        {...imageProps}
+      />
+    );
   }
 
   const {
@@ -29,4 +35,4 @@ async function LoadableImage({ src, alt, fill, ...imageProps }: Props) {
   );
 }
 
-export default LoadableImage;
+export default PreloadImage;

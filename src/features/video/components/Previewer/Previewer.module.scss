@@ -1,6 +1,6 @@
 .root {
   position: relative;
-  background-color: #272626fb;
+  background-color: #272626;
   min-width: 300px;
   max-width: 400px;
   height: 260px;
@@ -18,6 +18,9 @@
     height: 85%;
     img {
       border-radius: 8px;
+      margin: auto;
+      width: auto;
+      height: 100%;
     }
   }
   .info {

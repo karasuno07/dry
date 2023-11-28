@@ -16,18 +16,11 @@ type Props = {
   searchParams: UrlSearchParams;
 };
 
-async function getVideos(
-  discover: boolean,
+async function searchVideos(
   type: DiscoverType,
   params: SearchParams & SortParams & DiscoverParams
 ) {
-  let response;
-
-  if (discover) {
-    response = await SearchService.discover(type, params);
-  } else {
-    response = await SearchService.search(type, params);
-  }
+  const response = await SearchService.discover(type, params);
   return { ...response, results: response.results.map((data) => new VideoResponse(data)) };
 }
 
@@ -41,7 +34,7 @@ export default async function Index({ searchParams }: Props) {
 
   const currentGenre = await GenresService.getGenreBySlug(searchType, category);
 
-  const { results: videos, total_pages } = await getVideos(true, searchType, {
+  const { results: videos, total_pages } = await searchVideos(searchType, {
     page,
     language,
     include_adult: true,
