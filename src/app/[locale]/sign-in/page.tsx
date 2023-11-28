@@ -32,7 +32,7 @@ type FormData = {
   password: string;
 };
 
-function SignIn() {
+function SignIn({ params: { locale } }: Props) {
   const session = useSession();
   const router = useRouter();
   const messages = useTranslations('messages.validation');
