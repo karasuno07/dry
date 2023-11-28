@@ -11,5 +11,10 @@ const middleware = nextIntlMiddleware({
 export default middleware;
 
 export const config = {
-  matcher: ['/', '/(en|vi)/:path*'], // TODO: should be dynamically based on supported locales definition but unsupported for now
+  matcher: [
+    // Match all pathnames except for
+    // - … if they start with `/api`, `/_next` or `/_vercel`
+    // - … the ones containing a dot (e.g. `favicon.ico`)
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+  ],
 };

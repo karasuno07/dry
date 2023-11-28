@@ -10,7 +10,7 @@ import useSession from '@features/authentication/hooks/useSession';
 import { default as defaultUser } from '@icons/user-default-64.png';
 import classNames from 'classnames/bind';
 import { capitalize, isEmpty } from 'lodash';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -25,12 +25,13 @@ type Props = {};
 function NavBar({}: Props) {
   const session = useSession();
   const router = useRouter();
+  const locale = useLocale();
   const translate = useTranslations('components.navBar');
   const userImage = session?.user?.image || defaultUser;
 
-  const preventDragAndDropEventHandler = (
-    evt: React.DragEvent<HTMLImageElement>
-  ) => evt.preventDefault();
+  const preventDragAndDropEventHandler = (evt: React.DragEvent<HTMLImageElement>) => {
+    evt.preventDefault();
+  };
 
   return (
     <nav className={cx('root')}>
@@ -40,7 +41,7 @@ function NavBar({}: Props) {
         <div className={cx('auth-container')}>
           <div className={cx('flex justify-center items-center gap-4')}>
             {isEmpty(session) ? (
-              <Button variant='success' onClick={() => router.push('/sign-in')}>
+              <Button variant='success' onClick={() => router.push('/sign-in', { locale })}>
                 <Icon icon={FaUser} size={18} />
                 <span>{translate('signInBtn')}</span>
               </Button>

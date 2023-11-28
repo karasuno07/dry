@@ -125,12 +125,7 @@ function SignIn() {
               <Button
                 fullSize
                 type='submit'
-                className={cx(
-                  'sign-in-btn',
-                  'mt-[15px]',
-                  'px-[10px]',
-                  'py-[15px]'
-                )}
+                className={cx('sign-in-btn', 'mt-[15px]', 'px-[10px]', 'py-[15px]')}
                 disabled={isDisabled}
                 onClick={handleSubmit(onSubmitLoginHandler)}
                 onKeyUp={(evt) => {
@@ -151,14 +146,8 @@ function SignIn() {
                 </Link>
               </div>
               <hr className={cx('divider')} />
-              <OAuthSignIn
-                provider='github'
-                className={'px-[10px] py-[15px]'}
-              />
-              <OAuthSignIn
-                provider='google'
-                className={'px-[10px] py-[15px]'}
-              />
+              <OAuthSignIn provider='github' className={'px-[10px] py-[15px]'} />
+              <OAuthSignIn provider='google' className={'px-[10px] py-[15px]'} />
             </>
           );
         }}

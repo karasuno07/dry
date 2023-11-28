@@ -113,9 +113,7 @@ function SignUp() {
           return (
             <>
               <h1 className='text-white'>{error?.name}</h1>
-              <h2 className={cx('title')}>
-                {translate('signUp.createAccount')}
-              </h2>
+              <h2 className={cx('title')}>{translate('signUp.createAccount')}</h2>
               <FormControl
                 labelText={translate('form.usernameLabel')}
                 name='username'
@@ -158,12 +156,7 @@ function SignUp() {
               <Button
                 fullSize
                 type='submit'
-                className={cx(
-                  'sign-up-btn',
-                  'mt-[15px]',
-                  'px-[10px]',
-                  'py-[15px]'
-                )}
+                className={cx('sign-up-btn', 'mt-[15px]', 'px-[10px]', 'py-[15px]')}
                 disabled={isDisabled || loading}
                 onClick={handleSubmit(onSubmitCreateUserHandlder)}
               >

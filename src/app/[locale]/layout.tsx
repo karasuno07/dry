@@ -1,11 +1,10 @@
 import NavBar from '@components/Navbar';
+import '@stylesheets/global.scss';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { SUPPORTED_LOCALES } from '~/constants/locales';
 import { customErrorHandler } from '~/dictionary/handler';
-
-import '@stylesheets/global.scss';
 
 type LayoutProps = {
   params: {
@@ -18,7 +17,7 @@ export async function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: LayoutProps) {
+export default async function LocalizationLayout({ children, params: { locale } }: LayoutProps) {
   if (!SUPPORTED_LOCALES.includes(locale as any)) {
     notFound();
   }

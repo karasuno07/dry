@@ -6,7 +6,7 @@
     "seed": "node prisma/seed.js"
   },
   "scripts": {
-    "docker:local": "cp .env.development docker/development/.env & docker compose -f ./docker/development/docker-compose.yml up --build -d",
+    "docker:local": "cp .env docker/development/.env & docker compose -f ./docker/development/docker-compose.yml up --build -d",
     "docker:build": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d",
     "prisma:generate": "npx prisma generate",
     "prisma:apply": "npx prisma migrate dev",
@@ -31,10 +31,10 @@
     "classnames": "2.3.2",
     "date-fns": "2.30.0",
     "eslint": "8.52.0",
-    "eslint-config-next": "13.5.6",
+    "eslint-config-next": "^14.0.3",
     "lodash": "4.17.21",
-    "next": "13.5.6",
-    "next-auth": "4.22.5",
+    "next": "^14.0.3",
+    "next-auth": "^4.24.5",
     "next-intl": "3.1.3",
     "node-cache": "5.1.2",
     "plaiceholder": "3.0.0",
@@ -57,7 +57,7 @@
     "yup": "1.3.2"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "13.5.6",
+    "@next/eslint-plugin-next": "^14.0.3",
     "@types/bcryptjs": "2.4.5",
     "@types/lodash": "4.14.200",
     "@types/node": "20.8.9",
