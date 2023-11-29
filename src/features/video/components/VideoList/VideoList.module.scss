@@ -1,0 +1,8 @@
+@import '@stylesheets/library';
+
+.root {
+  height: 740px;
+  overflow: auto;
+
+  @include custom-scrollbar-style();
+}

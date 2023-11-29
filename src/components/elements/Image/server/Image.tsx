@@ -1,9 +1,10 @@
 import { generatePlaceholderImage } from '@lib/helper';
 import { isEmpty } from 'lodash';
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image, { ImageProps } from 'next/image';
 import notFound from '~/assets/images/404-not-found.svg';
 
-async function PreloadImage({ src, alt, fill, ...imageProps }: ImageProps) {
+export default async function SSRImage({ src, alt, fill, ...imageProps }: ImageProps) {
   if (isEmpty(src)) {
     return (
       <Image
@@ -35,4 +36,13 @@ async function PreloadImage({ src, alt, fill, ...imageProps }: ImageProps) {
   );
 }
 
-export default PreloadImage;
+type LoadingImageProps = {
+  src: StaticImport;
+  alt?: string;
+  width: number;
+  height: number;
+};
+
+export function LoadingImage({ src, alt = 'Loading Image', width, height }: LoadingImageProps) {
+  return <Image src={src} alt={alt} width={width} height={height} priority />;
+}

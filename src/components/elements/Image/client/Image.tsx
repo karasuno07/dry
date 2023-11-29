@@ -7,7 +7,7 @@ import spinner from '~/assets/images/spinner.gif';
 
 type Props = ImageProps & {};
 
-function LoadableImage({ src, alt, ...imageProps }: Props) {
+export default function CSRImage({ src, alt, ...imageProps }: Props) {
   const [loading, setLoading] = useState<boolean>(true);
 
   const generateImageProps = () => {
@@ -42,5 +42,3 @@ function LoadableImage({ src, alt, ...imageProps }: Props) {
     />
   );
 }
-
-export default LoadableImage;

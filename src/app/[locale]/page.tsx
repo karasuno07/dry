@@ -1,14 +1,13 @@
 import Pagination from '@components/Pagination';
-import Grid from '@components/elements/Grid';
 import FunctionBar from '@features/video/components/FunctionBar';
-import Previewer from '@features/video/components/Previewer';
+import VideoList, { SkeletonVideoList } from '@features/video/components/VideoList';
 import { VideoResponse } from '@model/Videos';
 import { SearchParams as UrlSearchParams } from 'api';
 import { getLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'tmdb/api';
 import { LayoutMode, VideoType } from 'ui';
 import { LocaleType } from '~/constants/locales';
-import { UTILS } from '~/service/tmdb/base';
 import GenresService from '~/service/tmdb/genres';
 import SearchService from '~/service/tmdb/search';
 
@@ -26,7 +25,8 @@ async function searchVideos(
 
 export default async function Index({ searchParams }: Props) {
   const layoutMode = (searchParams.mode as LayoutMode) || 'grid';
-  const searchType = (searchParams.type as VideoType) === 'tv-series' ? 'tv' : 'movie';
+  const videoType = (searchParams.type as VideoType) || 'movie';
+  const searchType = videoType === 'tv-series' ? 'tv' : 'movie';
   const category = (searchParams.category as string) || '';
   const language = (await getLocale()) as LocaleType;
   const page = Number(searchParams.page as string) || 1;
@@ -41,20 +41,12 @@ export default async function Index({ searchParams }: Props) {
     with_genres: currentGenre ? currentGenre.id.toString() : undefined,
   });
 
-  const Layout = layoutMode === 'grid' ? Grid : 'div';
-
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full overflow-hidden'>
       <FunctionBar params={searchParams} />
-      <Layout template='cols'>
-        {videos.map((video, idx) => (
-          <Previewer
-            key={idx}
-            title={video.title}
-            backdropImage={UTILS.buildImageUrl(video.backdrop_path, 'w500')}
-          />
-        ))}
-      </Layout>
+      <Suspense fallback={<SkeletonVideoList mode={layoutMode} skeletonCells={12} />}>
+        <VideoList mode={layoutMode} type={videoType} videos={videos} />
+      </Suspense>
       <Pagination totalPage={total_pages} itemPerPage={limit} searchParams={searchParams} />
     </div>
   );
