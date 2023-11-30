@@ -41,4 +41,44 @@
       text-overflow: ellipsis;
     }
   }
+
+  .overlay {
+    position: absolute;
+    top: 6.5px;
+    left: 6.5px;
+    right: 6.5px;
+    bottom: calc(15% - 2px);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    z-index: 100;
+
+    .play-icon {
+      opacity: 0;
+      border-radius: 50%;
+      transition: opacity 0.5s linear;
+      cursor: pointer;
+
+      svg {
+        color: theme('colors.white');
+      }
+
+      &:hover {
+        opacity: 0.95 !important;
+      }
+
+      &:active {
+        svg {
+          color: theme('colors.red.500');
+        }
+      }
+    }
+
+    &:hover {
+      border-color: theme('colors.gray.300');
+
+      .play-icon {
+        opacity: 0.75;
+      }
+    }
+  }
 }
