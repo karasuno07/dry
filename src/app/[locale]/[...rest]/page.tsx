@@ -1,4 +1,4 @@
-import HistoryNagivator from '@components/navigation/HistoryNavigator';
+import HistoryNagivator from '@features/navigation/components/HistoryNavigator';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './stylesheet.module.scss';

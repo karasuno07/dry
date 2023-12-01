@@ -1,0 +1,7 @@
+.content-wrapper {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 75px);
+  border-radius: 6px;
+  background-color: theme('colors.white-liked.25');
+}

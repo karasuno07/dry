@@ -52,11 +52,16 @@
     border-radius: 6px;
     z-index: 100;
 
+    @mixin clickable-icon {
+      transition: opacity 0.5s linear;
+      cursor: pointer;
+      z-index: 1999;
+    }  
+
     .play-icon {
       opacity: 0;
       border-radius: 50%;
-      transition: opacity 0.5s linear;
-      cursor: pointer;
+      @include clickable-icon;
 
       svg {
         color: theme('colors.white');
@@ -73,11 +78,33 @@
       }
     }
 
+    .wishlist-icon {
+      opacity: 0;
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      @include clickable-icon;
+
+      svg {
+        color: theme('colors.red.600');
+      }
+
+      &:active {
+        svg {
+          color: theme('colors.yellow.500');
+        }
+      }
+    }
+
     &:hover {
       border-color: theme('colors.gray.300');
 
       .play-icon {
         opacity: 0.75;
+      }
+
+      .wishlist-icon {
+        opacity: 1;
       }
     }
   }
