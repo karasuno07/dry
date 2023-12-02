@@ -3,10 +3,13 @@ import { LocaleType } from '~/constants/locales';
 export type DiscoverType = 'movie' | 'tv';
 export type SearchType = DiscoverType | 'collection' | 'person' | 'company' | 'keyword' | 'multi';
 
-export type QueryParams = {
+export type LanguageParams = {
   language?: LocaleType;
-  page?: number;
 };
+
+export type QueryParams = {
+  page?: number;
+} & LanguageParams;
 
 export type SortParams = {
   sort_by?:

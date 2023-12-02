@@ -1,4 +1,65 @@
 import { autoImplement } from '@lib/helper';
+import { Genre } from './Categories';
+
+type Season = {
+  id: number;
+  name: string;
+  season_number: number;
+  overview: string;
+  episode_count: number;
+  air_date: Date | string;
+  poster_path: string;
+  vote_average: number;
+};
+
+type Episode = {
+  id: number;
+  name: string;
+  episode_number: number;
+  episode_type: string;
+  season_number: number;
+  show_id: number;
+  overview: string;
+  vote_average: number;
+  vote_count: number;
+  air_date: Date | string;
+  still_path: string;
+};
+
+type Video = {
+  id: number;
+  original_language: string;
+  overview: string;
+  genres: Genre[];
+  adult: boolean;
+  backdrop_path: string;
+  poster_path: string;
+  popularity: number;
+  tagline: string;
+  vote_average: number;
+  vote_count: number;
+};
+
+export type Movie = Video & {
+  title: string;
+  original_title: string;
+  release_date: Date | string;
+};
+
+export type TvSeries = Video & {
+  name: string;
+  original_name: string;
+  origin_country: string[];
+  first_air_date: Date | string;
+  last_air_date: Date | string | undefined;
+  number_of_episodes: number;
+  number_of_seasons: number;
+  last_episode_to_air: Episode;
+  next_episode_to_air: Episode;
+  seasons: Season[];
+};
+
+export type VideoDetails = Movie | TvSeries;
 
 export type DiscoverVideo = {
   id: number;

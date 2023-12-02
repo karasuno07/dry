@@ -1,4 +1,3 @@
-
 import nextIntlMiddleware from 'next-intl/middleware';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './constants/locales';
 

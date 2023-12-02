@@ -1,7 +1,7 @@
 import Menu from '@components/elements/Menu';
 import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { FaThList } from 'react-icons/fa';
 import { VideoType } from 'ui';
@@ -34,7 +34,7 @@ async function CategorySelector({
   onChangeType,
   onChangeCategory,
 }: Props) {
-  const translate = await getTranslations(getLocale());
+  const translate = await getTranslations();
 
   const movieGenres = await getMovieGenres();
   const tvGenres = await getTvSeriesGenres();

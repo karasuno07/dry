@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: 3;
+
+  span {
+    cursor: none;
+    pointer-events: none;
+    .editable {
+      cursor: pointer;
+      pointer-events: fill;
+    }
+  }
+}

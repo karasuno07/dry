@@ -28,6 +28,22 @@
     padding: theme('spacing.6');
     box-shadow: theme('boxShadow.xl');
   }
+
+  .badge-link-xs {
+    @apply bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center;
+  }
+
+  .badge-link-sm {
+    @apply bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center;
+  }
+
+  .badge-link, .badge-link-md {
+    @apply bg-blue-100 hover:bg-blue-200 text-blue-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center;
+  }
+
+  .badge-link-lg {
+    @apply bg-blue-100 hover:bg-blue-200 text-blue-800 text-lg font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center;
+  }
 }
 
 input {

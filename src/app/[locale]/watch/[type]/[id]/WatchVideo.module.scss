@@ -1,7 +1,77 @@
-.content-wrapper {
+.root {
   display: flex;
   width: 100%;
   height: calc(100vh - 75px);
-  border-radius: 6px;
   background-color: theme('colors.white-liked.25');
+  border-radius: 6px;
+}
+
+.content-wrapper {
+  display: flex;
+  width: 100%;
+  border-radius: inherit;
+  background-color: theme('colors.white');
+  margin: 10px;
+  margin-top: auto;
+  overflow: hidden;
+
+  $details-height: 300px;
+
+  .poster {
+    width: 200px;
+    aspect-ratio: auto 636 / 955;
+    height: $details-height;
+    border-radius: inherit;
+    margin: 5px;
+  }
+
+  .details {
+    margin-left: 10px;
+    width: 65%;
+    height: $details-height;
+    color: theme('colors.gray.700');
+
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .tagline {
+      font-size: 18px;
+    }
+
+    .rating {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 5px;
+
+      & > span:first-child {
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+
+    .genres {
+      & > span:first-child {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+
+    .overview {
+      margin: 10px 0 5px 0;
+      overflow: hidden;
+
+      & > *:first-child {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      & > &:last-child {
+        font-weight: 450;
+      }
+    }
+  }
 }

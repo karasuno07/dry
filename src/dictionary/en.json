@@ -102,6 +102,8 @@
     "types": {
       "movie": "Movie",
       "tv-series": "TV-Series"
-    }
+    },
+    "genres": "Genres",
+    "overview": "Overview"
   }
 }
