@@ -67,7 +67,7 @@ export async function generatePlaceholderImage(src: string) {
   const {
     metadata: { height, width },
     ...plaiceholder
-  } = await getPlaiceholder(buffer, { size: 4, format: ['webp'] });
+  } = await getPlaiceholder(buffer, { size: 10, format: ['webp'] });
 
   return {
     img: { src, width, height },

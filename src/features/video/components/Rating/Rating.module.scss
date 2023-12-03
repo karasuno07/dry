@@ -6,7 +6,8 @@
   span {
     cursor: none;
     pointer-events: none;
-    .editable {
+    
+    &.editable {
       cursor: pointer;
       pointer-events: fill;
     }

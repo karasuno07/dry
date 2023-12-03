@@ -1,4 +1,5 @@
 import Badge from '@components/elements/Badge';
+import Grid from '@components/elements/Grid';
 import SSRImage from '@components/elements/Image/server/SSRImage';
 import Rating from '@features/video/components/Rating';
 import { Movie, TvSeries } from '@model/Videos';
@@ -36,7 +37,6 @@ async function getVideoDetails(type: DiscoverType, id: number, language: LocaleT
 
 export default async function WatchPage({ params: { locale, type, id } }: Props) {
   const translate = await getTranslations('videos');
-
   const details = await getVideoDetails(type === 'tv-series' ? 'tv' : 'movie', id, locale);
 
   const title = type === 'tv-series' ? (details as TvSeries).name : (details as Movie).title;
@@ -50,7 +50,7 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
           src={UTILS.buildImageUrl(details.poster_path)}
           alt={details.poster_path}
         />
-        <div className={cx('details')}>
+        <Grid template='rows' className={cx('details')}>
           <h3 className={cx('title')}>{title}</h3>
           <p className={cx('tagline')}>{details.tagline}</p>
           <div className={cx('rating')}>
@@ -69,7 +69,7 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
             <span>{translate('overview')}</span>
             <p>{details.overview}</p>
           </div>
-        </div>
+        </Grid>
       </div>
     </div>
   );
