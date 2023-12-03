@@ -1,9 +1,8 @@
 'use client';
 
 import classNames from 'classnames/bind';
-import React, { JSXElementConstructor, useEffect, useRef, useState } from 'react';
-
 import { isArray } from 'lodash';
+import React, { JSXElementConstructor, useEffect, useRef, useState } from 'react';
 import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);

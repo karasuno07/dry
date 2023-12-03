@@ -5,7 +5,6 @@ import { ceil, isUndefined, min } from 'lodash';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { LuChevronFirst, LuChevronLast, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
-
 import styles from './Pagination.module.scss';
 
 const cx = classNames.bind(styles);

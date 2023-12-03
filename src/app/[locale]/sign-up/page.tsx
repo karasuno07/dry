@@ -15,7 +15,6 @@ import { entries, isEmpty } from 'lodash';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
-
 import styles from './SignUp.module.scss';
 
 const cx = classNames.bind(styles);

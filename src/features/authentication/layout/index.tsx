@@ -1,7 +1,6 @@
 import Toast from '@components/elements/Toast';
 import classNames from 'classnames/bind';
 import { Slide } from 'react-toastify';
-
 import styles from './AuthLayout.module.scss';
 
 const cx = classNames.bind(styles);

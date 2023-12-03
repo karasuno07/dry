@@ -40,11 +40,7 @@ export default function SearchBar({}: Props) {
   }, []);
 
   return (
-    <div
-      className={cx('search-bar')}
-      ref={searchBarRef}
-      onClick={onInboundClickHandler}
-    >
+    <div className={cx('search-bar')} ref={searchBarRef} onClick={onInboundClickHandler}>
       <input
         ref={inputRef}
         type='search'

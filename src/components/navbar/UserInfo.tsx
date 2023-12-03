@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
-import { Tooltip } from 'react-tooltip';
-
 import Image, { StaticImageData } from 'next/image';
+import { Tooltip } from 'react-tooltip';
 import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);

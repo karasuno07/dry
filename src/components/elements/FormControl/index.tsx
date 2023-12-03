@@ -5,7 +5,6 @@ import { memo, useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Tooltip } from 'react-tooltip';
 import { CSSTransition } from 'react-transition-group';
-
 import styles from './FormControl.module.scss';
 
 const cx = classNames.bind(styles);
@@ -16,10 +15,7 @@ interface FormControlProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   variant?: VariantsType;
   name: string;
-  labelProps?: Omit<
-    React.LabelHTMLAttributes<HTMLLabelElement>,
-    'id' | 'htmlFor'
-  >;
+  labelProps?: Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'id' | 'htmlFor'>;
   errorProps?: React.HTMLAttributes<HTMLSpanElement>;
 }
 
@@ -81,9 +77,7 @@ const InputControl = memo(
               defaultValue={defaultValue}
               control={formContext.control}
               render={({ field: { onChange, onBlur, name, value } }) => {
-                const onControlledChange = (
-                  evt: React.ChangeEvent<HTMLInputElement>
-                ) => {
+                const onControlledChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
                   onChange(evt);
                   if (inputProps.onChange) {
                     inputProps.onChange(evt);
