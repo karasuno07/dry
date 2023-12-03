@@ -4,10 +4,10 @@ import axios from 'axios';
 import { toNumber } from 'lodash';
 import { BackdropSize, LogoSize, PosterSize } from 'tmdb/image';
 
-const BASE_URL = 'https://api.themoviedb.org/3';
+export const BASE_URL = 'https://api.themoviedb.org/3';
 
 function buildAuthorizationHeader(): string {
-  const accessToken = process.env.TMDB_READ_ACCESS_TOKEN;
+  const accessToken = process.env.NEXT_PUBLIC_TMDB_READ_ACCESS_TOKEN;
   if (!accessToken) {
     throw new Error('Tmdb access token is invalid!');
   }

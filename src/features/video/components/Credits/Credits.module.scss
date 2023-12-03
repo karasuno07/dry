@@ -1,0 +1,28 @@
+.root {
+  overflow: hidden;
+
+  .title {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+     margin-bottom: 5px;
+  }
+
+  .list {
+    width: 100%;
+    min-height: 30px;
+    max-height: 90px;
+    overflow: auto;
+
+    a {
+      min-width: 120px;
+      height: 30px;
+
+      &.skeleton-item {
+        padding: 0;
+        user-select: none;
+        pointer-events: none;
+      }
+    }
+  }
+}

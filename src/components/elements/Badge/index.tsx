@@ -1,10 +1,10 @@
 import cx from 'classnames';
 import { isUndefined } from 'lodash';
 import Link from 'next/link';
-import { Url } from 'url';
 
 type Props = {
-  href?: string | Url;
+  href?: string;
+  external?: boolean;
   variant?: 'default' | 'dark' | 'red' | 'green' | 'yellow' | 'indigo' | 'purple' | 'pink';
   rounded?: boolean;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -12,6 +12,7 @@ type Props = {
 
 export default function Badge({
   href,
+  external,
   variant = 'default',
   rounded = false,
   size = 'sm',
@@ -54,10 +55,11 @@ export default function Badge({
     );
   } else {
     const badgeLinkClasses = cx(baseClasses, textSizeClass, className);
+    const LinkComponent = external ? 'a' : Link;
     return (
-      <Link href={href} className={badgeLinkClasses} {...props}>
+      <LinkComponent href={href} className={badgeLinkClasses} {...props}>
         {children}
-      </Link>
+      </LinkComponent>
     );
   }
 }

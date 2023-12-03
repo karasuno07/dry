@@ -35,6 +35,12 @@ type Video = {
   backdrop_path: string;
   poster_path: string;
   popularity: number;
+  spoken_languages: {
+    iso_639_1: string;
+    english_name: string;
+    name: string;
+  }[];
+  status: string;
   tagline: string;
   vote_average: number;
   vote_count: number;
@@ -43,6 +49,7 @@ type Video = {
 export type Movie = Video & {
   title: string;
   original_title: string;
+  runtime: number;
   release_date: Date | string;
 };
 

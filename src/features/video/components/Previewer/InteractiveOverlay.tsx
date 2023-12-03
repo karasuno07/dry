@@ -9,7 +9,7 @@ import styles from './Previewer.module.scss';
 const cx = classNames.bind(styles);
 
 type Props = {
-  inWishList: boolean;
+  inWishList?: boolean;
   videoLink: string;
 };
 
