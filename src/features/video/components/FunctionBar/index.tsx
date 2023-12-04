@@ -1,8 +1,9 @@
 import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { assign, unset } from 'lodash';
+import { Suspense } from 'react';
 import { LayoutMode, VideoType } from 'ui';
-import CategorySelector from './CategorySelector';
+import CategorySelector, { CategorySelectorSkeleton } from './CategorySelector';
 import FilterBar from './FilterBar';
 import styles from './FunctionBar.module.scss';
 import LayoutSelector from './LayoutSelector';
@@ -37,12 +38,14 @@ export default function FunctionBar({ params }: Props) {
 
   return (
     <div className={cx('root')}>
-      <CategorySelector
-        currentType={(params.type as VideoType) || 'movie'}
-        currentGenre={params.category as string}
-        onChangeType={onChangeTypeHandler}
-        onChangeCategory={onChangeCategoryHandler}
-      />
+      <Suspense fallback={<CategorySelectorSkeleton />}>
+        <CategorySelector
+          currentType={(params.type as VideoType) || 'movie'}
+          currentGenre={params.category as string}
+          onChangeType={onChangeTypeHandler}
+          onChangeCategory={onChangeCategoryHandler}
+        />
+      </Suspense>
       <FilterBar />
       <LayoutSelector
         current={(params.mode as LayoutMode) || 'grid'}

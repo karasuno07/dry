@@ -28,7 +28,8 @@ async function getTvSeriesGenres() {
   return genres.map((genre) => new CategoryResponse(genre));
 }
 
-async function CategorySelector({
+
+export default async function CategorySelector({
   currentType,
   currentGenre,
   onChangeType,
@@ -87,4 +88,21 @@ async function CategorySelector({
   );
 }
 
-export default CategorySelector;
+export async function CategorySelectorSkeleton() {
+  const translate = await getTranslations();
+
+  return (
+    <div className={cx('category-list-container')}>
+      <Menu
+        menuType='free'
+        dropdownAnimation='pulse'
+        classes={{
+          menuListClassName: cx('category-menu'),
+        }}
+        anchor={<FaThList className={cx('select-icon')} size={24} />}
+        items={[]}
+      />
+      <span className={cx('title')}>{translate('general.category.default')}</span>
+    </div>
+  );
+}
