@@ -12,7 +12,7 @@ import { VideoType } from 'ui';
 import { LocaleType } from '~/constants/locales';
 import { UTILS } from '~/service/tmdb/base';
 import VideoService from '~/service/tmdb/videos';
-import styles from './WatchVideo.module.scss';
+import styles from './Info.module.scss';
 
 const cx = classNames.bind(styles);
 

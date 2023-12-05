@@ -2,6 +2,7 @@
 
 import Icon from '@components/elements/Icon';
 import classNames from 'classnames/bind';
+import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { FaCirclePlay, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import styles from './Previewer.module.scss';
@@ -14,9 +15,10 @@ type Props = {
 };
 
 export default function InteractiveOverlay({ inWishList, videoLink }: Props) {
+  const locale = useLocale();
   const router = useRouter();
 
-  const onClickPlayButton = () => router.push(videoLink);
+  const onClickPlayButton = () => router.push(videoLink, { locale });
   const onClickWishListButton = () => {};
 
   return (

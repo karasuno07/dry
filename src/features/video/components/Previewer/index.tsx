@@ -20,7 +20,7 @@ type Props = {
 export default function Previewer({ id, title, type, backdropImage }: Props) {
   return (
     <div className={cx('root')}>
-      <InteractiveOverlay videoLink={`/watch/${type}/${id}`} />
+      <InteractiveOverlay videoLink={`/${type}/${id}/info`} />
       <div className={cx('backdrop-container')}>
         <Suspense fallback={<LoadingImage src={spinner} width={128} height={128} />}>
           <SSRImage
@@ -33,7 +33,7 @@ export default function Previewer({ id, title, type, backdropImage }: Props) {
         </Suspense>
       </div>
       <div className={cx('info')}>
-        <Link className={cx('title')} href={`/watch/${type}/${id}`} title={title}>
+        <Link className={cx('title')} href={`/${type}/${id}/info`} title={title}>
           {title}
         </Link>
       </div>
