@@ -5,7 +5,7 @@ import Credits from '@features/video/components/Credits';
 import Rating from '@features/video/components/Rating';
 import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
-import { round } from 'lodash';
+import { isEmpty, round } from 'lodash';
 import { getTranslations } from 'next-intl/server';
 import { DiscoverType } from 'tmdb/api';
 import { VideoType } from 'ui';
@@ -46,6 +46,21 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
     type === 'tv-series' ? (details as TvSeries).original_name : (details as Movie).original_title;
   const rating = round(details.vote_average / 2, 1);
 
+  const renderLanguageMetadata = (details: Movie | TvSeries) => {
+    if (isEmpty(details.spoken_languages)) {
+      return 'N/A';
+    }
+    return details.spoken_languages.map((lang, idx) => {
+      return (
+        <span key={lang.iso_639_1}>
+          {lang.name}
+          {idx < details.spoken_languages.length - 1 && idx % 2 === 0 && '/'}
+          {idx % 2 !== 0 && <br />}
+        </span>
+      );
+    });
+  };
+
   const renderMovieMetadata = () => {
     const movieDetails = details as Movie;
     return (
@@ -56,9 +71,7 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
         </div>
         <div className={cx('metadata')}>
           <span className={cx('title')}>Language</span>
-          <span className={cx('content')}>
-            {movieDetails.spoken_languages.map((lang) => lang.name).join('/')}
-          </span>
+          <span className={cx('content')}>{renderLanguageMetadata(movieDetails)}</span>
         </div>
         <div className={cx('metadata')}>
           <span className={cx('title')}>Release Date</span>
@@ -78,9 +91,7 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
       <>
         <div className={cx('metadata')}>
           <span className={cx('title')}>Language</span>
-          <span className={cx('content')}>
-            {tvDetails.spoken_languages.map((lang) => lang.name).join('/')}
-          </span>
+          <span className={cx('content')}>{renderLanguageMetadata(tvDetails)}</span>
         </div>
         <div className={cx('metadata')}>
           <span className={cx('title')}>First Air</span>
@@ -130,6 +141,7 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
           <Credits className={cx('casts')} videoType={searchType} videoId={id} />
         </div>
       </div>
+      <div className={cx('related-videos')}></div>
     </div>
   );
 }
