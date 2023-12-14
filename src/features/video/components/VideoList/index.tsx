@@ -19,9 +19,9 @@ export default function VideoList({ mode, type, videos }: ComponentProps) {
 
   return (
     <Layout className={cx('root')} template='cols'>
-      {videos.map((video, idx) => (
+      {videos.map((video) => (
         <Previewer
-          key={idx}
+          key={video.id}
           id={video.id}
           title={video.title}
           type={type}

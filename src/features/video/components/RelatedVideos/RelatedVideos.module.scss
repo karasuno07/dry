@@ -1,0 +1,30 @@
+@import '~/styles/library';
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 1600px;
+  padding: 5px;
+  overflow: hidden;
+
+  .title {
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 2.5px;
+  }
+
+  .list {
+    width: 100%;
+    margin-top: auto;
+    padding-bottom: 2.5px;
+    white-space: nowrap;
+    overflow-y: auto;
+    @include custom-scrollbar-style('horizontal');
+  }
+
+  .video {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}

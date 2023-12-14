@@ -15,11 +15,20 @@ type Props = {
   title: string;
   type: VideoType;
   backdropImage: string;
+  className?: string;
+  size?: 'sm' | 'md';
 };
 
-export default function Previewer({ id, title, type, backdropImage }: Props) {
+export default function Previewer({
+  className,
+  id,
+  title,
+  type,
+  backdropImage,
+  size = 'md',
+}: Props) {
   return (
-    <div className={cx('root')}>
+    <div className={cx('root', { [size]: true }, className)}>
       <InteractiveOverlay videoLink={`/${type}/${id}/info`} />
       <div className={cx('backdrop-container')}>
         <Suspense fallback={<LoadingImage src={spinner} width={128} height={128} />}>

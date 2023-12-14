@@ -1,9 +1,6 @@
 .root {
   position: relative;
   background-color: #272626;
-  min-width: 300px;
-  max-width: 400px;
-  height: 260px;
   padding: {
     top: 7.5px;
     left: 7.5px;
@@ -12,10 +9,22 @@
   }
   border-radius: 6px;
 
+  &.sm {
+    width: 250px;
+    height: 180px;
+  }
+
+  &.md {
+    min-width: 300px;
+    max-width: 400px;
+    height: 260px;
+  }
+
   .backdrop-container {
     position: relative;
     width: 100%;
     height: 85%;
+
     img {
       border-radius: 8px;
       margin: auto;
@@ -23,6 +32,7 @@
       height: 100%;
     }
   }
+  
   .info {
     position: relative;
     display: flex;

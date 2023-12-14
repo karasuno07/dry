@@ -1,4 +1,5 @@
 import { autoImplement } from '@lib/helper';
+import { PaginationResponse } from 'tmdb/api';
 import { Genre } from './Categories';
 
 type Season = {
@@ -84,6 +85,8 @@ export type DiscoverVideo = {
   vote_average: number;
   vote_count: number;
 };
+
+export type PaginationDiscoverVideos = PaginationResponse<DiscoverVideo>;
 
 export class VideoResponse extends autoImplement<DiscoverVideo>() {
   constructor(data: any) {

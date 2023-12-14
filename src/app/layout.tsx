@@ -2,7 +2,7 @@ import { Metadata, Viewport } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'DRY Project',
+  title: 'RavenZ',
 };
 
 export const viewport: Viewport = {

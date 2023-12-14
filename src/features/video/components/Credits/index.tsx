@@ -1,10 +1,14 @@
 'use client';
 
-import Badge from '@components/elements/Badge';
+import CSRImage from '@components/elements/Image/client/CSRImage';
 import { Person } from '@model/People';
 import classNames from 'classnames/bind';
+import Link from 'next/link';
+import { Tooltip } from 'react-tooltip';
 import useSWR from 'swr';
 import { DiscoverType } from 'tmdb/api';
+import UserPlaceholder from '~/assets/icons/user-default-64.png';
+import { UTILS } from '~/service/tmdb/base';
 import CreditsService, {
   CreditsResponse,
   buildGetCreditsEndpoint,
@@ -32,7 +36,9 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
       <span className={cx('title')}>{title}</span>
       <div className={cx('list')}>
         {credits &&
-          credits.cast.map((p) => <CreditBadge key={p.id} personId={p.id} personName={p.name} />)}
+          credits.cast.map((p) => (
+            <CreditBadge key={p.id} personId={p.id} characterName={p.character} />
+          ))}
       </div>
     </div>
   );
@@ -40,10 +46,10 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
 
 type CreditBadgeProps = {
   personId: number;
-  personName?: string;
+  characterName: string;
 };
 
-function CreditBadge({ personId, personName }: CreditBadgeProps) {
+function CreditBadge({ personId, characterName }: CreditBadgeProps) {
   const { data, isLoading } = useSWR<Person>(
     buildGetPersonDetailsEndpoint(personId),
     CreditsService.http.get
@@ -51,18 +57,35 @@ function CreditBadge({ personId, personName }: CreditBadgeProps) {
 
   if (isLoading || !data) {
     return (
-      <Badge className={cx('skeleton-item')} href='#'>
-        {personName || '...'}
-      </Badge>
+      <div className={cx('image-wrapper', 'disabled')}>
+        <CSRImage
+          className={cx('profile-image', 'not-found')}
+          src={UserPlaceholder}
+          alt={String(personId)}
+        />
+      </div>
     );
   }
 
-  const imdbLink = `https://www.imdb.com/name/${data.imdb_id}`;
+  const imdbLink = data.imdb_id ? `https://www.imdb.com/name/${data.imdb_id}` : '#';
 
   return (
-    <Badge href={imdbLink} external>
-      {data.name}
-    </Badge>
+    <Link id={`cast-${data.id}`} className={cx('image-wrapper')} href={imdbLink}>
+      <CSRImage
+        className={cx('profile-image', { 'not-found': !data.profile_path })}
+        src={UTILS.buildImageUrl(data.profile_path, 'w154')}
+        width={128}
+        height={196}
+        alt={String(personId)}
+        notFoundSrc={UserPlaceholder}
+      />
+      <Tooltip className='text-center' anchorSelect={`#cast-${data.id}`} offset={2}>
+        <p className='text-lg text-green-300 font-semibold'>{data.name}</p>
+        <p>
+          as <span className='font-semibold'>{characterName}</span>
+        </p>
+      </Tooltip>
+    </Link>
   );
 }
 

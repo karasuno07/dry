@@ -1,5 +1,5 @@
 import { Image, ImageResponse } from '@model/Images';
-import { VideoDetails } from '@model/Videos';
+import { PaginationDiscoverVideos, VideoDetails } from '@model/Videos';
 import { DiscoverType, LanguageParams, QueryParams } from 'tmdb/api';
 import { BackdropSize, ImageType } from 'tmdb/image';
 import BaseService, { UTILS } from './base';
@@ -10,11 +10,11 @@ export default class VideoService extends BaseService {
   }
 
   static getRecommendations(type: DiscoverType, id: number, params?: QueryParams) {
-    return this.http.get(`/${type}/${id}/recommendations`, { params });
+    return this.http.get<PaginationDiscoverVideos>(`/${type}/${id}/recommendations`, { params });
   }
 
   static getSimilarities(type: DiscoverType, id: number, params?: QueryParams) {
-    return this.http.get(`/${type}/${id}/similar`, { params });
+    return this.http.get<PaginationDiscoverVideos>(`/${type}/${id}/similar`, { params });
   }
 
   static async getImages(
