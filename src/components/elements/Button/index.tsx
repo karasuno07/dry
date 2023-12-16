@@ -1,31 +1,28 @@
+import Link from 'next/link';
 import React from 'react';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = {
   className?: string;
-  children?: React.ReactNode;
-  variant?:
-    | 'primary'
-    | 'danger'
-    | 'success'
-    | 'warning'
-    | 'outline-danger'
-    | 'outline-warning'
-    | 'outline-success'
-    | 'outline-primary';
+  variant?: 'primary' | 'danger' | 'success' | 'warning';
   square?: boolean;
   fullSize?: boolean;
   paddingLess?: boolean;
-}
+  link?: {
+    href: string;
+    external?: boolean;
+  };
+  children?: React.ReactNode;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   className,
-  children,
   variant,
   square,
   fullSize,
   paddingLess,
   type = 'button',
+  link,
+  children,
   ...props
 }: ButtonProps) => {
   const getVariant = () => {
@@ -39,22 +36,33 @@ const Button = ({
       case 'warning':
         return 'bg-amber-500 hover:bg-amber-700 text-white';
       default:
-        return 'bg-transparent text-white';
+        return 'bg-transparent text-black';
     }
   };
+
+  let Component: any = 'button';
+  if (link) {
+    if (link.external) {
+      Component = 'a';
+    } else {
+      Component = Link;
+    }
+  }
+
   return (
-    <button
-      {...props}
+    <Component
+      href={link?.href}
       type={type}
       className={`
         ${fullSize ? 'min-w-full' : 'min-w-max'}
-        ${getVariant()} transition duration-500  ${
-          !paddingLess && 'py-2 px-4'
-        }  ${!square && 'rounded-md'} active:scale-95 ${className}
+        ${getVariant()} transition duration-500  ${!paddingLess && 'py-2 px-4'}  ${
+          !square && 'rounded-md'
+        } active:scale-95 ${className}
       `}
+      {...props}
     >
       {children}
-    </button>
+    </Component>
   );
 };
 

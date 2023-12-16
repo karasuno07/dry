@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { Tooltip } from 'react-tooltip';
 import useSWR from 'swr';
 import { DiscoverType } from 'tmdb/api';
-import UserPlaceholder from '~/assets/icons/user-default-64.png';
+import BlankProfileFemale from '~/assets/icons/blank-profile-female.svg';
+import BlankProfileMale from '~/assets/icons/blank-profile-male.svg';
 import { UTILS } from '~/service/tmdb/base';
 import CreditsService, {
   CreditsResponse,
@@ -37,7 +38,7 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
       <div className={cx('list')}>
         {credits &&
           credits.cast.map((p) => (
-            <CreditBadge key={p.id} personId={p.id} characterName={p.character} />
+            <CreditBadge key={p.id} personId={p.id} characterName={p.character} gender={p.gender} />
           ))}
       </div>
     </div>
@@ -47,20 +48,22 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
 type CreditBadgeProps = {
   personId: number;
   characterName: string;
+  gender: number;
 };
 
-function CreditBadge({ personId, characterName }: CreditBadgeProps) {
+function CreditBadge({ personId, characterName, gender }: CreditBadgeProps) {
   const { data, isLoading } = useSWR<Person>(
     buildGetPersonDetailsEndpoint(personId),
     CreditsService.http.get
   );
+  console.log(gender);
 
   if (isLoading || !data) {
     return (
       <div className={cx('image-wrapper', 'disabled')}>
         <CSRImage
           className={cx('profile-image', 'not-found')}
-          src={UserPlaceholder}
+          src={gender === 1 ? BlankProfileFemale : BlankProfileMale}
           alt={String(personId)}
         />
       </div>
@@ -77,7 +80,7 @@ function CreditBadge({ personId, characterName }: CreditBadgeProps) {
         width={128}
         height={196}
         alt={String(personId)}
-        notFoundSrc={UserPlaceholder}
+        notFoundSrc={BlankProfileMale}
       />
       <Tooltip className='text-center' anchorSelect={`#cast-${data.id}`} offset={2}>
         <p className='text-lg text-green-300 font-semibold'>{data.name}</p>
