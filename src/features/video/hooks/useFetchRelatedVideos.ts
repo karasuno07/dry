@@ -15,14 +15,14 @@ export default function useFetchRelatedVideos({ type, id }: { type: DiscoverType
     Promise.all([similariesPromise, recommendationsPromise])
   );
 
-  const results = shuffle(union(similaries.results, recommendations.results)).slice(0, 6);
+  let data = union(similaries.results, recommendations.results);
 
-  if (results.length > 0) {
-    return results.map((item) => new VideoResponse(item));
-  } else {
+  if (data.length === 0) {
     const { results } = use(SearchService.discover(type, { page: random(1, 500, false) }));
-    return shuffle(results)
-      .slice(0, 6)
-      .map((item) => new VideoResponse(item));
+    data = results;
   }
+
+  return shuffle(data)
+    .slice(0, 6)
+    .map((item) => new VideoResponse(item));
 }
