@@ -50,6 +50,11 @@ export default function Previewer({
   );
 }
 
-export function SkeletonPreviewer() {
-  return <div className={cx('root')} />;
+type SkeletonProps = {
+  className?: string;
+  size?: 'sm' | 'md';
+};
+
+export function SkeletonPreviewer({ className, size = 'md' }: SkeletonProps) {
+  return <div className={cx('root', { [size]: true }, className)} />;
 }

@@ -2,7 +2,7 @@ import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { assign, unset } from 'lodash';
 import { Suspense } from 'react';
-import { LayoutMode, VideoType } from 'ui';
+import { DisplayMode, VideoType } from 'ui';
 import CategorySelector, { CategorySelectorSkeleton } from './CategorySelector';
 import FilterBar from './FilterBar';
 import styles from './FunctionBar.module.scss';
@@ -11,12 +11,12 @@ import LayoutSelector from './LayoutSelector';
 const cx = classNames.bind(styles);
 
 type Props = {
-  params: SearchParams;
+  searchParams: SearchParams;
 };
 
-export default function FunctionBar({ params }: Props) {
+export default function FunctionBar({ searchParams }: Props) {
   const onChangeTypeHandler = (type: VideoType) => {
-    const newSearchParams: { [key: string]: any } = { ...params };
+    const newSearchParams: { [key: string]: any } = { ...searchParams };
     assign(newSearchParams, { type });
     unset(newSearchParams, 'category');
     unset(newSearchParams, 'page');
@@ -24,15 +24,15 @@ export default function FunctionBar({ params }: Props) {
   };
 
   const onChangeCategoryHandler = (category: string) => {
-    const newSearchParams: { [key: string]: any } = { ...params };
+    const newSearchParams: { [key: string]: any } = { ...searchParams };
     assign(newSearchParams, { category });
     unset(newSearchParams, 'page');
     return `?${new URLSearchParams(newSearchParams)}`;
   };
 
-  const onChangeLayoutHandler = (mode: LayoutMode) => {
-    const newSearchParams: { [key: string]: any } = { ...params };
-    assign(newSearchParams, { mode });
+  const onChangeLayoutHandler = (display: DisplayMode) => {
+    const newSearchParams: { [key: string]: any } = { ...searchParams };
+    assign(newSearchParams, { display });
     return `?${new URLSearchParams(newSearchParams)}`;
   };
 
@@ -40,15 +40,15 @@ export default function FunctionBar({ params }: Props) {
     <div className={cx('root')}>
       <Suspense fallback={<CategorySelectorSkeleton />}>
         <CategorySelector
-          currentType={(params.type as VideoType) || 'movie'}
-          currentGenre={params.category as string}
+          currentType={(searchParams.type as VideoType) || 'movie'}
+          currentGenre={searchParams.category as string}
           onChangeType={onChangeTypeHandler}
           onChangeCategory={onChangeCategoryHandler}
         />
       </Suspense>
       <FilterBar />
       <LayoutSelector
-        current={(params.mode as LayoutMode) || 'grid'}
+        current={(searchParams.display as DisplayMode) || 'grid'}
         onChangeMode={onChangeLayoutHandler}
       />
     </div>

@@ -1,15 +1,18 @@
 import { CategoryResponse, Genre } from '@model/Categories';
 import BaseService from './base';
 
-type Genres = { genres: Genre[] };
+export type Genres = { genres: Genre[] };
 
 export default class GenresService extends BaseService {
+  static MOVIE_URL = '/genre/movie/list' as const;
+  static TV_URL = '/genre/tv/list' as const;
+
   static getMovieGenres() {
-    return this.http.get<Genres>('/genre/movie/list', { revalidateSeconds: 84600 });
+    return this.http.get<Genres>(this.MOVIE_URL, { revalidateSeconds: 84600 });
   }
 
   static getTvSeriesGenres() {
-    return this.http.get<Genres>('/genre/tv/list', { revalidateSeconds: 84600 });
+    return this.http.get<Genres>(this.MOVIE_URL, { revalidateSeconds: 84600 });
   }
 
   static async getGenreBySlug(type: 'movie' | 'tv', slug: string) {

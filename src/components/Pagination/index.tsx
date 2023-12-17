@@ -18,7 +18,7 @@ type Props = {
   maxDisplayedPage?: number;
   maxTotalPage?: number;
   position?: 'left' | 'center' | 'right';
-  searchParams?: SearchParams;
+  searchParams: SearchParams;
 };
 
 export default async function Pagination({
@@ -37,8 +37,8 @@ export default async function Pagination({
     );
   }
 
-  const _currentPage = (searchParams && Number(searchParams.page as string)) || 1;
-  const _itemPerPage = (searchParams && Number(searchParams.limit as string)) || itemPerPage;
+  const _currentPage = Number(searchParams.page as string) || 1;
+  const _itemPerPage = Number(searchParams.limit as string) || itemPerPage;
   const _totalPage = min([
     totalPage || ceil((totalItems as number) / _itemPerPage),
     maxTotalPage,

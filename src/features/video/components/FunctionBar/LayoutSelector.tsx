@@ -2,22 +2,22 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
-import { LayoutMode } from 'ui';
+import { DisplayMode } from 'ui';
 import { Url } from 'url';
 import styles from './FunctionBar.module.scss';
 
 const cx = classNames.bind(styles);
 
 type Props = {
-  current: LayoutMode;
-  onChangeMode: (mode: LayoutMode) => Url | string;
+  current: DisplayMode;
+  onChangeMode: (mode: DisplayMode) => Url | string;
 };
 
 function LayoutSelector({ current, onChangeMode }: Props) {
   return (
-    <div className={cx('modes')}>
+    <div className={cx('displays')}>
       <Link
-        className={cx('mode-selector', {
+        className={cx('display-selector', {
           active: current === 'stack',
         })}
         href={onChangeMode('stack')}

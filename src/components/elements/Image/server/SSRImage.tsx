@@ -1,13 +1,17 @@
 import { generatePlaceholderImage } from '@lib/helper';
 import { isEmpty } from 'lodash';
-import Image, { ImageProps } from 'next/image';
+import Image, { ImageProps, StaticImageData } from 'next/image';
 import notFound from '~/assets/images/404-not-found.svg';
 
-export default async function SSRImage({ src, alt, fill, ...imageProps }: ImageProps) {
+type Props = ImageProps & {
+  notFoundSrc?: string | StaticImageData;
+};
+
+export default async function SSRImage({ src, alt, fill, notFoundSrc, ...imageProps }: Props) {
   if (isEmpty(src)) {
     return (
       <Image
-        src={notFound}
+        src={notFoundSrc || notFound}
         alt='Not Found Image'
         fill
         sizes='(min-width: 1024px) 370px'

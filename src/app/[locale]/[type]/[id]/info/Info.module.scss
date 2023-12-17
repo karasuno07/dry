@@ -23,15 +23,17 @@
   $details-width: calc(100% - $poster-width);
 
   .poster {
+    position: relative;
+    background-color: theme('colors.gray.200');
     box-sizing: content-box;
     width: $poster-width;
+    border-radius: 15px;
     margin: 5px;
-    border-radius: inherit;
     overflow: hidden;
 
     img {
       border: 1px inset theme('colors.black.75');
-      border-radius: 15px;
+      border-radius: inherit;
       aspect-ratio: auto 636 / 955;
       width: 100%;
       height: 100%;

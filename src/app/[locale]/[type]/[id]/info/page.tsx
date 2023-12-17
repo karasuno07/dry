@@ -12,6 +12,7 @@ import { round } from 'lodash';
 import { getTranslations } from 'next-intl/server';
 import { DiscoverType } from 'tmdb/api';
 import { VideoType } from 'ui';
+import transparentBackgroundNotFoundImage from '~/assets/images/portrait-image-not-found.png';
 import { LocaleType } from '~/constants/locales';
 import { UTILS } from '~/service/tmdb/base';
 import VideoService from '~/service/tmdb/videos';
@@ -53,7 +54,11 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
     <div className={cx('root')}>
       <div className={cx('content-wrapper')}>
         <div className={cx('poster')}>
-          <SSRImage src={UTILS.buildImageUrl(details.poster_path)} alt={details.poster_path} />
+          <SSRImage
+            src={UTILS.buildImageUrl(details.poster_path)}
+            alt={details.poster_path}
+            notFoundSrc={transparentBackgroundNotFoundImage}
+          />
         </div>
         <div className={cx('details')}>
           <h3 className={cx('title')}>{title}</h3>

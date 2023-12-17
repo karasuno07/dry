@@ -29,7 +29,6 @@ function SignOut({ params: { locale } }: Props) {
         <h3 className='text-xl'>{translate('alert.line1')}</h3>
         <p color='text-lg'>
           {translate('alert.line2', { seconds })}
-          {seconds > 1 ? 's' : ''}
           ...
         </p>
       </div>
