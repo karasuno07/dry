@@ -32,14 +32,17 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
     CreditsService.http.get
   );
 
+  if (!credits || credits.cast.length === 0) {
+    return undefined;
+  }
+
   return (
     <div className={cx('root', className)}>
       <span className={cx('title')}>{title}</span>
       <div className={cx('list')}>
-        {credits &&
-          credits.cast.map((p) => (
-            <CreditBadge key={p.id} personId={p.id} characterName={p.character} gender={p.gender} />
-          ))}
+        {credits.cast.map((p) => (
+          <CreditBadge key={p.id} personId={p.id} characterName={p.character} gender={p.gender} />
+        ))}
       </div>
     </div>
   );

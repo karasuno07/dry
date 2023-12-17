@@ -11,7 +11,7 @@ import styles from './FunctionBar.module.scss';
 const cx = classNames.bind(styles);
 
 export default function FilterBar() {
-  const translate = useTranslations('components.functionBar.filter');
+  const translate = useTranslations('features.video.functionBar.filter');
   const filterBar = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 

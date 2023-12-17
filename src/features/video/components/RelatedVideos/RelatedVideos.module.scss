@@ -3,7 +3,6 @@
 .root {
   display: flex;
   flex-direction: column;
-
   max-width: 1600px;
   padding: 5px;
   overflow: hidden;
@@ -15,7 +14,6 @@
   }
 
   .list {
-    width: 100%;
     margin-top: auto;
     padding-bottom: 2.5px;
     white-space: nowrap;
@@ -25,6 +23,8 @@
 
   .video {
     display: inline-block;
-    margin-right: 10px;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 }

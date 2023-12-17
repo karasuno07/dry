@@ -9,7 +9,7 @@
 
 .content-wrapper {
   display: flex;
-  height: 600px;
+  height: calc(100vh - 315px);
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   background-color: theme('colors.white');
@@ -83,64 +83,17 @@
       }
     }
 
-    .casts {
-      margin: auto 0 5px 0;
-    }
-
     .actions {
       display: flex;
       align-items: center;
       gap: 10px;
       height: 50px;
-
-      @mixin button-style {
-        display: flex;
-        align-items: center;
-        padding: 4px 12px;
-        font-size: 18px;
-        font-weight: 550;
-        border-width: 3px;
-        border-style: solid;
-        border-radius: 16px;
-        border-color: transparent;
-        transition: all 0.33s linear;
-      }
-
-      .play {
-        @include button-style;
-        $primary-color: theme('colors.yellow.500');
-        $secondary-color: theme('colors.yellow.100');
-        background-color: $secondary-color;
-        color: $primary-color;
-        border-color: $primary-color;
-    
-        &:hover {
-          background-color: $primary-color;
-          color: theme('colors.white');
-        }
-      }
-
-      .wishlist {
-        @include button-style;
-        background-color: theme('colors.red.400');
-        color: theme('colors.white');
-        svg {
-          color: theme('colors.red.800');
-        }
-
-        &:hover {
-          background-color: theme('colors.red.600');
-          svg {
-            color: theme('colors.red.950');
-          }
-        }
-      }
     }
   }
 }
 
 .related-videos {
-  height: calc(100vh - 675px);
+  height: 240px;
   background-color: theme('colors.white');
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;

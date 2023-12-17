@@ -21,16 +21,22 @@
       "search": {
         "placeholder": "Search any video name..."
       }
-    },
-    "functionBar": {
-      "filter": {
-        "placeholder": "Filter by keywords: name, tags..."
-      }
     }
   },
   "features": {
     "authentication": {
       "oauth": "Sign in with {provider}"
+    },
+    "video": {
+      "functionBar": {
+        "filter": {
+          "placeholder": "Filter by keywords: name, tags..."
+        }
+      },
+      "actionButton": {
+        "play": "Play",
+        "wishlist": "Add to wishlist"
+      }
     }
   },
   "pages": {

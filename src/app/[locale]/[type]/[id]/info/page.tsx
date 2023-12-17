@@ -1,6 +1,6 @@
-import Button from '@components/elements/Button';
-import Icon from '@components/elements/Icon';
 import SSRImage from '@components/elements/Image/server/SSRImage';
+import AddToWishlist from '@features/video/components/ActionButton/AddToWishlist';
+import LinkToWatch from '@features/video/components/ActionButton/LinkToWatch';
 import Credits from '@features/video/components/Credits';
 import Genres from '@features/video/components/Genres';
 import Metadata from '@features/video/components/Metadata';
@@ -10,8 +10,6 @@ import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { round } from 'lodash';
 import { getTranslations } from 'next-intl/server';
-import { BiPlay } from 'react-icons/bi';
-import { FaHeartCirclePlus } from 'react-icons/fa6';
 import { DiscoverType } from 'tmdb/api';
 import { VideoType } from 'ui';
 import { LocaleType } from '~/constants/locales';
@@ -68,18 +66,14 @@ export default async function WatchPage({ params: { locale, type, id } }: Props)
           <Genres genres={details.genres} />
           <div className={cx('overview')}>
             <span>{translate('overview')}</span>
-            <p>{details.overview}</p>
+            <p>{details.overview || 'TBD'}</p>
           </div>
-          <Credits className={cx('casts')} videoType={searchType} videoId={id} />
-          <div className={cx('actions')}>
-            <Button link={{ href: `/${type}/${id}/watch` }} className={cx('play')}>
-              <Icon icon={BiPlay} size={28} />
-              <span>Play</span>
-            </Button>
-            <Button className={cx('wishlist')}>
-              <Icon icon={FaHeartCirclePlus} size={22} />
-              <span>Add to wishlist</span>
-            </Button>
+          <div className='mt-auto'>
+            <Credits className='mb-[5px]' videoType={searchType} videoId={id} />
+            <div className={cx('actions')}>
+              <LinkToWatch link={`/${type}/${id}/watch`} />
+              <AddToWishlist />
+            </div>
           </div>
         </div>
       </div>
