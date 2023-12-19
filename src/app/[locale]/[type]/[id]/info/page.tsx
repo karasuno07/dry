@@ -40,7 +40,7 @@ async function getVideoDetails(type: DiscoverType, id: number, language: LocaleT
   }
 }
 
-export default async function WatchPage({ params: { locale, type, id } }: Props) {
+export default async function VideoInfo({ params: { locale, type, id } }: Props) {
   const translate = await getTranslations('videos');
   const searchType: DiscoverType = type === 'tv-series' ? 'tv' : 'movie';
   const details = await getVideoDetails(searchType, id, locale);

@@ -48,7 +48,7 @@ export default async function VideoList({ searchParams }: ComponentProps) {
   });
 
   return (
-    <>
+    <section>
       <Layout className={cx('root')} template='cols'>
         <Suspense
           fallback={new Array(12).fill(0).map((_, idx) => (
@@ -67,6 +67,6 @@ export default async function VideoList({ searchParams }: ComponentProps) {
         </Suspense>
       </Layout>
       <Pagination totalPage={total_pages} itemPerPage={limit} searchParams={searchParams} />
-    </>
+    </section>
   );
 }
