@@ -9,8 +9,6 @@
 
   .container {
     display: flex;
-    max-width: 400px;
-    height: 34px;
     gap: 5px;
 
     li {
@@ -18,10 +16,18 @@
       color: theme('colors.white');
       border: 1px solid theme('colors.white');
       border-radius: 5px;
-      min-width: 34px;
-      max-width: 40px;
-      height: 100%;
+      height: 30px;
       cursor: pointer;
+
+      .page-item {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 100%;
+        text-align: center;
+        user-select: none;
+      }
 
       &.disabled {
         pointer-events: none;
@@ -29,22 +35,23 @@
         border-color: theme('colors.gray.600');
       }
 
-      &.page-navigation:active {
-        background-color: theme('colors.emerald.500');
+      &.page-navigation {
+        &:active {
+          background-color: theme('colors.emerald.500');
+        }
+
+        .page-item {
+          width: 30px;
+        }
       }
 
       &:not(.page-navigation).active {
-        background-color: theme('colors.orange.600');
-      }
-
-      .page-item {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        user-select: none;
+        background-color: theme('colors.slate.200');
+        color: theme('colors.black.25');
+        border-color: theme('colors.blue.400');
+        border-width: 3px;
+        border-style: outset;
+        font-weight: bold;
       }
     }
   }

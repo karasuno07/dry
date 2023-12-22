@@ -29,6 +29,7 @@ module.exports = {
           15: '#ffffff15',
           25: '#ffffff25',
           50: '#ffffff50',
+          75: '#FFFFFF95',
         },
         corn: '#fbec5d',
       },

@@ -1,9 +1,10 @@
+'use client';
+
 import Icon from '@components/elements/Icon';
-import { SearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { ceil, isUndefined, min } from 'lodash';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useSearchParams } from 'next/navigation';
 import { LuChevronFirst, LuChevronLast, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import styles from './Pagination.module.scss';
 
@@ -18,17 +19,15 @@ type Props = {
   maxDisplayedPage?: number;
   maxTotalPage?: number;
   position?: 'left' | 'center' | 'right';
-  searchParams: SearchParams;
 };
 
-export default async function Pagination({
+export default function Pagination({
   totalItems,
   totalPage,
   itemPerPage = 12,
   maxDisplayedPage = 5,
   maxTotalPage = 500,
   position = 'center',
-  searchParams,
 }: Props) {
   if (isUndefined(totalItems) && isUndefined(totalPage)) {
     throw new Error(
@@ -37,8 +36,10 @@ export default async function Pagination({
     );
   }
 
-  const _currentPage = Number(searchParams.page as string) || 1;
-  const _itemPerPage = Number(searchParams.limit as string) || itemPerPage;
+  const searchParams = useSearchParams();
+
+  const _currentPage = Number(searchParams.get('page')) || 1;
+  const _itemPerPage = Number(searchParams.get('limit')) || itemPerPage;
   const _totalPage = min([
     totalPage || ceil((totalItems as number) / _itemPerPage),
     maxTotalPage,
@@ -79,10 +80,8 @@ export default async function Pagination({
         break;
     }
 
-    const newSearchParams = new URLSearchParams({
-      ...searchParams,
-      page: String(page),
-    });
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('page', page.toString());
 
     return `?${newSearchParams}`;
   };

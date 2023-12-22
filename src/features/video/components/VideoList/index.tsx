@@ -1,6 +1,6 @@
 import Pagination from '@components/Pagination';
 import Grid from '@components/elements/Grid';
-import Previewer, { SkeletonPreviewer } from '@features/video/components/Previewer';
+import { SSRPreviewer as Previewer, SkeletonPreviewer } from '@features/video/components/Previewer';
 import { VideoResponse } from '@model/Videos';
 import { SearchParams as UrlSearchParams } from 'api';
 import classNames from 'classnames/bind';
@@ -57,6 +57,7 @@ export default async function VideoList({ searchParams }: ComponentProps) {
         >
           {videos.map((video) => (
             <Previewer
+              render='server'
               key={video.id}
               id={video.id}
               title={video.title}
@@ -66,7 +67,7 @@ export default async function VideoList({ searchParams }: ComponentProps) {
           ))}
         </Suspense>
       </Layout>
-      <Pagination totalPage={total_pages} itemPerPage={limit} searchParams={searchParams} />
+      <Pagination totalPage={total_pages} itemPerPage={limit} />
     </section>
   );
 }
