@@ -1,34 +1,34 @@
-import { SearchParams } from 'api';
+import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
-import { assign, unset } from 'lodash';
+import { assign } from 'lodash';
 import { Suspense } from 'react';
-import { DisplayMode, VideoType } from 'ui';
-import CategorySelector, { CategorySelectorSkeleton } from './CategorySelector';
+import { SearchParams } from 'types/api';
+import { DisplayMode } from 'types/ui';
+import GenresService from '~/service/tmdb/genres';
+import CategorySelector, { SkeletonCategorySelector } from './CategorySelector';
 import FilterBar from './FilterBar';
 import styles from './FunctionBar.module.scss';
 import LayoutSelector from './LayoutSelector';
 
 const cx = classNames.bind(styles);
 
+async function getMovieCategories() {
+  const { genres } = await GenresService.getMovieGenres();
+  return genres.map((genre) => new CategoryResponse(genre));
+}
+
+async function getTvSeriesCategories() {
+  const { genres } = await GenresService.getTvSeriesGenres();
+  return genres.map((genre) => new CategoryResponse(genre));
+}
+
 type Props = {
   searchParams: SearchParams;
 };
 
-export default function FunctionBar({ searchParams }: Props) {
-  const onChangeTypeHandler = (type: VideoType) => {
-    const newSearchParams: { [key: string]: any } = { ...searchParams };
-    assign(newSearchParams, { type });
-    unset(newSearchParams, 'category');
-    unset(newSearchParams, 'page');
-    return `?${new URLSearchParams(newSearchParams)}`;
-  };
-
-  const onChangeCategoryHandler = (category: string) => {
-    const newSearchParams: { [key: string]: any } = { ...searchParams };
-    assign(newSearchParams, { category });
-    unset(newSearchParams, 'page');
-    return `?${new URLSearchParams(newSearchParams)}`;
-  };
+export default async function FunctionBar({ searchParams }: Props) {
+  const movieCategories = await getMovieCategories();
+  const tvCategories = await getTvSeriesCategories();
 
   const onChangeLayoutHandler = (display: DisplayMode) => {
     const newSearchParams: { [key: string]: any } = { ...searchParams };
@@ -38,12 +38,14 @@ export default function FunctionBar({ searchParams }: Props) {
 
   return (
     <div className={cx('root')}>
-      <Suspense fallback={<CategorySelectorSkeleton />}>
+      <Suspense key={`category=${searchParams.category}`} fallback={<SkeletonCategorySelector />}>
         <CategorySelector
-          currentType={(searchParams.type as VideoType) || 'movie'}
-          currentGenre={searchParams.category as string}
-          onChangeType={onChangeTypeHandler}
-          onChangeCategory={onChangeCategoryHandler}
+          categories={JSON.parse(
+            JSON.stringify({
+              movie: movieCategories,
+              tv: tvCategories,
+            })
+          )}
         />
       </Suspense>
       <FilterBar />

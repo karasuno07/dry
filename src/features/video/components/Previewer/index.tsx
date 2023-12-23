@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { VideoType } from 'ui';
+import { VideoType } from 'types/ui';
 import styles from './Previewer.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,3 +24,4 @@ export function SkeletonPreviewer({ className, size = 'md' }: SkeletonProps) {
 
 export { default as CSRPreviewer } from './CSRPreviewer';
 export { default as SSRPreviewer } from './SSRPreviewer';
+

@@ -2,11 +2,10 @@ import Pagination from '@components/Pagination';
 import Grid from '@components/elements/Grid';
 import { CSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import { VideoResponse } from '@model/Videos';
-import { SearchParams as UrlSearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { getLocale } from 'next-intl/server';
-import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'tmdb/api';
-import { DisplayMode, VideoType } from 'ui';
+import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'types/tmdb/api';
+import { DisplayMode, VideoType } from 'types/ui';
 import { LocaleType } from '~/constants/locales';
 import { UTILS } from '~/service/tmdb/base';
 import GenresService from '~/service/tmdb/genres';
@@ -17,7 +16,10 @@ const cx = classNames.bind(styles);
 const limit = 20; // the fixed number tmdb api supports
 
 type ComponentProps = {
-  searchParams: UrlSearchParams;
+  display: DisplayMode;
+  type: VideoType;
+  category: string;
+  page: number;
 };
 
 async function searchVideos(
@@ -28,12 +30,7 @@ async function searchVideos(
   return { ...response, results: response.results.map((data) => new VideoResponse(data)) };
 }
 
-export default async function VideoList({ searchParams }: ComponentProps) {
-  const display = (searchParams.display as DisplayMode) || 'grid';
-  const type = (searchParams.type as VideoType) || 'movie';
-  const category = (searchParams.category as string) || '';
-  const page = Number(searchParams.page as string) || 1;
-
+export default async function VideoList({ display, type, category, page }: ComponentProps) {
   const Layout = display === 'grid' ? Grid : 'div';
   const searchType = type === 'tv-series' ? 'tv' : 'movie';
   const currentGenre = await GenresService.getGenreBySlug(searchType, category);

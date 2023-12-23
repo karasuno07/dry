@@ -1,6 +1,6 @@
 import { PaginationDiscoverVideos, VideoResponse } from '@model/Videos';
 import useSWR from 'swr';
-import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'tmdb/api';
+import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'types/tmdb/api';
 import SearchService from '~/service/tmdb/search';
 import useGetGenreBySlug from './useGetGenreBySlug';
 

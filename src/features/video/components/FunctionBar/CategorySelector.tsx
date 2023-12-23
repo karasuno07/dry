@@ -1,55 +1,67 @@
+'use client';
+
 import Menu from '@components/elements/Menu';
 import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
+import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { FaThList } from 'react-icons/fa';
-import { VideoType } from 'ui';
-import { Url } from 'url';
-import GenresService from '~/service/tmdb/genres';
+import { VideoType } from 'types/ui';
 import styles from './FunctionBar.module.scss';
 
 const cx = classNames.bind(styles);
 
 type Props = {
-  currentType: VideoType;
-  currentGenre: string;
-  onChangeType: (type: VideoType) => Url | string;
-  onChangeCategory: (category: string) => Url | string;
+  categories: {
+    movie: CategoryResponse[];
+    tv: CategoryResponse[];
+  };
 };
 
-async function getMovieGenres() {
-  const { genres } = await GenresService.getMovieGenres();
-  return genres.map((genre) => new CategoryResponse(genre));
-}
+export default function CategorySelector({ categories }: Props) {
+  const translate = useTranslations();
+  const searchParams = useSearchParams();
 
-async function getTvSeriesGenres() {
-  const { genres } = await GenresService.getTvSeriesGenres();
-  return genres.map((genre) => new CategoryResponse(genre));
-}
+  const currentType = (searchParams.get('type') as VideoType) || 'movie';
+  const currentCategory = searchParams.get('category') || '';
 
+  const current = categories[currentType === 'tv-series' ? 'tv' : 'movie'].find(
+    (c) => c.slug === currentCategory
+  );
 
-export default async function CategorySelector({
-  currentType,
-  currentGenre,
-  onChangeType,
-  onChangeCategory,
-}: Props) {
-  const translate = await getTranslations();
+  const onChangeTypeHandler = (type: VideoType) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('type', type);
+    newSearchParams.delete('category');
+    newSearchParams.delete('page');
+    return '?' + newSearchParams.toString();
+  };
 
-  const movieGenres = await getMovieGenres();
-  const tvGenres = await getTvSeriesGenres();
+  const onChangeCategoryHandler = (category: string) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('category', category);
+    newSearchParams.delete('page');
+    return '?' + newSearchParams.toString();
+  };
 
-  const current = movieGenres.find((c) => c.slug === currentGenre);
-
-  const movieItems = movieGenres.map((category) => (
-    <Link key={category.id} className='block w-full h-full' href={onChangeCategory(category.slug)}>
+  const movieItems = categories.movie.map((category) => (
+    <Link
+      key={category.id}
+      className='block w-full h-full'
+      href={onChangeCategoryHandler(category.slug)}
+    >
       {category.name}
     </Link>
   ));
 
-  const tvItems = tvGenres.map((category) => (
-    <Link key={category.id} className='block w-full h-full' href={onChangeCategory(category.slug)}>
+  const tvItems = categories.tv.map((category) => (
+    <Link
+      key={category.id}
+      className='block w-full h-full'
+      href={onChangeCategoryHandler(category.slug)}
+    >
       {category.name}
     </Link>
   ));
@@ -68,13 +80,13 @@ export default async function CategorySelector({
             <ul className={cx('selector')}>
               <Link
                 className={cx('bypass-evt', { selected: currentType === 'movie' })}
-                href={onChangeType('movie')}
+                href={onChangeTypeHandler('movie')}
               >
                 {translate('videos.types.movie')}
               </Link>
               <Link
                 className={cx('bypass-evt', { selected: currentType === 'tv-series' })}
-                href={onChangeType('tv-series')}
+                href={onChangeTypeHandler('tv-series')}
               >
                 {translate('videos.types.tv-series')}
               </Link>
@@ -88,7 +100,7 @@ export default async function CategorySelector({
   );
 }
 
-export async function CategorySelectorSkeleton() {
+export async function SkeletonCategorySelector() {
   const translate = await getTranslations();
 
   return (

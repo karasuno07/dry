@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
-import { DisplayMode } from 'ui';
+import { DisplayMode } from 'types/ui';
 import { Url } from 'url';
 import styles from './FunctionBar.module.scss';
 
@@ -25,7 +25,7 @@ function LayoutSelector({ current, onChangeMode }: Props) {
         <HiSquare3Stack3D size={28} />
       </Link>
       <Link
-        className={cx('mode-selector', {
+        className={cx('display-selector', {
           active: current === 'grid',
         })}
         href={onChangeMode('grid')}

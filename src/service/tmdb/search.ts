@@ -1,5 +1,5 @@
 import { PaginationDiscoverVideos } from '@model/Videos';
-import { DiscoverParams, DiscoverType, SearchParams, SearchType, SortParams } from 'tmdb/api';
+import { DiscoverParams, DiscoverType, SearchParams, SearchType, SortParams } from 'types/tmdb/api';
 import BaseService from './base';
 
 export default class SearchService extends BaseService {

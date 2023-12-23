@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import { Tooltip } from 'react-tooltip';
 import useSWR from 'swr';
-import { DiscoverType } from 'tmdb/api';
+import { DiscoverType } from 'types/tmdb/api';
 import BlankProfileFemale from '~/assets/icons/blank-profile-female.svg';
 import BlankProfileMale from '~/assets/icons/blank-profile-male.svg';
 import { UTILS } from '~/service/tmdb/base';

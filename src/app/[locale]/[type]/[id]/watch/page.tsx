@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { VideoType } from 'ui';
+import { VideoType } from 'types/ui';
 import { LocaleType } from '~/constants/locales';
 import styles from './Watch.module.scss';
 

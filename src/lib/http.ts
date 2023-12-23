@@ -1,8 +1,8 @@
 import cache from '@lib/cache';
 import { Prisma } from '@prisma/client';
-import { HttpClientError, HttpMethod, HttpServerError } from 'api';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
+import { HttpClientError, HttpMethod, HttpServerError } from 'types/api';
 
 interface HttpConfig<D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
   revalidateSeconds?: number;

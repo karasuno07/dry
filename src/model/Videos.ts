@@ -1,5 +1,5 @@
 import { autoImplement } from '@lib/helper';
-import { PaginationResponse } from 'tmdb/api';
+import { PaginationResponse } from 'types/tmdb/api';
 import { Genre } from './Categories';
 
 type Season = {

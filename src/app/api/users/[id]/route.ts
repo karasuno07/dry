@@ -1,7 +1,7 @@
 import { apiHandler } from '@lib/http';
 import prisma from '@lib/prisma';
-import { HttpClientError, NextParams } from 'api';
 import { NextRequest, NextResponse } from 'next/server';
+import { HttpClientError, NextParams } from 'types/api';
 
 type UserParams = {
   id: string;

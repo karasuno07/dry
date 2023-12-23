@@ -1,6 +1,6 @@
 import { CategoryResponse } from '@model/Categories';
 import useSWR from 'swr';
-import { DiscoverType } from 'tmdb/api';
+import { DiscoverType } from 'types/tmdb/api';
 import GenresService, { Genres } from '~/service/tmdb/genres';
 
 export default function useGetGenreBySlug(type: DiscoverType, slug: string) {

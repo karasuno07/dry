@@ -1,8 +1,8 @@
 import AuthLayout from '@features/authentication/layout';
 import UserService from '@features/authentication/services/user';
-import { SearchParams } from 'api';
 import { RedirectType } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
+import { SearchParams } from 'types/api';
 
 type Props = {
   searchParams: SearchParams;

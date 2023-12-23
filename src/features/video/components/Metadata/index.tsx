@@ -1,12 +1,11 @@
+import Grid from '@components/elements/Grid';
 import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
+import { VideoType } from 'types/ui';
 import styles from './Metadata.module.scss';
 
 const cx = classNames.bind(styles);
-
-import Grid from '@components/elements/Grid';
-import { VideoType } from 'ui';
 
 type Props = {
   type: VideoType;

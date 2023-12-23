@@ -2,7 +2,7 @@ import { http } from '@lib/http';
 import { Image } from '@model/Images';
 import axios from 'axios';
 import { toNumber } from 'lodash';
-import { BackdropSize, LogoSize, PosterSize } from 'tmdb/image';
+import { BackdropSize, LogoSize, PosterSize } from 'types/tmdb/image';
 
 export const BASE_URL = 'https://api.themoviedb.org/3';
 

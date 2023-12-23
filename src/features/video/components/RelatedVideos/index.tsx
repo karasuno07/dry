@@ -1,7 +1,7 @@
 import { SSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import useFetchRelatedVideos from '@features/video/hooks/useFetchRelatedVideos';
 import classNames from 'classnames/bind';
-import { DiscoverType } from 'tmdb/api';
+import { DiscoverType } from 'types/tmdb/api';
 import { UTILS } from '~/service/tmdb/base';
 import styles from './RelatedVideos.module.scss';
 

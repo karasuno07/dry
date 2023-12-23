@@ -1,6 +1,6 @@
-import { HttpMethod } from 'api';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useState } from 'react';
+import { HttpMethod } from 'types/api';
 
 type DefaultConfig = {
   baseUrl?: string;
@@ -15,10 +15,7 @@ export function useApi<T = any, D = any>(defaultConfig?: DefaultConfig) {
   const [status, setStatus] = useState<FetchStatus | null>(null);
   const [error, setError] = useState<AxiosError | undefined>(undefined);
 
-  const fetch = async (
-    method: HttpMethod,
-    { url, ...config }: FetchType<D>
-  ) => {
+  const fetch = async (method: HttpMethod, { url, ...config }: FetchType<D>) => {
     setLoading(true);
     setError(undefined);
     let status: FetchStatus | null = null;

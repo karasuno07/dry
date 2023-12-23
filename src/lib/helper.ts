@@ -1,7 +1,7 @@
-import { HttpClientError } from 'api';
 import { forEach } from 'lodash';
 import { getPlaiceholder } from 'plaiceholder';
-import { ValidationSchema } from 'validation';
+import { HttpClientError } from 'types/api';
+import { ValidationSchema } from 'types/validation';
 import { http } from './http';
 
 export function autoImplement<T>(defaults?: Partial<T>) {

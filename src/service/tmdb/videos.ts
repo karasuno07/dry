@@ -1,7 +1,7 @@
 import { Image, ImageResponse } from '@model/Images';
 import { PaginationDiscoverVideos, VideoDetails } from '@model/Videos';
-import { DiscoverType, LanguageParams, QueryParams } from 'tmdb/api';
-import { BackdropSize, ImageType } from 'tmdb/image';
+import { DiscoverType, LanguageParams, QueryParams } from 'types/tmdb/api';
+import { BackdropSize, ImageType } from 'types/tmdb/image';
 import BaseService, { UTILS } from './base';
 
 export default class VideoService extends BaseService {

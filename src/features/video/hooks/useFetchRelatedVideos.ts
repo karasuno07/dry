@@ -1,7 +1,7 @@
 import { VideoResponse } from '@model/Videos';
 import { random, shuffle, union } from 'lodash';
 import { use } from 'react';
-import { DiscoverType } from 'tmdb/api';
+import { DiscoverType } from 'types/tmdb/api';
 import SearchService from '~/service/tmdb/search';
 import VideoService from '~/service/tmdb/videos';
 
