@@ -1,4 +1,4 @@
-import Previewer from '@features/video/components/Previewer';
+import { SSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import useFetchRelatedVideos from '@features/video/hooks/useFetchRelatedVideos';
 import classNames from 'classnames/bind';
 import { DiscoverType } from 'tmdb/api';
@@ -22,6 +22,7 @@ export default function RelatedVideos({ className, videoType, videoId }: Props) 
       <div className={cx('list')}>
         {videos.map((video) => (
           <Previewer
+            render='server'
             key={video.id}
             id={video.id}
             title={video.title}

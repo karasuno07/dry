@@ -1,13 +1,13 @@
 'use client';
 
-// import LoadingImage from '@components/elements/Image/server/LoadingImage';
 import classNames from 'classnames/bind';
-// import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
-// import { Suspense } from 'react';
-// import spinner from '~/assets/images/spinner.svg';
+import { useState } from 'react';
+import notFound from '~/assets/images/404-not-found.svg';
+import spinner from '~/assets/images/spinner.svg';
 import { PreviewerCommonProps } from '.';
-// import InteractiveOverlay from './InteractiveOverlay';
+import InteractiveOverlay from './InteractiveOverlay';
 import styles from './Previewer.module.scss';
 
 const cx = classNames.bind(styles);
@@ -24,14 +24,30 @@ export default function CSRPreviewer({
   size = 'md',
   backdropImage,
 }: ClientRenderProps) {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+
+  let imageSrc = spinner;
+  if (!loading && !error) {
+    imageSrc = backdropImage;
+  } else if (error) {
+    imageSrc = notFound;
+  }
+
   return (
     <div className={cx('root', { [size]: true }, className)}>
-      {/* <InteractiveOverlay videoLink={`/${type}/${id}/info`} />
+      <InteractiveOverlay videoLink={`/${type}/${id}/info`} />
       <div className={cx('backdrop-container')}>
-        <Suspense fallback={<LoadingImage src={spinner} width={128} height={128} />}>
-          <Image src={backdropImage} alt='#' quality={80} fill sizes='(min-width: 1024px) 370px' />
-        </Suspense>
-      </div> */}
+        <Image
+          src={imageSrc}
+          alt={title}
+          onLoad={() => setLoading(false)}
+          onError={() => setError(true)}
+          quality={80}
+          fill
+          sizes='(min-width: 1024px) 370px'
+        />
+      </div>
       <div className={cx('info')}>
         <Link className={cx('title')} href={`/${type}/${id}/info`} title={title}>
           {title}

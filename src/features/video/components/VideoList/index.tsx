@@ -1,11 +1,10 @@
 import Pagination from '@components/Pagination';
 import Grid from '@components/elements/Grid';
-import { SSRPreviewer as Previewer, SkeletonPreviewer } from '@features/video/components/Previewer';
+import { CSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import { VideoResponse } from '@model/Videos';
 import { SearchParams as UrlSearchParams } from 'api';
 import classNames from 'classnames/bind';
 import { getLocale } from 'next-intl/server';
-import { Suspense } from 'react';
 import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'tmdb/api';
 import { DisplayMode, VideoType } from 'ui';
 import { LocaleType } from '~/constants/locales';
@@ -50,22 +49,16 @@ export default async function VideoList({ searchParams }: ComponentProps) {
   return (
     <section>
       <Layout className={cx('root')} template='cols'>
-        <Suspense
-          fallback={new Array(12).fill(0).map((_, idx) => (
-            <SkeletonPreviewer key={idx} />
-          ))}
-        >
-          {videos.map((video) => (
-            <Previewer
-              render='server'
-              key={video.id}
-              id={video.id}
-              title={video.title}
-              type={type}
-              backdropImage={UTILS.buildImageUrl(video.backdrop_path, 'w500')}
-            />
-          ))}
-        </Suspense>
+        {videos.map((video) => (
+          <Previewer
+            render='client'
+            key={video.id}
+            id={video.id}
+            title={video.title}
+            type={type}
+            backdropImage={UTILS.buildImageUrl(video.backdrop_path, 'w500')}
+          />
+        ))}
       </Layout>
       <Pagination totalPage={total_pages} itemPerPage={limit} />
     </section>

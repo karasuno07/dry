@@ -1,5 +1,5 @@
 import FunctionBar from '@features/video/components/FunctionBar';
-import VideoList from '@features/video/components/VideoList';
+import VideoList from '@features/video/components/VideoList/';
 import { SearchParams as UrlSearchParams } from 'api';
 
 type Props = {
