@@ -36,6 +36,7 @@ export default function CategorySelector({ categories }: Props) {
     newSearchParams.set('type', type);
     newSearchParams.delete('category');
     newSearchParams.delete('page');
+    newSearchParams.delete('q');
     return '?' + newSearchParams.toString();
   };
 
@@ -43,6 +44,7 @@ export default function CategorySelector({ categories }: Props) {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('category', category);
     newSearchParams.delete('page');
+    newSearchParams.delete('q');
     return '?' + newSearchParams.toString();
   };
 

@@ -8,6 +8,7 @@ type Props = {
 };
 
 export default async function Index({ searchParams }: Props) {
+  const searchQuery = (searchParams.q as string) || '';
   const display = (searchParams.display as DisplayMode) || 'grid';
   const type = (searchParams.type as VideoType) || 'movie';
   const category = (searchParams.category as string) || '';
@@ -16,7 +17,13 @@ export default async function Index({ searchParams }: Props) {
   return (
     <div className='w-full h-full overflow-hidden'>
       <FunctionBar searchParams={searchParams} />
-      <VideoList display={display} type={type} category={category} page={page} />
+      <VideoList
+        query={searchQuery}
+        display={display}
+        type={type}
+        category={category}
+        page={page}
+      />
     </div>
   );
 }

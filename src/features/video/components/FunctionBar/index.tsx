@@ -1,7 +1,6 @@
 import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
-import { assign } from 'lodash';
-import { Suspense } from 'react';
+import { Suspense, createContext } from 'react';
 import { SearchParams } from 'types/api';
 import { DisplayMode } from 'types/ui';
 import GenresService from '~/service/tmdb/genres';
@@ -11,6 +10,7 @@ import styles from './FunctionBar.module.scss';
 import LayoutSelector from './LayoutSelector';
 
 const cx = classNames.bind(styles);
+const SearchQueryContext = createContext<string | undefined>(undefined);
 
 async function getMovieCategories() {
   const { genres } = await GenresService.getMovieGenres();
@@ -31,9 +31,10 @@ export default async function FunctionBar({ searchParams }: Props) {
   const tvCategories = await getTvSeriesCategories();
 
   const onChangeLayoutHandler = (display: DisplayMode) => {
-    const newSearchParams: { [key: string]: any } = { ...searchParams };
-    assign(newSearchParams, { display });
-    return `?${new URLSearchParams(newSearchParams)}`;
+    const newSearchParams = new URLSearchParams(searchParams as { [key: string]: any });
+    newSearchParams.set('display', display);
+    newSearchParams.delete('q');
+    return '?' + newSearchParams.toString();
   };
 
   return (

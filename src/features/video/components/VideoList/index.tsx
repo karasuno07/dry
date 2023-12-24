@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 const limit = 20; // the fixed number tmdb api supports
 
 type ComponentProps = {
+  query: string;
   display: DisplayMode;
   type: VideoType;
   category: string;
@@ -26,20 +27,26 @@ async function searchVideos(
   type: DiscoverType,
   params: SearchParams & SortParams & DiscoverParams
 ) {
-  const response = await SearchService.discover(type, params);
+  let response;
+  if (params.query) {
+    response = await SearchService.search(type, params);
+  } else {
+    response = await SearchService.discover(type, params);
+  }
   return { ...response, results: response.results.map((data) => new VideoResponse(data)) };
 }
 
-export default async function VideoList({ display, type, category, page }: ComponentProps) {
+export default async function VideoList({ query, display, type, category, page }: ComponentProps) {
   const Layout = display === 'grid' ? Grid : 'div';
   const searchType = type === 'tv-series' ? 'tv' : 'movie';
   const currentGenre = await GenresService.getGenreBySlug(searchType, category);
   const language = (await getLocale()) as LocaleType;
 
   const { results: videos, total_pages } = await searchVideos(searchType, {
+    query,
     page,
     language,
-    include_adult: true,
+    include_adult: false,
     with_genres: currentGenre ? currentGenre.id.toString() : undefined,
   });
 
