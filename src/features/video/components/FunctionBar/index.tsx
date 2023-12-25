@@ -1,6 +1,6 @@
 import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
-import { Suspense, createContext } from 'react';
+import { Suspense } from 'react';
 import { SearchParams } from 'types/api';
 import { DisplayMode } from 'types/ui';
 import GenresService from '~/service/tmdb/genres';
@@ -10,7 +10,6 @@ import styles from './FunctionBar.module.scss';
 import LayoutSelector from './LayoutSelector';
 
 const cx = classNames.bind(styles);
-const SearchQueryContext = createContext<string | undefined>(undefined);
 
 async function getMovieCategories() {
   const { genres } = await GenresService.getMovieGenres();
@@ -48,8 +47,8 @@ export default async function FunctionBar({ searchParams }: Props) {
             })
           )}
         />
+        <FilterBar />
       </Suspense>
-      <FilterBar />
       <LayoutSelector
         current={(searchParams.display as DisplayMode) || 'grid'}
         onChangeMode={onChangeLayoutHandler}

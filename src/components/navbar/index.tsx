@@ -14,7 +14,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FaUser } from 'react-icons/fa6';
+import { FaCircleUser } from 'react-icons/fa6';
 import { IoLogOut } from 'react-icons/io5';
 import styles from './Navbar.module.scss';
 
@@ -41,9 +41,12 @@ function NavBar({}: Props) {
         <div className={cx('auth-container')}>
           <div className={cx('flex justify-center items-center gap-4')}>
             {isEmpty(session) ? (
-              <Button variant='success' onClick={() => router.push('/sign-in', { locale })}>
-                <Icon icon={FaUser} size={18} />
-                <span>{translate('signInBtn')}</span>
+              <Button
+                className={cx('sign-in')}
+                paddingLess
+                onClick={() => router.push('/sign-in', { locale })}
+              >
+                <Icon icon={FaCircleUser} size={30} />
               </Button>
             ) : (
               <>
@@ -72,7 +75,7 @@ function NavBar({}: Props) {
                     <Divider key='divider-01' />,
                     <Button
                       fullSize
-                      key={'sign-out'}
+                      key={'sign-out-btn'}
                       variant='danger'
                       onClick={() => router.push('/sign-out', { locale })}
                     >

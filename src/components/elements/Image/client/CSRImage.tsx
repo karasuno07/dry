@@ -6,11 +6,19 @@ import notFound from '~/assets/images/404-not-found.svg';
 import spinner from '~/assets/images/spinner.svg';
 
 type Props = ImageProps & {
+  loadingSrc?: string | StaticImageData;
   notFoundSrc?: string | StaticImageData;
 };
 
-export default function CSRImage({ src, alt, notFoundSrc, ...imageProps }: Props) {
+export default function CSRImage({
+  src,
+  alt,
+  loadingSrc = spinner,
+  notFoundSrc = notFound,
+  ...imageProps
+}: Props) {
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   const generateImageProps = () => {
     const props: Omit<ImageProps, 'alt'> = {
@@ -20,14 +28,14 @@ export default function CSRImage({ src, alt, notFoundSrc, ...imageProps }: Props
       ...imageProps,
     };
     if (loading) {
-      props.src = spinner;
+      props.src = loadingSrc;
       props.priority = true;
       props.fill = false;
       props.sizes = undefined;
       props.width = 370;
       props.height = 216;
-    } else {
-      props.src = src || notFoundSrc || notFound;
+    } else if (error) {
+      props.src = src || notFoundSrc;
       props.priority = !src;
     }
 
@@ -38,9 +46,8 @@ export default function CSRImage({ src, alt, notFoundSrc, ...imageProps }: Props
     <Image
       {...generateImageProps()}
       alt={alt || 'Not Found Image'}
-      onLoad={(evt) => {
-        setLoading(false);
-      }}
+      onLoad={(evt) => setLoading(false)}
+      onError={() => setError(true)}
     />
   );
 }
