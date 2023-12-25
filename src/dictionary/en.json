@@ -110,6 +110,15 @@
       "tv-series": "TV-Series"
     },
     "genres": "Genres",
-    "overview": "Overview"
+    "overview": "Overview",
+    "metadata": {
+      "length": "Length",
+      "language": "Language",
+      "release_date": "Release Date",
+      "first_air": "First Air",
+      "last_air": "Last Air",
+      "status": "Status"
+    },
+    "casts": "Casts"
   }
 }

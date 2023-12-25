@@ -74,7 +74,12 @@ export default async function VideoInfo({ params: { locale, type, id } }: Props)
             <p>{details.overview || 'TBD'}</p>
           </div>
           <div className='mt-auto'>
-            <Credits className='mb-[5px]' videoType={searchType} videoId={id} />
+            <Credits
+              className='mb-[5px]'
+              title={translate('casts')}
+              videoType={searchType}
+              videoId={id}
+            />
             <div className={cx('actions')}>
               <LinkToWatch link={`/${type}/${id}/watch`} />
               <AddToWishlist />

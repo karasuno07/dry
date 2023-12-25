@@ -2,6 +2,7 @@ import Grid from '@components/elements/Grid';
 import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
+import { useTranslations } from 'next-intl';
 import { VideoType } from 'types/ui';
 import styles from './Metadata.module.scss';
 
@@ -40,24 +41,26 @@ const LanguageMetadata = (details: Movie | TvSeries) => {
 };
 
 const MovieMetadata = (details: Movie) => {
+  const translate = useTranslations('videos.metadata');
+
   return (
     <>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Length</span>
+        <span className={cx('title')}>{translate('length')}</span>
         <span className={cx('content')}>{details.runtime} min</span>
       </div>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Language</span>
+        <span className={cx('title')}>{translate('language')}</span>
         <span className={cx('content')}>
           <LanguageMetadata {...details} />
         </span>
       </div>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Release Date</span>
+        <span className={cx('title')}>{translate('release_date')}</span>
         <span className={cx('content')}>{details.release_date as string}</span>
       </div>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Status</span>
+        <span className={cx('title')}>{translate('status')}</span>
         <span className={cx('content')}>{details.status || 'N/A'}</span>
       </div>
     </>
@@ -65,24 +68,26 @@ const MovieMetadata = (details: Movie) => {
 };
 
 const TvSeriesMetadata = (details: TvSeries) => {
+  const translate = useTranslations('videos.metadata');
+
   return (
     <>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Language</span>
+        <span className={cx('title')}>{translate('language')}</span>
         <span className={cx('content')}>
           <LanguageMetadata {...details} />
         </span>
       </div>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>First Air</span>
+        <span className={cx('title')}>{translate('first_air')}</span>
         <span className={cx('content')}>{details.first_air_date as string} min</span>
       </div>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Last Air</span>
+        <span className={cx('title')}>{translate('last_air')}</span>
         <span className={cx('content')}>{details.last_air_date as string}</span>
       </div>
       <div className={cx('metadata')}>
-        <span className={cx('title')}>Status</span>
+        <span className={cx('title')}>{translate('status')}</span>
         <span className={cx('content')}>{details.status || 'N/A'}</span>
       </div>
     </>
