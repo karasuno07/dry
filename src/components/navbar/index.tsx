@@ -8,14 +8,14 @@ import Icon from '@components/elements/Icon';
 import Menu from '@components/elements/Menu';
 import useSession from '@features/authentication/hooks/useSession';
 import { default as defaultUser } from '@icons/user-default-64.png';
+import { Link, useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { capitalize, isEmpty } from 'lodash';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { FaCircleUser } from 'react-icons/fa6';
 import { IoLogOut } from 'react-icons/io5';
+import LanguageSwitch from './LanguageSwitch';
 import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
@@ -38,6 +38,7 @@ function NavBar({}: Props) {
       <div className={cx('container')}>
         <Link className={cx('logo')} href='/'></Link>
         <SearchBar />
+        <LanguageSwitch />
         <div className={cx('auth-container')}>
           <div className={cx('flex justify-center items-center gap-4')}>
             {isEmpty(session) ? (

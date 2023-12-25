@@ -11,7 +11,7 @@ type ClickableElementProps = React.HTMLProps<HTMLElement> & {
   onClick?: (..._args: any) => void;
 };
 
-interface MenuProps extends React.HTMLProps<HTMLDivElement> {
+interface MenuProps extends Omit<React.HTMLProps<HTMLDivElement>, 'className'> {
   classes?: {
     menuClassName?: string;
     menuListClassName?: string;

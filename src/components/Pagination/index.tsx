@@ -1,9 +1,9 @@
 'use client';
 
 import Icon from '@components/elements/Icon';
+import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { ceil, isUndefined, min } from 'lodash';
-import Link from 'next/link';
 import { notFound, useSearchParams } from 'next/navigation';
 import { LuChevronFirst, LuChevronLast, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import styles from './Pagination.module.scss';

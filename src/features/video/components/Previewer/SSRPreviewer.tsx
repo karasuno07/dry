@@ -1,7 +1,7 @@
 import LoadingImage from '@components/elements/Image/server/LoadingImage';
 import SSRImage from '@components/elements/Image/server/SSRImage';
+import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import { Suspense } from 'react';
 import spinner from '~/assets/images/spinner.svg';
 import { PreviewerCommonProps } from '.';

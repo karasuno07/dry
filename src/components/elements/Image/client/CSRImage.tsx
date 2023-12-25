@@ -22,7 +22,7 @@ export default function CSRImage({
 
   const generateImageProps = () => {
     const props: Omit<ImageProps, 'alt'> = {
-      src,
+      src: src || notFoundSrc,
       width: undefined,
       height: undefined,
       ...imageProps,
@@ -35,8 +35,8 @@ export default function CSRImage({
       props.width = 370;
       props.height = 216;
     } else if (error) {
-      props.src = src || notFoundSrc;
-      props.priority = !src;
+      props.src = notFoundSrc;
+      props.priority = true;
     }
 
     return props;
@@ -47,7 +47,10 @@ export default function CSRImage({
       {...generateImageProps()}
       alt={alt || 'Not Found Image'}
       onLoad={(evt) => setLoading(false)}
-      onError={() => setError(true)}
+      onError={(evt) => {
+        evt.preventDefault();
+        setError(true);
+      }}
     />
   );
 }

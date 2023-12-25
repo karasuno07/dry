@@ -5,10 +5,10 @@ import Icon from '@components/elements/Icon';
 import useOAuth2Provider, {
   ProviderData,
 } from '@features/authentication/hooks/useOAuthProvider';
+import { useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { FaGithub } from 'react-icons/fa6';
 import { FcGoogle } from 'react-icons/fc';
 

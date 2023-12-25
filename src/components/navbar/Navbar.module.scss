@@ -20,7 +20,7 @@
   background-color: theme('colors.black.35');
   background-image: linear-gradient(0deg, #30373f 0%, #282e35 20%, #1c1f24 74%);
   color: theme('colors.white');
-  box-shadow: 1.5px 0.5px 3px theme('boxShadowColor.stone.700');  
+  box-shadow: 1.5px 0.5px 3px theme('boxShadowColor.stone.700');
 }
 
 .logo {
@@ -120,6 +120,23 @@
   .text-email {
     display: block;
     color: black;
+  }
+}
+
+.language-switch {
+  width: 50px;
+  height: 40px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .languages {
+    background-color: theme('colors.gray.800');
   }
 }
 

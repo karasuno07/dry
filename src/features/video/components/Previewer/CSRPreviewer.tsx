@@ -1,8 +1,8 @@
 'use client';
 
 import CSRImage from '@components/elements/Image/client/CSRImage';
+import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import { PreviewerCommonProps } from '.';
 import InteractiveOverlay from './InteractiveOverlay';
 import styles from './Previewer.module.scss';

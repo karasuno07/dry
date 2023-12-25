@@ -1,5 +1,5 @@
+import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
 import { DisplayMode } from 'types/ui';

@@ -1,6 +1,6 @@
 import HistoryNagivator from '@features/navigation/components/HistoryNavigator';
+import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
-import Link from 'next/link';
 import styles from './stylesheet.module.scss';
 
 const cx = classNames.bind(styles);

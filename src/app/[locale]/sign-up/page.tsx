@@ -10,10 +10,10 @@ import {
 } from '@features/authentication/model/user';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useApi } from '@hooks/useApi';
+import { useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { entries, isEmpty } from 'lodash';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 import styles from './SignUp.module.scss';
 

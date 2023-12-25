@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@lib/navigation';
 
 type Props = Omit<React.HTMLProps<HTMLAnchorElement>, 'onClick'> & {
   action: 'back' | 'forward' | 'push' | 'replace';

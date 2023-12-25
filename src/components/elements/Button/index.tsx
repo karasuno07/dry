@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { Link } from '@lib/navigation';
+import cx from 'classnames';
 import React from 'react';
 
 export type ButtonProps = {
@@ -53,12 +54,17 @@ const Button = ({
     <Component
       href={link?.href}
       type={type}
-      className={`
-        ${fullSize ? 'min-w-full' : 'min-w-max'}
-        ${getVariant()} transition duration-500  ${!paddingLess && 'py-2 px-4'}  ${
-          !square && 'rounded-md'
-        } active:scale-95 ${className}
-      `}
+      className={cx(
+        {
+          'min-w-full': fullSize,
+          'min-w-max': !fullSize,
+          'py-2 px-4': !paddingLess,
+          'rounded-md': !square,
+        },
+        getVariant(),
+        'transition duration-500 active:scale-95',
+        className
+      )}
       {...props}
     >
       {children}

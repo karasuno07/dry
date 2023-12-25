@@ -79,7 +79,7 @@ $distance: 10px;
 
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 1.5px 3px 1px #7d7d7d;
+  box-shadow: theme('boxShadow.md');
 
   &.position-left {
     left: 0;

@@ -1,11 +1,11 @@
 'use client';
 
 import Menu from '@components/elements/Menu';
+import { Link } from '@lib/navigation';
 import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { FaThList } from 'react-icons/fa';
 import { VideoType } from 'types/ui';
