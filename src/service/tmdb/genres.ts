@@ -12,7 +12,7 @@ export default class GenresService extends BaseService {
   }
 
   static getTvSeriesGenres() {
-    return this.http.get<Genres>(this.MOVIE_URL, { revalidateSeconds: 84600 });
+    return this.http.get<Genres>(this.TV_URL, { revalidateSeconds: 84600 });
   }
 
   static async getGenreBySlug(type: 'movie' | 'tv', slug: string) {

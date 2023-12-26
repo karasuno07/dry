@@ -42,9 +42,6 @@
   width: fit-content;
   height: 40px;
   border-radius: $border-radius;
-  margin: {
-    right: 10px;
-  }
   overflow: hidden;
 
   input[type='search'] {
@@ -124,7 +121,7 @@
 }
 
 .language-switch {
-  width: 50px;
+  width: 60px;
   height: 40px;
 
   button {
@@ -137,6 +134,28 @@
 
   .languages {
     background-color: theme('colors.gray.800');
+    min-width: max-content;
+  }
+
+  .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: {
+      left: 10px;
+      right: 10px;
+    }
+    border-radius: 3px;
+
+    .abbreviation {
+      color: theme('colors.orange.600');
+      font-size: 20px;
+      font-weight: 650;
+    }
+
+    &.active {
+      background-color: theme('colors.white-liked.25');
+    }
   }
 }
 

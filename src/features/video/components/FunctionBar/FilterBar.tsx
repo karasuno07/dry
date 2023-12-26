@@ -15,7 +15,7 @@ export default function FilterBar() {
   const translate = useTranslations('features.video.functionBar.filter');
   const filterBar = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [query, setQuery] = useState<string | undefined>();
+  const [query, setQuery] = useState<string>('');
 
   useDebouncedSearch('q', query?.toLowerCase());
 
