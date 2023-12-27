@@ -8,8 +8,10 @@ export type PreviewerCommonProps = {
   id: number;
   title: string;
   type: VideoType;
+  overview: string;
   className?: string;
   size?: 'sm' | 'md';
+  display?: 'simple' | 'detailed';
   backdropImage: string;
 };
 

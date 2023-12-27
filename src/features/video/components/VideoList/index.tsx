@@ -1,5 +1,6 @@
 import Pagination from '@components/Pagination';
 import Grid from '@components/elements/Grid';
+import Stack from '@components/elements/Stack';
 import { CSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import { VideoResponse } from '@model/Videos';
 import classNames from 'classnames/bind';
@@ -37,7 +38,7 @@ async function searchVideos(
 }
 
 export default async function VideoList({ query, display, type, category, page }: ComponentProps) {
-  const Layout = display === 'grid' ? Grid : 'div';
+  const Layout = display === 'grid' ? Grid : Stack;
   const searchType = type === 'tv-series' ? 'tv' : 'movie';
   const currentGenre = await GenresService.getGenreBySlug(searchType, category);
   const language = (await getLocale()) as LocaleType;
@@ -59,8 +60,13 @@ export default async function VideoList({ query, display, type, category, page }
             key={video.id}
             id={video.id}
             title={video.title}
+            overview={video.overview}
             type={type}
-            backdropImage={UTILS.buildImageUrl(video.backdrop_path, 'w500')}
+            display={display === 'stack' ? 'detailed' : 'simple'}
+            backdropImage={UTILS.buildImageUrl(
+              video.backdrop_path,
+              display === 'stack' ? 'w780' : 'w500'
+            )}
           />
         ))}
       </Layout>
