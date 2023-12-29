@@ -23,7 +23,7 @@ services:
     container_name: database-monitor
     image: adminer
     ports:
-      - "8080:8080"
+      - "9000:8080"
     networks:
       - datasource
   nextapp: 
