@@ -1,15 +1,17 @@
 import FunctionBar from '@features/video/components/FunctionBar';
 import VideoList from '@features/video/components/VideoList/';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { SearchParams as UrlSearchParams } from 'types/api';
 import { DisplayMode, VideoType } from 'types/ui';
 
-export const dynamic = 'force-dynamic';
-
 type Props = {
   searchParams: UrlSearchParams;
+  params: { locale: string };
 };
 
-export default function Index({ searchParams }: Props) {
+export default function Index({ searchParams, params: { locale } }: Props) {
+  unstable_setRequestLocale(locale);
+
   const searchQuery = (searchParams.q as string) || '';
   const display = (searchParams.display as DisplayMode) || 'grid';
   const type = (searchParams.type as VideoType) || 'movie';

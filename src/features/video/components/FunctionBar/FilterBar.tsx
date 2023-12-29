@@ -17,7 +17,7 @@ export default function FilterBar() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState<string>('');
 
-  useDebouncedSearch('q', query?.toLowerCase());
+  useDebouncedSearch('q', query.toLowerCase(), setQuery);
 
   const onClickFilterIconHandler = () => {
     if (isEmpty(inputRef.current?.value)) {

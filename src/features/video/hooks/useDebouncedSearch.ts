@@ -1,11 +1,12 @@
 import useDebounce from '@hooks/useDebounce';
 import { useRouter } from '@lib/navigation';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 export default function useDebouncedSearch(
   queryKey: string,
-  queryValue: string | undefined,
+  queryValue: string,
+  resetFn?: Dispatch<SetStateAction<string>>,
   delay: number = 300
 ) {
   const router = useRouter();
@@ -22,4 +23,10 @@ export default function useDebouncedSearch(
     newSearchParams.delete('page');
     router.push('?' + newSearchParams);
   }, [debouncedQueryValue]);
+
+  useEffect(() => {
+    if (resetFn && !searchParams.has(queryKey)) {
+      resetFn('');
+    }
+  }, [searchParams]);
 }

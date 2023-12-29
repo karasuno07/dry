@@ -11,6 +11,7 @@ import { LocaleType } from '~/constants/locales';
 import { UTILS } from '~/service/tmdb/base';
 import GenresService from '~/service/tmdb/genres';
 import SearchService from '~/service/tmdb/search';
+import NotFound from './NotFound';
 import styles from './VideoList.module.scss';
 
 const cx = classNames.bind(styles);
@@ -53,24 +54,30 @@ export default async function VideoList({ query, display, type, category, page }
 
   return (
     <section>
-      <Layout className={cx('root')} template='cols'>
-        {videos.map((video) => (
-          <Previewer
-            render='client'
-            key={video.id}
-            id={video.id}
-            title={video.title}
-            overview={video.overview}
-            type={type}
-            display={display === 'stack' ? 'detailed' : 'simple'}
-            backdropImage={UTILS.buildImageUrl(
-              video.backdrop_path,
-              display === 'stack' ? 'w780' : 'w500'
-            )}
-          />
-        ))}
-      </Layout>
-      <Pagination totalPage={total_pages} itemPerPage={limit} />
+      {videos.length > 0 && (
+        <>
+          {' '}
+          <Layout className={cx('root')} template='cols'>
+            {videos.map((video) => (
+              <Previewer
+                render='client'
+                key={video.id}
+                id={video.id}
+                title={video.title}
+                overview={video.overview}
+                type={type}
+                display={display === 'stack' ? 'detailed' : 'simple'}
+                backdropImage={UTILS.buildImageUrl(
+                  video.backdrop_path,
+                  display === 'stack' ? 'w780' : 'w500'
+                )}
+              />
+            ))}
+          </Layout>
+          <Pagination totalPage={total_pages} itemPerPage={limit} />
+        </>
+      )}
+      {videos.length === 0 && <NotFound />}
     </section>
   );
 }

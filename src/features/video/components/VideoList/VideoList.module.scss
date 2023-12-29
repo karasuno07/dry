@@ -6,3 +6,40 @@
 
   @include custom-scrollbar-style();
 }
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 750px;
+
+  .image {
+    margin: auto;
+    width: 550px;
+    height: 550px;
+  }
+
+  .actions {
+    margin: auto;
+    height: 100px;
+
+    a {
+      display: flex;
+      align-items: center;
+      margin: auto;
+      width: fit-content;
+      color: theme('colors.white');
+      font-weight: 700;
+      font-size: 20px;
+      text-align: center;
+      transition: all 0.3s linear;
+
+      &:hover {
+        transform: scale(1.15);
+        border: 1px solid theme('colors.white');
+      }
+    }
+  }
+}

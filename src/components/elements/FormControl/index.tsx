@@ -1,3 +1,5 @@
+'use client';
+
 import { ConnectForm } from '@components/elements/Form';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
@@ -12,7 +14,7 @@ const cx = classNames.bind(styles);
 type VariantsType = 'standard' | 'outline';
 
 interface FormControlProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  labelText: string;
+  labelText?: string;
   variant?: VariantsType;
   name: string;
   labelProps?: Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'id' | 'htmlFor'>;
@@ -63,14 +65,16 @@ const InputControl = memo(
             outline: variant === 'outline',
           })}
         >
-          <label
-            {...labelProps}
-            id={generatedLabelId}
-            className={cx('label', labelProps?.className)}
-            htmlFor={id || generatedInputId}
-          >
-            {labelText}
-          </label>
+          {labelText && (
+            <label
+              {...labelProps}
+              id={generatedLabelId}
+              className={cx('label', labelProps?.className)}
+              htmlFor={id || generatedInputId}
+            >
+              {labelText}
+            </label>
+          )}
           {formContext?.control ? (
             <Controller
               name={name}
@@ -125,12 +129,8 @@ const InputControl = memo(
 
 InputControl.displayName = 'Control';
 
-function FormControl(inputProps: FormControlProps) {
+export default function FormControl(inputProps: FormControlProps) {
   return (
-    <ConnectForm>
-      {(context) => <InputControl formContext={context} {...inputProps} />}
-    </ConnectForm>
+    <ConnectForm>{(context) => <InputControl formContext={context} {...inputProps} />}</ConnectForm>
   );
 }
-
-export default FormControl;

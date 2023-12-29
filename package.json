@@ -7,7 +7,7 @@
   },
   "scripts": {
     "docker:local": "cp .env docker/development/.env & docker compose -f ./docker/development/docker-compose.yml up --build -d",
-    "docker:build": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d",
+    "docker:server": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d",
     "prisma:generate": "npx prisma generate",
     "prisma:apply": "npx prisma migrate dev",
     "prisma:deploy": "npx prisma migrate deploy",
@@ -15,7 +15,7 @@
     "init:dev": "yarn docker:local & yarn prisma:generate & yarn prisma:seed",
     "dev": "next dev",
     "build": "next build",
-    "start:local": "next start",
+    "start:local": "node .next/standalone/server.js",
     "start:server": "node server.js",
     "lint": "next lint"
   },
