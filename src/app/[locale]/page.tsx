@@ -3,11 +3,13 @@ import VideoList from '@features/video/components/VideoList/';
 import { SearchParams as UrlSearchParams } from 'types/api';
 import { DisplayMode, VideoType } from 'types/ui';
 
+export const dynamic = 'force-dynamic';
+
 type Props = {
   searchParams: UrlSearchParams;
 };
 
-export default async function Index({ searchParams }: Props) {
+export default function Index({ searchParams }: Props) {
   const searchQuery = (searchParams.q as string) || '';
   const display = (searchParams.display as DisplayMode) || 'grid';
   const type = (searchParams.type as VideoType) || 'movie';

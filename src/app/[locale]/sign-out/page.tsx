@@ -1,10 +1,4 @@
-'use client';
-
-import useSession from '@features/authentication/hooks/useSession';
-import useCountdown from '@hooks/useCountdown';
-import { signOut } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
-import { redirect } from 'next/navigation';
+import SignOutNotification from './SignOutNotification';
 
 type Props = {
   params: {
@@ -12,28 +6,12 @@ type Props = {
   };
 };
 
-function SignOut({ params: { locale } }: Props) {
-  const session = useSession();
-  const translate = useTranslations('pages.auth.signOut');
-  const seconds = useCountdown();
-
-  if (session && !session.user) {
-    redirect('/');
-  } else if (seconds === 0) {
-    signOut({ callbackUrl: '/' });
-  }
-
+export default function SignOut({ params: { locale } }: Props) {
   return (
     <div className='w-screen h-screen relative'>
-      <div className='absolute-center text-center text-white'>
-        <h3 className='text-xl'>{translate('alert.line1')}</h3>
-        <p color='text-lg'>
-          {translate('alert.line2', { seconds })}
-          ...
-        </p>
-      </div>
+      <SignOutNotification />
     </div>
   );
 }
 
-export default SignOut;
+export const dynamic = 'force-dynamic';

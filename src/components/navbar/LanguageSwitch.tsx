@@ -7,7 +7,6 @@ import { Link, usePathname } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-// import { FcGlobe } from 'react-icons/fc';
 import { FaGlobeAmericas, FaGlobeAsia } from 'react-icons/fa';
 import { LocaleType, SUPPORTED_LOCALES } from '~/constants/locales';
 import styles from './Navbar.module.scss';

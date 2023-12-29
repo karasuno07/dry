@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export type SearchParams = {
-  [key: string]: string | string[] | undefined;
+  [key: string]: string | string[] | null;
 };
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';

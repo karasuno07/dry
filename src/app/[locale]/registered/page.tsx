@@ -11,8 +11,10 @@ type Props = {
   };
 };
 
-async function Registered({ searchParams }: Props) {
-  const userId = searchParams['user-id'] as string | undefined;
+export const dynamic = 'force-dynamic';
+
+export default async function Registered({ searchParams }: Props) {
+  const userId = searchParams['user-id'] as string | null;
   if (!userId) {
     redirect('/sign-up', RedirectType.replace);
   }
@@ -32,5 +34,3 @@ async function Registered({ searchParams }: Props) {
     </AuthLayout>
   );
 }
-
-export default Registered;

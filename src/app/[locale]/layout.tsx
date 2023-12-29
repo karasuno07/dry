@@ -13,7 +13,7 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 

@@ -2,7 +2,8 @@ import Grid from '@components/elements/Grid';
 import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { use } from 'react';
 import { VideoType } from 'types/ui';
 import styles from './Metadata.module.scss';
 
@@ -41,7 +42,7 @@ const LanguageMetadata = (details: Movie | TvSeries) => {
 };
 
 const MovieMetadata = (details: Movie) => {
-  const translate = useTranslations('videos.metadata');
+  const translate = use(getTranslations('videos.metadata'));
 
   return (
     <>
@@ -68,7 +69,7 @@ const MovieMetadata = (details: Movie) => {
 };
 
 const TvSeriesMetadata = (details: TvSeries) => {
-  const translate = useTranslations('videos.metadata');
+  const translate = use(getTranslations('videos.metadata'));
 
   return (
     <>
