@@ -56,3 +56,6 @@ export default async function FunctionBar({ searchParams }: Props) {
     </div>
   );
 }
+
+export { default as SkeletonFunctionBar } from './Skeleton';
+

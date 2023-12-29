@@ -4,7 +4,7 @@ import { BiSolidGridAlt } from 'react-icons/bi';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
 import { DisplayMode } from 'types/ui';
 import { Url } from 'url';
-import styles from './FunctionBar.module.scss';
+import styles from './LayoutSelector.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -13,9 +13,9 @@ type Props = {
   onChangeMode: (mode: DisplayMode) => Url | string;
 };
 
-function LayoutSelector({ current, onChangeMode }: Props) {
+export default function LayoutSelector({ current, onChangeMode }: Props) {
   return (
-    <div className={cx('displays')}>
+    <div className={cx('root')}>
       <Link
         className={cx('display-selector', {
           active: current === 'stack',
@@ -35,5 +35,3 @@ function LayoutSelector({ current, onChangeMode }: Props) {
     </div>
   );
 }
-
-export default LayoutSelector;

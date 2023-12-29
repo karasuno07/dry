@@ -14,7 +14,7 @@ module.exports = {
           0: '#000',
           25: '#0d1117',
           35: '#0f0f0f',
-          50: '#161b22;',
+          50: '#161b22',
           75: '#17151575',
         },
         gray: {
@@ -23,6 +23,7 @@ module.exports = {
             50: '#DEDEDE50',
             75: '#DEDEDE75',
           },
+          backdrop: '#1b1a1a50',
         },
         white: '#fff',
         'white-liked': {

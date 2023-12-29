@@ -81,3 +81,6 @@ export default async function VideoList({ query, display, type, category, page }
     </section>
   );
 }
+
+export { default as SkeletonVideoList } from './Skeleton';
+

@@ -1,5 +1,5 @@
-type Props = {};
+import Backdrop from '@components/elements/Backdrop';
 
-export default function Loading({}: Props) {
-  return <div>Loading...</div>;
+export default function Loading() {
+  return <Backdrop loadingAnimation='wave' />;
 }

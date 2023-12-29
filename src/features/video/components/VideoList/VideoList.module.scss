@@ -1,10 +1,14 @@
 @import '@stylesheets/library';
 
 .root {
-  height: calc(100vh - 165px);
+  height: calc(100lvh - 165px);
   overflow: auto;
 
   @include custom-scrollbar-style();
+
+  &.skeleton {
+    height: calc(100lvh - 140px);
+  }
 }
 
 .not-found {

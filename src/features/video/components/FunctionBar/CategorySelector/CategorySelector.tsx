@@ -5,11 +5,10 @@ import { Link } from '@lib/navigation';
 import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
 import { useSearchParams } from 'next/navigation';
 import { FaThList } from 'react-icons/fa';
 import { VideoType } from 'types/ui';
-import styles from './FunctionBar.module.scss';
+import styles from './CategorySelector.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -69,7 +68,7 @@ export default function CategorySelector({ categories }: Props) {
   ));
 
   return (
-    <div className={cx('category-list-container')}>
+    <div className={cx('root')}>
       <Menu
         menuType='free'
         dropdownAnimation='pulse'
@@ -98,25 +97,6 @@ export default function CategorySelector({ categories }: Props) {
         }
       />
       <span className={cx('title')}>{current?.name || translate('general.category.default')}</span>
-    </div>
-  );
-}
-
-export async function SkeletonCategorySelector() {
-  const translate = await getTranslations();
-
-  return (
-    <div className={cx('category-list-container')}>
-      <Menu
-        menuType='free'
-        dropdownAnimation='pulse'
-        classes={{
-          menuListClassName: cx('category-menu'),
-        }}
-        anchor={<FaThList className={cx('select-icon')} size={24} />}
-        items={[]}
-      />
-      <span className={cx('title')}>{translate('general.category.default')}</span>
     </div>
   );
 }

@@ -39,10 +39,9 @@ export default function CreditBadge({ personId, characterName, gender }: CreditB
     );
   }
 
-  const imdbLink = data.imdb_id ? `https://www.imdb.com/name/${data.imdb_id}` : '#';
-
-  return (
-    <Link id={`cast-${data.id}`} className={cx('image-wrapper')} href={imdbLink} target='_blank'>
+  const imdbLink = data.imdb_id ? `https://www.imdb.com/name/${data.imdb_id}` : undefined;
+  const creditContent = (
+    <>
       <CSRImage
         className={cx('profile-image', { 'not-found': !data.profile_path })}
         src={UTILS.buildImageUrl(data.profile_path, 'w154')}
@@ -57,6 +56,20 @@ export default function CreditBadge({ personId, characterName, gender }: CreditB
           as <span className='font-semibold'>{characterName}</span>
         </p>
       </Tooltip>
-    </Link>
+    </>
+  );
+
+  if (imdbLink) {
+    return (
+      <Link id={`cast-${data.id}`} className={cx('image-wrapper')} href={imdbLink} target='_blank'>
+        {creditContent}
+      </Link>
+    );
+  }
+
+  return (
+    <div id={`cast-${data.id}`} className={cx('image-wrapper')}>
+      {creditContent}
+    </div>
   );
 }

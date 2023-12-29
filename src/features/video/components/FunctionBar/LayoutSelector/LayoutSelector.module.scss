@@ -1,0 +1,21 @@
+.root {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .display-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: theme('colors.slate.500');
+    width: 36px;
+    height: 36px;
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.25);
+      color: theme('colors.slate.300');
+      border-radius: 3px;
+    }
+  }
+}

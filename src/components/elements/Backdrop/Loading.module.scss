@@ -1,0 +1,89 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 1600px;
+  margin: auto;
+  background-color: theme('colors.gray.backdrop');
+}
+
+.loading {
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.wave {
+  width: 0.4em;
+  height: 6em;
+  background: #5c72b1;
+  margin: 0 0.4em;
+  border-radius: 0.4em;
+  transform-origin: bottom;
+}
+
+@mixin wavingClasses($number) {
+  
+}
+
+@mixin waveAnimationStyle($delay, $duration: 3s) {
+  animation-name: waving;
+  animation-duration: $duration;
+  animation-timing-function: linear;
+  animation-delay: $delay;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: both;
+}
+
+@for $i from 1 through 10 {
+  .wave-#{$i} {
+    @include waveAnimationStyle(($i - 1) * 100ms);
+  }
+}
+
+.spinner {
+  $radius: 45px;
+
+  display: block;
+  width: $radius;
+  height: $radius;
+  border-radius: 50%;
+  border: 5px dotted theme('colors.white');
+  animation: spinning 2s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes waving {
+  0% {
+      transform: scale(0);
+  }
+  25% {
+      transform: scale(1)
+  }
+  50% {
+      transform: scale(0);
+  }
+  75% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(0);
+  }
+}
+
+@keyframes spinning {
+  100% {
+    transform: rotate(360deg);
+  }
+}

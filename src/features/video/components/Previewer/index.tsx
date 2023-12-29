@@ -15,15 +15,7 @@ export type PreviewerCommonProps = {
   backdropImage: string;
 };
 
-type SkeletonProps = {
-  className?: string;
-  size?: 'sm' | 'md';
-};
-
-export function SkeletonPreviewer({ className, size = 'md' }: SkeletonProps) {
-  return <div className={cx('root', { [size]: true }, className)} />;
-}
-
 export { default as CSRPreviewer } from './CSRPreviewer';
 export { default as SSRPreviewer } from './SSRPreviewer';
+export { default as SkeletonPreviewer } from './Skeleton';
 

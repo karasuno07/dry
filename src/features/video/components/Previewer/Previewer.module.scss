@@ -1,6 +1,6 @@
 .root {
   position: relative;
-  background-color: #272626;
+  background-color: #262627;
   padding: {
     top: 7.5px;
     left: 7.5px;
@@ -8,6 +8,10 @@
     bottom: 0;
   }
   border-radius: 6px;
+
+  &.skeleton {
+    background-color: #27282b;
+  }  
 
   &.sm {
     width: 250px;
