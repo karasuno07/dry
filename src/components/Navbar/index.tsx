@@ -1,5 +1,7 @@
 'use client';
 
+import SearchBar from '@components/Navbar/SearchBar';
+import UserInfo from '@components/Navbar/UserInfo';
 import Button from '@components/elements/Button';
 import Divider from '@components/elements/Divider';
 import Icon from '@components/elements/Icon';
@@ -13,8 +15,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { FaCircleUser } from 'react-icons/fa6';
 import { IoLogOut } from 'react-icons/io5';
-import SearchBar from '~/assets/Navbar/SearchBar';
-import UserInfo from '~/assets/Navbar/UserInfo';
 import LanguageSwitch from './LanguageSwitch';
 import styles from './Navbar.module.scss';
 

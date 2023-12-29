@@ -1,8 +1,8 @@
+import NavBar from '@components/Navbar';
 import '@stylesheets/global.scss';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import React from 'react';
-import NavBar from '~/assets/Navbar';
 import { SUPPORTED_LOCALES } from '~/constants/locales';
 import { customErrorHandler } from '~/dictionary/handler';
 
