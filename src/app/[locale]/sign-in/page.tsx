@@ -1,4 +1,7 @@
 import AuthLayout from '@features/authentication/layout';
+import { getCurrentUser } from '@features/authentication/lib/session';
+import { redirect } from '@lib/navigation';
+import { getProviders } from 'next-auth/react';
 import SignInForm from './SignInForm';
 
 type Props = {
@@ -7,10 +10,21 @@ type Props = {
   };
 };
 
-export default function SignIn({ params: { locale = 'en' } }: Props) {
+export default async function SignIn({ params: { locale = 'en' } }: Props) {
+  const user = await getCurrentUser();
+  const providers = await getProviders();
+
+  const oauthProviders = Object.entries(providers || {})
+    .map(([_, provider]) => provider)
+    .filter((provider) => provider.type === 'oauth');
+
+  if (user) {
+    redirect('/');
+  }
+
   return (
     <AuthLayout>
-      <SignInForm />
+      <SignInForm oauthProviders={oauthProviders} />
     </AuthLayout>
   );
 }

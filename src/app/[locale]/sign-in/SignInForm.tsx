@@ -5,31 +5,29 @@ import Form from '@components/elements/Form';
 import FormControl from '@components/elements/FormControl';
 import OAuthSignIn from '@features/authentication/components/oauth';
 import { AUTH_ERROR } from '@features/authentication/constants';
-import useSession from '@features/authentication/hooks/useSession';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, redirect, useRouter } from '@lib/navigation';
+import { Link, useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { entries, isEmpty } from 'lodash';
-import { signIn } from 'next-auth/react';
-import { useLocale, useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { ClientSafeProvider, signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import styles from './SignIn.module.scss';
 
 const cx = classNames.bind(styles);
 
-export const dynamic = 'force-dynamic';
-
 type FormData = {
   username: string;
   password: string;
 };
 
-export default function SignInForm() {
-  const session = useSession();
+type SignInFormProps = {
+  oauthProviders: ClientSafeProvider[];
+};
+
+export default function SignInForm({ oauthProviders }: SignInFormProps) {
   const router = useRouter();
-  const locale = useLocale();
   const messages = useTranslations('messages.validation');
   const translate = useTranslations('pages.auth');
 
@@ -54,12 +52,6 @@ export default function SignInForm() {
     })
     .required();
 
-  useEffect(() => {
-    if (session?.user) {
-      redirect('/');
-    }
-  }, [session]);
-
   return (
     <Form<FormData>
       className={cx('card')}
@@ -83,7 +75,7 @@ export default function SignInForm() {
           }
 
           if (response?.error) {
-            router.push(`?${new URLSearchParams({ error: response.error })}`, { locale });
+            router.push(`?${new URLSearchParams({ error: response.error })}`);
             switch (response.error) {
               case AUTH_ERROR.MISSING_AUTH_PARAMS:
                 toast.error(translate('signIn.messages.missingParamsError'));
@@ -142,8 +134,18 @@ export default function SignInForm() {
               </Link>
             </div>
             <hr className={cx('divider')} />
-            <OAuthSignIn provider='github' className={'px-[10px] py-[15px]'} />
-            <OAuthSignIn provider='google' className={'px-[10px] py-[15px]'} />
+            {oauthProviders.map((provider) => {
+              return (
+                <OAuthSignIn
+                  key={provider.id}
+                  provider={{
+                    id: provider.id,
+                    name: provider.name,
+                  }}
+                  className={'px-[10px] py-[15px]'}
+                />
+              );
+            })}
           </>
         );
       }}

@@ -1,9 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 
-export default function useCountdown(seconds?: number) {
-  const [secondsRemaining, setSecondsRemaining] = useState<number>(
-    seconds || 5
-  );
+export default function useCountdown(seconds: number = 5) {
+  const [secondsRemaining, setSecondsRemaining] = useState<number>(seconds);
 
   useLayoutEffect(() => {
     if (secondsRemaining === 0) {

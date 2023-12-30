@@ -1,26 +1,31 @@
 import { AUTH_ERROR } from '@features/authentication/constants';
+import prisma from '@lib/prisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare, genSaltSync } from 'bcryptjs';
-import { AuthOptions } from 'next-auth';
+import { AuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
-import prisma from '../../../lib/prisma';
-
 export const passwordSalt = genSaltSync(7);
 
+type TokenizedSession = Session & {
+  id: string;
+  accessToken: string;
+};
+
 const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/sign-in',
     signOut: '/sign-out',
     error: '/sign-in',
   },
-  adapter: PrismaAdapter(prisma),
   session: {
     strategy: 'jwt',
   },
   callbacks: {
+    /* define callback options here */
     jwt({ token, account, user }) {
       if (account) {
         token.id = user.id;
@@ -28,8 +33,13 @@ const authOptions: AuthOptions = {
       }
       return token;
     },
-    /* define callback options here */
-    async redirect({ url, baseUrl }) {
+    session({ session, token }) {
+      const modifiedSession = session as unknown as TokenizedSession;
+      modifiedSession.accessToken = token.accessToken as string;
+      modifiedSession.id = token.id as string;
+      return modifiedSession;
+    },
+    redirect({ url, baseUrl }) {
       // Allows relative callback URLs
       if (url.startsWith('/')) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
@@ -62,11 +72,7 @@ const authOptions: AuthOptions = {
           },
         });
 
-        if (
-          !user ||
-          !user.password ||
-          !(await compare(credentials.password, user.password))
-        ) {
+        if (!user || !user.password || !(await compare(credentials.password, user.password))) {
           throw {
             name: 'AuthError',
             message: AUTH_ERROR.CREDENTIALS_MISMATCH,

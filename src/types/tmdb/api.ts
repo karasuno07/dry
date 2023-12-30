@@ -1,4 +1,4 @@
-import { LocaleType } from '~/constants/locales';
+import { LocaleType } from 'types/locale';
 
 export type DiscoverType = 'movie' | 'tv';
 export type SearchType = DiscoverType | 'collection' | 'person' | 'company' | 'keyword' | 'multi';

@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
+import { LocaleType } from 'types/locale';
 import { VideoType } from 'types/ui';
-import { LocaleType } from '~/constants/locales';
 import styles from './Watch.module.scss';
 
 const cx = classNames.bind(styles);

@@ -1,19 +1,14 @@
 'use client';
 
-import useSession from '@features/authentication/hooks/useSession';
 import useCountdown from '@hooks/useCountdown';
 import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { redirect } from 'next/navigation';
 
 export default function SignOutActions() {
-  const session = useSession();
   const translate = useTranslations('pages.auth.signOut');
-  const seconds = useCountdown();
+  const seconds = useCountdown(3);
 
-  if (session && !session.user) {
-    redirect('/');
-  } else if (seconds === 0) {
+  if (seconds === 1) {
     signOut({ callbackUrl: '/' });
   }
 
@@ -24,7 +19,6 @@ export default function SignOutActions() {
         {translate('alert.line2', { seconds })}
         ...
       </p>
-      S
     </div>
   );
 }

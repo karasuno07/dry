@@ -5,9 +5,9 @@ import { CSRPreviewer as Previewer } from '@features/video/components/Previewer'
 import { VideoResponse } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { getLocale } from 'next-intl/server';
+import { LocaleType } from 'types/locale';
 import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'types/tmdb/api';
 import { DisplayMode, VideoType } from 'types/ui';
-import { LocaleType } from '~/constants/locales';
 import { UTILS } from '~/service/tmdb/base';
 import GenresService from '~/service/tmdb/genres';
 import SearchService from '~/service/tmdb/search';

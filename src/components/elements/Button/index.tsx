@@ -1,6 +1,13 @@
 import { Link } from '@lib/navigation';
 import cx from 'classnames';
-import React from 'react';
+import { PropsWithChildren } from 'react';
+
+export type ButtonAsLinkProps = {
+  link?: {
+    href: string;
+    external?: boolean;
+  };
+};
 
 export type ButtonProps = {
   className?: string;
@@ -8,12 +15,8 @@ export type ButtonProps = {
   square?: boolean;
   fullSize?: boolean;
   paddingLess?: boolean;
-  link?: {
-    href: string;
-    external?: boolean;
-  };
-  children?: React.ReactNode;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+} & React.ButtonHTMLAttributes<HTMLButtonElement> &
+  ButtonAsLinkProps;
 
 const Button = ({
   className,
@@ -25,7 +28,7 @@ const Button = ({
   link,
   children,
   ...props
-}: ButtonProps) => {
+}: PropsWithChildren<ButtonProps>) => {
   const getVariant = () => {
     switch (variant) {
       case 'primary':

@@ -1,13 +1,19 @@
-import nextIntlMiddleware from 'next-intl/middleware';
+import createIntlMiddleware from 'next-intl/middleware';
+import { NextRequest } from 'next/server';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './constants/locales';
 
-const middleware = nextIntlMiddleware({
-  locales: SUPPORTED_LOCALES as unknown as string[],
-  defaultLocale: DEFAULT_LOCALE,
-  localePrefix: 'as-needed',
-});
+export default function middleware(request: NextRequest) {
+  const intlMiddleware = createIntlMiddleware({
+    locales: SUPPORTED_LOCALES as unknown as string[],
+    defaultLocale: DEFAULT_LOCALE,
+    localePrefix: 'as-needed',
+    pathnames: {
+      '/discover': '/',
+    },
+  });
 
-export default middleware;
+  return intlMiddleware(request);
+}
 
 export const config = {
   matcher: [

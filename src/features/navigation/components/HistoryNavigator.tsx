@@ -13,6 +13,9 @@ export default function HistoryNagivator({
   ...anchorProps
 }: React.PropsWithChildren<Props>) {
   const router = useRouter();
+  if (href) {
+    router.prefetch(href);
+  }
 
   const navigationHandler = () => {
     switch (action) {

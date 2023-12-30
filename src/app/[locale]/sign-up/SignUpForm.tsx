@@ -10,7 +10,7 @@ import { useApi } from '@hooks/useApi';
 import { useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { entries, isEmpty } from 'lodash';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import * as yup from 'yup';
 import styles from './SignUp.module.scss';
 
@@ -27,7 +27,6 @@ type FormData = {
 
 export default function SignUpForm() {
   const router = useRouter();
-  const locale = useLocale();
   const translate = useTranslations('pages.auth');
   const messages = useTranslations('messages.validation');
   const { loading, error, POST } = useApi<UserResponse>();
@@ -96,7 +95,7 @@ export default function SignUpForm() {
             });
 
             if (status?.code === 201) {
-              router.replace('registered', { locale });
+              router.replace('registered');
             }
           };
 

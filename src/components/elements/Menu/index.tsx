@@ -1,5 +1,6 @@
 'use client';
 
+import { ButtonAsLinkProps } from '@components/elements/Button';
 import classNames from 'classnames/bind';
 import { isArray } from 'lodash';
 import React, { JSXElementConstructor, useEffect, useRef, useState } from 'react';
@@ -71,9 +72,14 @@ function Menu({
       const childProps = anchor.props as ClickableElementProps;
       const props: ClickableElementProps = {
         ...childProps,
-        className: cx(childProps.className, 'cursor-pointer', {
-          active: show,
-        }),
+        className: cx(
+          childProps.className,
+          'cursor-pointer',
+          {
+            active: show,
+          },
+          childProps.className
+        ),
         onClick: !hover ? inboundOnClickHandler : undefined,
       };
       return React.cloneElement(anchor, props);
@@ -84,17 +90,18 @@ function Menu({
   const renderItems = () => {
     function processItem(item: React.ReactElement, key?: string | number) {
       const elementType = item.type as JSXElementConstructor<any>;
-      const itemProps = item.props as ClickableElementProps;
+      const itemProps = item.props as ClickableElementProps & ButtonAsLinkProps;
       const itemComponent = React.cloneElement(item, {
         ...itemProps,
-        onClick: itemProps.onClick
-          ? (evt: React.MouseEvent<Element>) => {
-              inboundOnClickHandler(evt);
-              if (itemProps.onClick) {
-                itemProps.onClick(evt);
+        onClick:
+          itemProps.onClick || itemProps.link
+            ? (evt: React.MouseEvent<Element>) => {
+                inboundOnClickHandler(evt);
+                if (itemProps.onClick) {
+                  itemProps.onClick(evt);
+                }
               }
-            }
-          : undefined,
+            : undefined,
       });
 
       return elementType.name === 'Divider' ? (

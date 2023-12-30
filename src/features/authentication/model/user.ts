@@ -1,6 +1,6 @@
 import { autoImplement } from '@lib/helper';
 
-interface IUser {
+type User = {
   id?: string;
   username: string;
   password: string;
@@ -8,9 +8,9 @@ interface IUser {
   email: string;
   emailVerified?: Date | string;
   image?: string;
-}
+};
 
-export class UserUpsertRequest extends autoImplement<IUser>() {
+export class UserUpsertRequest extends autoImplement<User>() {
   constructor(user: any) {
     super();
     this.username = user.username;
@@ -22,7 +22,7 @@ export class UserUpsertRequest extends autoImplement<IUser>() {
   }
 }
 
-export class UserResponse extends autoImplement<IUser>() {
+export class UserResponse extends autoImplement<User>() {
   constructor(user: any) {
     super();
     this.id = user.id;

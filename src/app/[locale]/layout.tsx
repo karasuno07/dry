@@ -1,23 +1,20 @@
-import NavBar from '@components/Navbar';
+import SessionProvider from '@components/providers/SessionProvider';
 import '@stylesheets/global.scss';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
-import React from 'react';
+import { PropsWithChildren } from 'react';
+import { PropsWithLocale } from 'types/locale';
 import { SUPPORTED_LOCALES } from '~/constants/locales';
 import { customErrorHandler } from '~/dictionary/handler';
-
-type LayoutProps = {
-  params: {
-    locale: string;
-  };
-  children: React.ReactNode;
-};
 
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-export default async function LocalizationLayout({ children, params: { locale } }: LayoutProps) {
+export default async function LocalizationLayout({
+  children,
+  params: { locale },
+}: PropsWithChildren<PropsWithLocale>) {
   if (!SUPPORTED_LOCALES.includes(locale as any)) {
     notFound();
   }
@@ -28,8 +25,7 @@ export default async function LocalizationLayout({ children, params: { locale } 
     <html lang={locale}>
       <body>
         <NextIntlClientProvider locale={locale} messages={messages} onError={customErrorHandler}>
-          <NavBar />
-          <main>{children}</main>
+          <SessionProvider>{children}</SessionProvider>
         </NextIntlClientProvider>
       </body>
     </html>

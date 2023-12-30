@@ -1,7 +1,10 @@
+'use client';
+
 import classNames from 'classnames/bind';
-import Image, { StaticImageData } from 'next/image';
+import { StaticImageData } from 'next/image';
 import { Tooltip } from 'react-tooltip';
-import styles from './Navbar.module.scss';
+import styles from './User.module.scss';
+import UserAvatar from './UserAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -30,7 +33,7 @@ function UserInfo({ username, email, icon, tooltipPosition }: UserInfoProps) {
   return (
     <div className={cx('user-info')}>
       <div className='flex gap-[8px]'>
-        <Image src={icon} alt='user-icon' width={52} height={52} />
+        <UserAvatar image={icon} />
         <div className='basis-full'>
           <p className={cx('text-username')}>{username}</p>
           <span className={cx('text-email')}>{email}</span>

@@ -2,9 +2,6 @@
 
 import Button, { ButtonProps } from '@components/elements/Button';
 import Icon from '@components/elements/Icon';
-import useOAuth2Provider, {
-  ProviderData,
-} from '@features/authentication/hooks/useOAuthProvider';
 import { useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';
@@ -16,66 +13,54 @@ import styles from './OAuthSignIn.module.scss';
 
 const cx = classNames.bind(styles);
 
-type SupportedProvidersType = 'google' | 'github';
-
-interface OAuthSignInProps extends Omit<ButtonProps, 'fullSize' | 'onClick'> {
-  provider: SupportedProvidersType;
-}
+type OAuthSignInProps = Omit<ButtonProps, 'fullSize' | 'onClick'> & {
+  provider: {
+    id: string;
+    name: string;
+  };
+};
 
 function OAuthSignIn({ provider, className, ...buttonProps }: OAuthSignInProps) {
   const locale = useLocale();
   const router = useRouter();
-  const providers = useOAuth2Provider();
   const translate = useTranslations('features.authentication');
 
-  if (!providers) {
-    return;
-  } else {
-    const providerInfo = Object.entries(providers as Object)
-      .filter(([providerName, _]) => provider === providerName)
-      ?.map(([_, info]) => info)[0] as ProviderData;
-
-    if (!providerInfo) {
-      throw new Error('No provider mapped!');
-    }
-
-    let icon = undefined;
-    switch (provider) {
-      case 'github':
-        icon = FaGithub;
-        break;
-      case 'google':
-        icon = FcGoogle;
-        break;
-      default:
-        return;
-    }
-
-    const onOAuth2AuthorizeHandler = async () => {
-      const response = await signIn(
-        providerInfo.id,
-        {
-          callbackUrl: '/',
-        },
-        { prompt: 'login' }
-      );
-      if (response?.error) {
-        router.push(`?${new URLSearchParams({ error: response.error })}`, { locale });
-      }
-    };
-
-    return (
-      <Button
-        fullSize
-        className={cx('root', provider, className)}
-        onClick={onOAuth2AuthorizeHandler}
-        {...buttonProps}
-      >
-        <Icon icon={icon} size={25} />
-        <span className={cx('text')}>{translate('oauth', { provider: providerInfo.name })}</span>
-      </Button>
-    );
+  let icon = undefined;
+  switch (provider.id) {
+    case 'github':
+      icon = FaGithub;
+      break;
+    case 'google':
+      icon = FcGoogle;
+      break;
+    default:
+      return;
   }
+
+  const onOAuth2AuthorizeHandler = async () => {
+    const response = await signIn(
+      provider.id,
+      {
+        callbackUrl: '/',
+      },
+      { prompt: 'login' }
+    );
+    if (response?.error) {
+      router.push(`?${new URLSearchParams({ error: response.error })}`, { locale });
+    }
+  };
+
+  return (
+    <Button
+      fullSize
+      className={cx('root', provider.id, className)}
+      onClick={onOAuth2AuthorizeHandler}
+      {...buttonProps}
+    >
+      <Icon icon={icon} size={25} />
+      <span className={cx('text')}>{translate('oauth', { provider: provider.name })}</span>
+    </Button>
+  );
 }
 
 export default OAuthSignIn;
