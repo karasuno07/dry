@@ -41,9 +41,3 @@ model User {
   image         String?
   accounts      Account[]
 }
-
-model Category {
-  id   String @id @default(cuid())
-  name String
-  slug String @unique
-}
