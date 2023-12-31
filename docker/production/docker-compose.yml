@@ -56,6 +56,7 @@ services:
       - nextjs-app-build:/app
     environment:
       - NEXTJS_CONTAINER_IP=nextjs-app
+      - WEBSITE_DOMAIN_NAME=${NEXT_PUBLIC_API_DOMAIN_URL}
     command: ['sh', '/etc/nginx/convert-nginx.sh']
     depends_on:
       - nextjs-app
