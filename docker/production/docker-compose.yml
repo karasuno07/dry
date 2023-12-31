@@ -11,7 +11,7 @@ volumes:
     name: nextjs-build-directory
 services:
   postgres:
-    container_name: postgresql-prod
+    container_name: postgresql
     image: postgres:15.4
     ports:
       - '${DATABASE_PORT}:5432'
@@ -31,10 +31,11 @@ services:
     networks:
       - datasource
   nextjs-app:
+    container_name: nextjs_app
     build:
       context: ../../
       dockerfile: docker/production/app/Dockerfile
-    image: ravenz-next-server
+    image: ravenz_next_server
     env_file: .env
     ports:
       - "${EXTERNAL_PORT:-3000}:3000"
@@ -46,21 +47,20 @@ services:
       - datasource
       - server
   nginx: 
+    container_name: nginx_proxy_server
     build:
       context: nginx
       dockerfile: Dockerfile
-    image: ravenz-nginx-server
+    image: ravenz_nginx_server
     ports:
       - '80:80'
     volumes:
       - nextjs-app-build:/app
     environment:
       - NEXTJS_CONTAINER_IP=nextjs-app
-      - WEBSITE_DOMAIN_NAME=${NEXT_PUBLIC_API_DOMAIN_URL}
+      - WEBSITE_DOMAIN_NAME=${DOMAIN_NAME}
     command: ['sh', '/etc/nginx/convert-nginx.sh']
     depends_on:
       - nextjs-app
     networks:
       - server
-
-

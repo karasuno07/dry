@@ -1,17 +1,17 @@
 version: '3.9'
 networks:
   datasource:
-    name: 'dev-datasource_network'
+    name: dev-datasource_network
   server:
-    name: 'dev-nextjsapp_network'
+    name: dev-nextjsapp_network
 volumes:
   db:
-    name: 'dev-postgres_database_storage'
+    name: dev-postgres_database_storage
   nextjs-app-build:
-    name: 'dev-nextjs_build_directory'
+    name: dev-nextjs_build_directory
 services:
   postgres:
-    container_name: 'dev-postgresql'
+    container_name: dev-postgresql
     image: postgres:15.4
     ports:
       - '${DATABASE_PORT}:5432'
@@ -24,18 +24,18 @@ services:
     networks:
       - datasource
   adminer:
-    container_name: 'dev-database_monitor'
+    container_name: dev-database_monitor
     image: adminer
     ports:
-      - '9000:9000'
+      - '9000:8080'
     networks:
       - datasource
   nextjs-app:
-    container_name: 'dev-nextjsapp'
+    container_name: dev-nextjs_app
     build:
       context: ../../
       dockerfile: docker/production/app/Dockerfile
-    image: 'ravenz_next_server'
+    image: ravenz_next_server
     env_file: .env
     ports:
       - "${EXTERNAL_PORT:-3000}:3000"
@@ -47,11 +47,11 @@ services:
       - datasource
       - server
   nginx: 
-    container_name: 'dev-nginx'
+    container_name: dev-nginx
     build:
       context: nginx
       dockerfile: Dockerfile
-    image: 'ravenz_nginx_server'
+    image: ravenz_nginx_server
     ports:
       - '80:80'
     volumes:
@@ -63,5 +63,3 @@ services:
       - nextjs-app
     networks:
       - server
-
-
