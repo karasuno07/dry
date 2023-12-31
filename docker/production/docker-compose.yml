@@ -30,7 +30,7 @@ services:
     build: 
       context: ../../
       dockerfile: docker/production/Dockerfile
-    image: video-streaming-app-development
+    image: ravenz
     env_file: .env
     ports:
       - "${EXTERNAL_PORT}:3000"
