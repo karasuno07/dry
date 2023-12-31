@@ -6,18 +6,19 @@
     "seed": "node prisma/seed.js"
   },
   "scripts": {
-    "docker:local": "cp .env docker/development/.env & docker compose -f ./docker/development/docker-compose.yml up --build -d",
-    "docker:server": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d",
+    "dev": "next dev",
+    "build": "next build",
+    "start:local": "node .next/standalone/server.js",
+    "start:server": "node server.js",
+    "lint": "next lint",
     "prisma:generate": "npx prisma generate",
     "prisma:apply": "npx prisma migrate dev",
     "prisma:deploy": "npx prisma migrate deploy",
     "prisma:seed": "npx prisma db seed",
     "init:dev": "yarn docker:local & yarn prisma:generate & yarn prisma:seed",
-    "dev": "next dev",
-    "build": "next build",
-    "start:local": "node .next/standalone/server.js",
-    "start:server": "node server.js",
-    "lint": "next lint"
+    "docker:local": "cp .env docker/local/.env & docker compose -f ./docker/local/docker-compose.yml up --build -d",
+    "docker:dev": "cp .env.development docker/development/.env & docker compose -f ./docker/development/docker-compose.yml up --build -d",
+    "docker:server": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.409.0",

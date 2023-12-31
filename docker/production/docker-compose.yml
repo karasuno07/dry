@@ -1,16 +1,20 @@
 version: '3.9'
 networks:
   datasource:
-   name: datasource_network
+    name: datasource_network
+  server:
+    name: nextjs-app_network
 volumes:
   db:
     name: postgres-database-storage
+  nextjs-app-build:
+    name: nextjs-build-directory
 services:
   postgres:
     container_name: postgresql-prod
     image: postgres:15.4
     ports:
-      - "${DATABASE_PORT}:5432"
+      - '${DATABASE_PORT}:5432'
     environment:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PWD}
@@ -23,18 +27,39 @@ services:
     container_name: database-monitor
     image: adminer
     ports:
-      - "9000:8080"
+      - '9000:8080'
     networks:
       - datasource
-  nextapp: 
-    build: 
+  nextjs-app:
+    build:
       context: ../../
-      dockerfile: docker/production/Dockerfile
-    image: ravenz
+      dockerfile: docker/production/app/Dockerfile
+    image: ravenz-next-server
     env_file: .env
     ports:
-      - "${EXTERNAL_PORT}:3000"
+      - "${EXTERNAL_PORT:-3000}:3000"
+    volumes:
+      - nextjs-app-build:/app
     depends_on:
       - postgres
     networks:
       - datasource
+      - server
+  nginx: 
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    image: ravenz-nginx-server
+    ports:
+      - '80:80'
+    volumes:
+      - nextjs-app-build:/app
+    environment:
+      - NEXTJS_CONTAINER_IP=nextjs-app
+    command: ['sh', '/etc/nginx/convert-nginx.sh']
+    depends_on:
+      - nextjs-app
+    networks:
+      - server
+
+
