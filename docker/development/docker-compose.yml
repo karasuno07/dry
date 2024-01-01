@@ -48,7 +48,7 @@ services:
       - datasource
       - server
   nginx: 
-    container_name: nginx.dev
+    container_name: dev-nginx
     build:
       context: nginx
       dockerfile: Dockerfile
