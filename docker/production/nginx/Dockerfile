@@ -1,5 +1,3 @@
-# FROM nginx:alpine  
-# FROM nginx:1-alpine
 # FROM nginx:1.15-alpine
 FROM nginx:latest
 # alpine is light weight, doesnot have any executable shells like bash

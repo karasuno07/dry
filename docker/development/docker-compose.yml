@@ -9,6 +9,8 @@ volumes:
     name: dev-postgres_database_storage
   nextjs-app-build:
     name: dev-nextjs_build_directory
+  agent:
+    name: extensions
 services:
   postgres:
     container_name: dev-postgresql
