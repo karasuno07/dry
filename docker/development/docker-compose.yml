@@ -30,6 +30,7 @@ services:
       - '9000:8080'
     networks:
       - datasource
+      - server
   nextjs-app:
     container_name: dev-nextjs_app
     build:
@@ -47,7 +48,7 @@ services:
       - datasource
       - server
   nginx: 
-    container_name: dev-nginx
+    container_name: nginx.dev
     build:
       context: nginx
       dockerfile: Dockerfile
@@ -58,6 +59,7 @@ services:
       - nextjs-app-build:/app
     environment:
       - NEXTJS_CONTAINER_IP=nextjs-app
+      - ADMINER_CONTAINER_ID=adminer
     command: ['sh', '/etc/nginx/convert-nginx.sh']
     depends_on:
       - nextjs-app

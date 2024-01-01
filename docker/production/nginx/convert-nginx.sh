@@ -1,5 +1,5 @@
 # !/usr/bin/env bash
 
-envsubst '$${NEXTJS_CONTAINER_IP}' < /etc/nginx/conf.d/prod-nginx.conf > /etc/nginx/conf.d/default.conf 
-rm -rf /etc/nginx/conf.d/prod-nginx.conf
+envsubst '$${NEXTJS_CONTAINER_IP} ${ADMINER_CONTAINER_ID}' < /etc/nginx/conf.d/nginx.prod.conf > /etc/nginx/conf.d/default.conf 
+rm -rf /etc/nginx/conf.d/nginx.prod.conf
 nginx -g "daemon off;"

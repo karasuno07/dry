@@ -11,7 +11,7 @@ RUN rm /etc/nginx/conf.d/*
 
 # Copy config files
 # *.conf files in "conf.d/" dir get included in main config
-COPY ./prod-nginx.conf /etc/nginx/conf.d/
+COPY ./nginx.prod.conf /etc/nginx/conf.d/
 # COPY ./default.conf /etc/nginx/conf.d/
 COPY ./nginx.conf /etc/nginx/
 COPY ./mime.types /etc/nginx/
