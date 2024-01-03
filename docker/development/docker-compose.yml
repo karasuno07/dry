@@ -4,13 +4,27 @@ networks:
     name: dev-datasource_network
   server:
     name: dev-nextjsapp_network
+  apps:
+    name: applications_network
 volumes:
   db:
     name: dev-postgres_database_storage
   nextjs-app-build:
     name: dev-nextjs_build_directory
-  agent:
-    name: extensions
+  qbittorrent-conf:
+    name: qbittorrent-config
+  sonarr-conf:
+    name: sonarr-config
+  radarr-conf:
+    name: radarr-config
+  overseerr-conf:
+    name: overseerr-config
+  jackett-conf:
+    name: jackett-config
+  jackett-blackhole:
+    name: jackett-blackhole
+  jenkins:
+    name: jenkins-data
 services:
   postgres:
     container_name: dev-postgresql
@@ -29,7 +43,7 @@ services:
     container_name: dev-database_monitor
     image: adminer
     ports:
-      - '9000:8080'
+      - '8090:8080'
     networks:
       - datasource
       - server
@@ -49,6 +63,7 @@ services:
     networks:
       - datasource
       - server
+      - apps
   nginx: 
     container_name: dev-nginx
     build:
@@ -61,9 +76,94 @@ services:
       - nextjs-app-build:/app
     environment:
       - NEXTJS_CONTAINER_IP=nextjs-app
+      - QBITTORENT_CONTAINER_ID=qbittorrent
+      - SONARR_CONTAINER_ID=sonarr
+      - RADARR_CONTAINER_ID=radarr
+      - OVERSEERR_CONTAINER_ID=overseerr
+      - JACKETT_CONTAINER_ID=jackett
       - ADMINER_CONTAINER_ID=adminer
     command: ['sh', '/etc/nginx/convert-nginx.sh']
     depends_on:
       - nextjs-app
     networks:
       - server
+      - apps
+  qbittorrent:
+    container_name: dev-qbittorrent
+    image: lscr.io/linuxserver/qbittorrent:latest
+    ports:
+      - '8080:8080'
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8080
+    volumes:
+      - qbittorrent-conf:/config
+      - ./qbittorrent/qBittorrent.conf:/config/qBittorrent/qBittorrent.conf
+      - '$HOME/QbitTorrentDownloads:/downloads'
+    networks:
+      - apps
+  sonarr:
+    container_name: dev-sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    ports:
+      - '8081:8989'
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - sonarr-conf:/config
+      - '$HOME/TV-Series:/tv'
+      - '$HOME/QbitTorrentDownloads:/downloads'
+    networks:
+      - apps
+  radarr:
+    container_name: dev-radarr
+    image: lscr.io/linuxserver/radarr:latest
+    ports:
+      - '8082:8989'
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - radarr-conf:/config
+      - '$HOME/Movies:/movies'
+      - '$HOME/QbitTorrentDownloads:/downloads'
+    networks:
+      - apps
+  overseerr:
+    container_name: dev-overseerr
+    image: sctx/overseerr
+    ports:
+      - '8083:5055'
+    restart: unless-stopped
+    environment:
+      - LOG-LEVEL=debug
+      - TZ=Asia/Tokyo
+    volumes:
+      - overseerr-conf:/config
+    networks:
+      - apps
+  jackett:
+    container_name: dev-jackett
+    image: lscr.io/linuxserver/jackett:latest
+    ports:
+      - '8085:9117'
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - jackett-conf:/config
+      - jackett-blackhole:/downloads
+    networks:
+      - apps
