@@ -16,11 +16,12 @@
       right: auto;
     }
     border-radius: 3px;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     &.up-front {
-      z-index: 9999;
-      transform: scale(1.1) translateY(25px);
+      z-index: 9000;
+      transform: scale(1.16) translateY(45px);
+      transition-delay: 0.25s;
     }
   }
 }
@@ -34,6 +35,11 @@
 
   .title {
     font-size: 30px;
+    transition: all 0.6s linear;
+
+    &.theater {
+      font-size: 20px;
+    }
 
     .link {
       cursor: pointer;
@@ -51,6 +57,7 @@
   .dropdown {
     background-color: theme('colors.white-liked.50');
     max-height: 500px;
+    justify-content: flex-start;
     overflow-y: auto;
     @include custom-scrollbar-style('vertical');
   }

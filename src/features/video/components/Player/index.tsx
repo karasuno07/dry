@@ -32,7 +32,7 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
   const translate = useTranslations('pages.video.play');
 
   const frameRef = useRef<HTMLIFrameElement>(null);
-  const switchLightRef = useRef<HTMLButtonElement>(null);
+  const toolRef = useRef<HTMLDivElement>(null);
   const [videoServer, setVideoServer] = useState<SupportedServer>('Vidsrc.to');
   const [season, setSeason] = useState<Season | undefined>(seasons[0]);
   const [episode, setEpisode] = useState<number>(1);
@@ -64,7 +64,7 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
 
   function handleIframeOutboundClick(evt: MouseEvent) {
     const target = evt.target as HTMLElement;
-    if (!frameRef.current?.contains(target) && !switchLightRef.current?.contains(target)) {
+    if (!frameRef.current?.contains(target) && !toolRef.current?.contains(target)) {
       switchLight(true);
     }
   }
@@ -79,14 +79,15 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
 
   useEffect(() => {
     document.querySelector('main')?.classList.toggle('theater', !lightStatus);
+    document.querySelector('nav')?.classList.toggle('theater', !lightStatus);
   }, [lightStatus]);
 
   return (
     <div className={cx('root')}>
       <div className={cx('head')}>
-        <h1 className={cx('title')}>
+        <h1 className={cx('title', { theater: !lightStatus })}>
           {translate.rich('title', {
-            name,
+            name: season ? name + ` (${season?.name})` : name,
             link: (chunks) => (
               <Link className={cx('link')} href={`/${type}/${id}/info`}>
                 {chunks}
@@ -95,8 +96,8 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
           })}
         </h1>
 
-        <div className={cx('tool')}>
-          <Button ref={switchLightRef} onClick={() => switchLight((prevStatus) => !prevStatus)}>
+        <div ref={toolRef} className={cx('tool')}>
+          <Button onClick={() => switchLight((prevStatus) => !prevStatus)}>
             <Icon icon={lightStatus ? FaLightbulb : FaRegLightbulb} size={20} />
             <span>
               {translate('theaterMode')}
@@ -108,17 +109,17 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
               <Menu
                 anchor={
                   <Button className='flex items-center'>
-                    <span>{translate('season', { number: season.seasonNumber })}</span>
+                    <span>{season.name}</span>
                     <Icon icon={FaChevronDown} size={12} />
                   </Button>
                 }
                 items={seasons.map((s) => (
-                  <li
+                  <div
                     key={s.seasonNumber}
                     onClick={onChangeSeasonHandler.bind(null, s.seasonNumber)}
                   >
-                    {translate('season', { number: s.seasonNumber })}
-                  </li>
+                    {s.name}
+                  </div>
                 ))}
                 classes={{
                   menuListClassName: cx('dropdown'),
@@ -136,9 +137,9 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
                 items={Array(season.episodes)
                   .fill(1)
                   .map((_, idx) => (
-                    <li key={idx} onClick={onChangeEpisodeHandler.bind(null, idx + 1)}>
+                    <div key={idx} onClick={onChangeEpisodeHandler.bind(null, idx + 1)}>
                       {translate('episode', { number: idx + 1 })}
-                    </li>
+                    </div>
                   ))}
                 classes={{
                   menuListClassName: cx('dropdown'),

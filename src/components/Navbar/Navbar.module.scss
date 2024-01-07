@@ -5,6 +5,20 @@
   right: 0;
   height: theme('variables.header-height');
   z-index: 1000;
+  transition: height 0.3s linear;
+  transition-delay: 0.125s;
+
+  &:global(.theater) {
+    height: 0;
+    background-color: theme('colors.black.0');
+    transition-delay: 0;
+    overflow: hidden;
+
+    .container {
+      background-color: theme('colors.black.0');
+    }
+    
+  }
 }
 
 .container {
@@ -12,6 +26,7 @@
   justify-content: center;
   align-items: center;
   max-width: 1600px;
+  height: inherit;
   margin: auto;
   padding: {
     left: 10px;

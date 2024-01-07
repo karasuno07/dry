@@ -23,7 +23,7 @@
 
 @mixin flex-visible-menu {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   @include visible;

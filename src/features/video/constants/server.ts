@@ -17,6 +17,16 @@ export type Server = {
 
 const servers: Server[] = [
   {
+    name: 'Vidsrc.me',
+    link({ type = 'movie', id, imdbId, seasonId = 1, episodeId = 1 }) {
+      let params = id ? `tmdb=${id}` : `imdb=${imdbId}`;
+      if (type === 'tv') {
+        params += `&season=${seasonId}&episode=${episodeId}&output=embed`;
+      }
+      return `https://vidsrc.me/embed/${type}?${params}`;
+    },
+  },
+  {
     name: 'Vidsrc.to',
     link({ type = 'movie', id, imdbId, seasonId = 1, episodeId = 1 }) {
       const baseUrl = 'https://vidsrc.to/embed/';
@@ -25,16 +35,6 @@ const servers: Server[] = [
       } else {
         return baseUrl + `${type}/${id || imdbId}/${seasonId}/${episodeId}?output=embed`;
       }
-    },
-  },
-  {
-    name: 'Vidsrc.me',
-    link({ type = 'movie', id, imdbId, seasonId = 1, episodeId = 1 }) {
-      let params = id ? `tmdb=${id}` : `imdb=${imdbId}`;
-      if (type === 'tv') {
-        params += `&season=${seasonId}&episode=${episodeId}&output=embed`;
-      }
-      return `https://vidsrc.me/embed/${type}?${params}`;
     },
   },
   {
