@@ -1,6 +1,6 @@
 import { Link } from '@lib/navigation';
 import cx from 'classnames';
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 export type ButtonAsLinkProps = {
   link?: {
@@ -18,17 +18,10 @@ export type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonAsLinkProps;
 
-const Button = ({
-  className,
-  variant,
-  square,
-  fullSize,
-  paddingLess,
-  type = 'button',
-  link,
-  children,
-  ...props
-}: PropsWithChildren<ButtonProps>) => {
+const Button = React.forwardRef<HTMLElement, PropsWithChildren<ButtonProps>>(function Button(
+  { className, variant, square, fullSize, paddingLess, type = 'button', link, children, ...props },
+  ref
+) {
   const getVariant = () => {
     switch (variant) {
       case 'primary':
@@ -55,6 +48,7 @@ const Button = ({
 
   return (
     <Component
+      ref={ref}
       href={link?.href}
       type={type}
       className={cx(
@@ -73,6 +67,8 @@ const Button = ({
       {children}
     </Component>
   );
-};
+});
+
+
 
 export default Button;

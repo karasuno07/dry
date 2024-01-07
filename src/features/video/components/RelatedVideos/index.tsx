@@ -27,7 +27,7 @@ export default function RelatedVideos({ className, videoType, videoId }: Props) 
             id={video.id}
             title={video.title}
             overview={video.overview}
-            type={videoType === 'tv' ? 'tv-series' : videoType}
+            type={videoType}
             backdropImage={UTILS.buildImageUrl(video.backdrop_path || video.poster_path, 'w500')}
             className={cx('video')}
             size='sm'

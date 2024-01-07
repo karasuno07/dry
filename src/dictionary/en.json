@@ -74,6 +74,15 @@
           "line2": " Redirecting to homepage after {seconds, plural, =0 {0 second} =1 {1 second} other {# seconds}}"
         }
       }
+    },
+    "video": {
+      "play": {
+        "title": "You're watching <link>{name}</link>",
+        "serverAlert": "If current server doesn't work, please try other servers beside.",
+        "season": "Season {number}",
+        "episode": "Episode {number}",
+        "theaterMode": "Theater Mode: "
+      }
     }
   },
   "messages": {
@@ -107,7 +116,7 @@
   "videos": {
     "types": {
       "movie": "Movie",
-      "tv-series": "TV-Series"
+      "tv": "TV-Series"
     },
     "genres": "Genres",
     "overview": "Overview",

@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { FaThList } from 'react-icons/fa';
-import { VideoType } from 'types/ui';
+import { DiscoverType } from 'types/tmdb/api';
 import styles from './CategorySelector.module.scss';
 
 const cx = classNames.bind(styles);
@@ -23,14 +23,12 @@ export default function CategorySelector({ categories }: Props) {
   const translate = useTranslations();
   const searchParams = useSearchParams();
 
-  const currentType = (searchParams.get('type') as VideoType) || 'movie';
+  const currentType = (searchParams.get('type') as DiscoverType) || 'movie';
   const currentCategory = searchParams.get('category') || '';
 
-  const current = categories[currentType === 'tv-series' ? 'tv' : 'movie'].find(
-    (c) => c.slug === currentCategory
-  );
+  const current = categories[currentType].find((c) => c.slug === currentCategory);
 
-  const onChangeTypeHandler = (type: VideoType) => {
+  const onChangeTypeHandler = (type: DiscoverType) => {
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('type', type);
     newSearchParams.delete('category');
@@ -86,10 +84,10 @@ export default function CategorySelector({ categories }: Props) {
                 {translate('videos.types.movie')}
               </Link>
               <Link
-                className={cx('bypass-evt', { selected: currentType === 'tv-series' })}
-                href={onChangeTypeHandler('tv-series')}
+                className={cx('bypass-evt', { selected: currentType === 'tv' })}
+                href={onChangeTypeHandler('tv')}
               >
-                {translate('videos.types.tv-series')}
+                {translate('videos.types.tv')}
               </Link>
             </ul>
             <div className={cx('list')}>{currentType === 'movie' ? movieItems : tvItems}</div>

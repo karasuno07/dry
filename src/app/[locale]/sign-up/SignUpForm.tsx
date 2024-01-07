@@ -74,7 +74,7 @@ export default function SignUpForm() {
   return (
     <AuthLayout>
       <Form<FormData>
-        className={cx('card')}
+        className={cx('card', 'root')}
         defaultValues={defaultValues}
         resolver={yupResolver(validationSchema)}
       >

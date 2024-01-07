@@ -1,9 +1,9 @@
-import { VideoType } from 'types/ui';
+import { DiscoverType } from 'types/tmdb/api';
 
 export type PreviewerCommonProps = {
   id: number;
   title: string;
-  type: VideoType;
+  type: DiscoverType;
   overview: string;
   className?: string;
   size?: 'sm' | 'md';

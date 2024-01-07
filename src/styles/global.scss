@@ -67,6 +67,11 @@ main {
   padding: 10px;
   min-height: calc(100vh - $header-height);
   overflow: auto;
+  transition: background-color 0.3s linear;
 
   @include custom-scrollbar-style();
+
+  &.theater {
+    background-color: theme('colors.black.0');
+  }
 }

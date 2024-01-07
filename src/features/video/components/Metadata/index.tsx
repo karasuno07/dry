@@ -4,13 +4,13 @@ import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { getTranslations } from 'next-intl/server';
 import { use } from 'react';
-import { VideoType } from 'types/ui';
+import { DiscoverType } from 'types/tmdb/api';
 import styles from './Metadata.module.scss';
 
 const cx = classNames.bind(styles);
 
 type Props = {
-  type: VideoType;
+  type: DiscoverType;
   data: Movie | TvSeries;
 };
 

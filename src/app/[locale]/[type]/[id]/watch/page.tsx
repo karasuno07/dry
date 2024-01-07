@@ -1,7 +1,10 @@
+import Player from '@features/video/components/Player';
+import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { SearchParams } from 'types/api';
 import { LocaleType } from 'types/locale';
-import { VideoType } from 'types/ui';
+import { DiscoverType } from 'types/tmdb/api';
+import VideoService from '~/service/tmdb/videos';
 import styles from './Watch.module.scss';
 
 const cx = classNames.bind(styles);
@@ -10,18 +13,40 @@ type Props = {
   searchParams: SearchParams;
   params: {
     locale: LocaleType;
-    type: VideoType;
+    type: DiscoverType;
     id: number;
   };
 };
 
-export default function WatchVideo({ searchParams }: Props) {
-  const _videoServer = (searchParams.server as string) || 'vidsrc.to';
+async function getVideoDetails(type: DiscoverType, id: number, language: LocaleType = 'en') {
+  const data = await VideoService.getDetails(type, id, {
+    language: language,
+  });
+
+  if (type === 'movie') {
+    return data as Movie;
+  } else {
+    return data as TvSeries;
+  }
+}
+
+export default async function WatchVideo({ params: { type, id, locale } }: Props) {
+  const metadata = await getVideoDetails(type, id, locale);
+  const name = type === 'tv' ? (metadata as TvSeries).name : (metadata as Movie).title;
+
+  const seasonInfo = () => {
+    if (type === 'movie') return undefined;
+    const tvMetadata = metadata as TvSeries;
+    return tvMetadata.seasons.map((s) => ({
+      seasonNumber: s.season_number,
+      name: s.name,
+      episodes: s.episode_count,
+    }));
+  };
+
   return (
     <div className={cx('root')}>
-      <div className={cx('player')}>
-        <video src='' />
-      </div>
+      <Player type={type} id={id} name={name} seasons={seasonInfo()} />
     </div>
   );
 }

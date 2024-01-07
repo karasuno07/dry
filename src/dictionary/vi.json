@@ -42,37 +42,46 @@
   "pages": {
     "auth": {
       "form": {
-        "usernameLabel": "Username",
-        "usernamePlaceholder": "Enter your username",
-        "passwordLabel": "Password",
-        "passwordPlaceholder": "Enter your password",
-        "confirmPasswordLabel": "Confirm Password",
-        "confirmPasswordPlaceholder": "Re-enter your password to confirm",
-        "firstNameLabel": "First Name",
-        "firstNamePlaceholder": "Enter first name",
-        "lastNameLabel": "Last Name",
-        "lastNamePlaceholder": "Enter last name",
+        "usernameLabel": "Tên đăng nhập",
+        "usernamePlaceholder": "Nhập tên đăng nhập của bạn",
+        "passwordLabel": "Mật khẩu",
+        "passwordPlaceholder": "Nhập mật khẩu của bạn",
+        "confirmPasswordLabel": "Xác nhận mật khẩu",
+        "confirmPasswordPlaceholder": "Nhập lại mật khẩu xác nhận",
+        "firstNameLabel": "Họ",
+        "firstNamePlaceholder": "Nhập họ của bạn",
+        "lastNameLabel": "Tên",
+        "lastNamePlaceholder": "Nhập tên của bạn",
         "emailLabel": "Email",
-        "emailPlaceholder": "Enter your email address"
+        "emailPlaceholder": "Nhập địa chỉ email của bạn"
       },
       "signIn": {
-        "loginBtn": "Login",
-        "createAccountLink": "Create an account",
-        "forgetPasswordLink": "Forget password?",
+        "loginBtn": "Đăng nhập",
+        "createAccountLink": "Tạo tài khoản",
+        "forgetPasswordLink": "Quên mật khẩu?",
         "messages": {
-          "missingParamsError": "The Username or password is missing!",
-          "credentialsMismatchError": "The username or password is incorrect!"
+          "missingParamsError": "Nhập thiếu tên đăng nhập hoặc mật khẩu!",
+          "credentialsMismatchError": "Sai tên đăng nhập hoặc mật khẩu!"
         }
       },
       "signUp": {
-        "createAccount": "Create new Account",
-        "signUpBtn": "Sign Up"
+        "createAccount": "Tạo tài khoản mới",
+        "signUpBtn": "Xác nhận"
       },
       "signOut": {
         "alert": {
           "line1": "You have logged out from current session.",
           "line2": " Redirecting to homepage after {seconds, plural, =0 {0 second} =1 {1 second} other {# seconds}}"
         }
+      }
+    },
+    "video": {
+      "play": {
+        "title": "Bạn đang xem <link>{name}</link>",
+        "serverAlert": "Chọn các server dự phòng bên cạnh nếu không thể xem.",
+        "season": "Mùa {number}",
+        "episode": "Tập {number}",
+        "theaterMode": "Chế độ nhà hát: "
       }
     }
   },
@@ -107,7 +116,7 @@
   "videos": {
     "types": {
       "movie": "Movie",
-      "tv-series": "TV-Series"
+      "tv": "TV-Series"
     },
     "genres": "Thể loại",
     "overview": "Tóm tắt phim",

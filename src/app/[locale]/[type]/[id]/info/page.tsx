@@ -12,7 +12,6 @@ import { round } from 'lodash';
 import { getTranslations } from 'next-intl/server';
 import { LocaleType } from 'types/locale';
 import { DiscoverType } from 'types/tmdb/api';
-import { VideoType } from 'types/ui';
 import transparentBackgroundNotFoundImage from '~/assets/images/portrait-image-not-found.png';
 import { UTILS } from '~/service/tmdb/base';
 import VideoService from '~/service/tmdb/videos';
@@ -23,7 +22,7 @@ const cx = classNames.bind(styles);
 type Props = {
   params: {
     locale: LocaleType;
-    type: VideoType;
+    type: DiscoverType;
     id: number;
   };
 };
@@ -42,12 +41,11 @@ async function getVideoDetails(type: DiscoverType, id: number, language: LocaleT
 
 export default async function VideoInfo({ params: { locale, type, id } }: Props) {
   const translate = await getTranslations('videos');
-  const searchType: DiscoverType = type === 'tv-series' ? 'tv' : 'movie';
-  const details = await getVideoDetails(searchType, id, locale);
+  const details = await getVideoDetails(type, id, locale);
 
-  const title = type === 'tv-series' ? (details as TvSeries).name : (details as Movie).title;
+  const title = type === 'tv' ? (details as TvSeries).name : (details as Movie).title;
   const originalTitle =
-    type === 'tv-series' ? (details as TvSeries).original_name : (details as Movie).original_title;
+    type === 'tv' ? (details as TvSeries).original_name : (details as Movie).original_title;
   const rating = round(details.vote_average / 2, 1);
 
   return (
@@ -77,7 +75,7 @@ export default async function VideoInfo({ params: { locale, type, id } }: Props)
             <Credits
               className='mb-[5px]'
               title={translate('casts')}
-              videoType={searchType}
+              videoType={type}
               videoId={id}
             />
             <div className={cx('actions')}>
@@ -87,7 +85,7 @@ export default async function VideoInfo({ params: { locale, type, id } }: Props)
           </div>
         </div>
       </div>
-      <RelatedVideos className={cx('related-videos')} videoType={searchType} videoId={id} />
+      <RelatedVideos className={cx('related-videos')} videoType={type} videoId={id} />
     </div>
   );
 }

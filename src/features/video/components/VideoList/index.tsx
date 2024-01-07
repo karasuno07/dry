@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import { getLocale } from 'next-intl/server';
 import { LocaleType } from 'types/locale';
 import { DiscoverParams, DiscoverType, SearchParams, SortParams } from 'types/tmdb/api';
-import { DisplayMode, VideoType } from 'types/ui';
+import { DisplayMode } from 'types/ui';
 import { UTILS } from '~/service/tmdb/base';
 import GenresService from '~/service/tmdb/genres';
 import SearchService from '~/service/tmdb/search';
@@ -20,7 +20,7 @@ const limit = 20; // the fixed number tmdb api supports
 type ComponentProps = {
   query: string;
   display: DisplayMode;
-  type: VideoType;
+  type: DiscoverType;
   category: string;
   page: number;
 };
@@ -40,11 +40,10 @@ async function searchVideos(
 
 export default async function VideoList({ query, display, type, category, page }: ComponentProps) {
   const Layout = display === 'grid' ? Grid : Stack;
-  const searchType = type === 'tv-series' ? 'tv' : 'movie';
-  const currentGenre = await GenresService.getGenreBySlug(searchType, category);
+  const currentGenre = await GenresService.getGenreBySlug(type, category);
   const language = (await getLocale()) as LocaleType;
 
-  const { results: videos, total_pages } = await searchVideos(searchType, {
+  const { results: videos, total_pages } = await searchVideos(type, {
     query,
     page,
     language,
