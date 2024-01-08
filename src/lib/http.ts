@@ -6,7 +6,7 @@ import { HttpClientError, HttpMethod, HttpServerError } from 'types/api';
 export type RequestBaseConfig = {
   baseURL?: string;
   headers?: HeadersInit;
-  internal?: boolean;
+  external?: boolean;
 };
 export type RequestConfig<D = any> = Omit<RequestInit, 'method'> & {
   json?: D;
@@ -34,7 +34,7 @@ export const http = (baseConfig?: RequestBaseConfig) => {
     config?: RequestConfig<D>,
     handlers?: RequestHandlers<T>
   ): Promise<ResponseData<T>> {
-    const baseURL = baseConfig?.internal
+    const baseURL = baseConfig?.external
       ? process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000'
       : baseConfig?.baseURL;
     const baseHeaders = baseConfig?.headers;

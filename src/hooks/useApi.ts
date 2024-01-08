@@ -2,7 +2,7 @@ import { RequestBaseConfig, RequestConfig, ResponseStatus, http } from '@lib/htt
 import { useState } from 'react';
 import { HttpError, HttpMethod } from 'types/api';
 
-export function useApi<T = any>(defaultConfig?: Omit<RequestBaseConfig, 'internal'>) {
+export function useApi<T = any>(defaultConfig?: Omit<RequestBaseConfig, 'external'>) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<ResponseStatus | null>(null);
@@ -15,7 +15,7 @@ export function useApi<T = any>(defaultConfig?: Omit<RequestBaseConfig, 'interna
     let data: T | null = null;
 
     try {
-      const response = await http({ internal: true, ...defaultConfig }).fetch<T>(
+      const response = await http({ external: true, ...defaultConfig }).fetch<T>(
         method,
         url,
         config
