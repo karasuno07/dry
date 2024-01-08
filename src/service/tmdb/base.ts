@@ -1,6 +1,5 @@
-import { http } from '@lib/http';
+import { RequestConfig, http } from '@lib/http';
 import { Image } from '@model/Images';
-import axios from 'axios';
 import { toNumber } from 'lodash';
 import { BackdropSize, LogoSize, PosterSize } from 'types/tmdb/image';
 
@@ -15,14 +14,15 @@ function buildAuthorizationHeader(): string {
 }
 
 export default class BaseService {
-  static http = http(
-    axios.create({
+  static async get<T = any>(url: string, config?: RequestConfig) {
+    const response = await http({
       baseURL: BASE_URL,
       headers: {
         Authorization: buildAuthorizationHeader(),
       },
-    })
-  );
+    }).get<T>(url, config);
+    return response.data;
+  }
 }
 
 export const UTILS = {

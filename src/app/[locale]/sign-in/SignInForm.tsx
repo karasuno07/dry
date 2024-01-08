@@ -75,14 +75,16 @@ export default function SignInForm({ oauthProviders }: SignInFormProps) {
           }
 
           if (response?.error) {
-            router.push(`?${new URLSearchParams({ error: response.error })}`);
+            console.error(response.error);
             switch (response.error) {
               case AUTH_ERROR.MISSING_AUTH_PARAMS:
                 toast.error(translate('signIn.messages.missingParamsError'));
+                router.push(`?${new URLSearchParams({ error: response.error })}`);
                 reset();
                 break;
               case AUTH_ERROR.CREDENTIALS_MISMATCH:
                 toast.error(translate('signIn.messages.credentialsMismatchError'));
+                router.push(`?${new URLSearchParams({ error: response.error })}`);
                 reset();
                 break;
               default:

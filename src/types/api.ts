@@ -214,18 +214,13 @@ export type NextParams<T> = {
   params: T;
 };
 
-class HttpError {
+export class HttpError {
   status: number;
   name: string;
   message?: string;
   cause?: string | string[] | object;
 
-  constructor(
-    name: string,
-    status: number,
-    messages?: string,
-    cause?: string | string[] | object
-  ) {
+  constructor(name: string, status: number, messages?: string, cause?: string | string[] | object) {
     this.name = name;
     this.status = status;
     this.message = messages;

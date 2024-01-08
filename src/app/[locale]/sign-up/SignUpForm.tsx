@@ -89,13 +89,10 @@ export default function SignUpForm() {
               name: `${formData['first-name']} ${formData['last-name']}`,
               email: formData.email,
             };
-            const { status } = await POST({
-              url: '/api/users',
-              data: requestBody,
-            });
+            const { status, data } = await POST('/api/users', { json: requestBody });
 
             if (status?.code === 201) {
-              router.replace('registered');
+              router.replace(`registered?token=${data?.id}`);
             }
           };
 

@@ -17,12 +17,14 @@ type CreditsProps = {
 };
 
 function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProps) {
-  const { data: credits } = useSWR<CreditsResponse>(
+  const { data } = useSWR(
     buildGetCreditsEndpoint(videoType, videoId),
-    CreditsService.http.get
+    CreditsService.get<CreditsResponse>
   );
 
-  if (!credits || credits.cast.length === 0) {
+  const credits = data;
+
+  if (credits?.cast.length === 0) {
     return undefined;
   }
 
@@ -30,9 +32,10 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
     <div className={cx('root', className)}>
       <span className={cx('title')}>{title}</span>
       <div className={cx('list')}>
-        {credits.cast.map((p) => (
-          <CreditBadge key={p.id} personId={p.id} characterName={p.character} gender={p.gender} />
-        ))}
+        {credits &&
+          credits.cast.map((p) => (
+            <CreditBadge key={p.id} personId={p.id} characterName={p.character} gender={p.gender} />
+          ))}
       </div>
     </div>
   );

@@ -21,13 +21,13 @@ type CreditBadgeProps = {
 };
 
 export default function CreditBadge({ personId, characterName, gender }: CreditBadgeProps) {
-  const { data, isLoading } = useSWR<Person>(
+  const { data: person, isLoading } = useSWR(
     buildGetPersonDetailsEndpoint(personId),
-    CreditsService.http.get
+    CreditsService.get<Person>
   );
   const placeholderImage = gender === 1 ? BlankProfileFemale : BlankProfileMale;
 
-  if (isLoading || !data) {
+  if (isLoading || !person) {
     return (
       <div className={cx('image-wrapper', 'disabled')}>
         <CSRImage
@@ -39,19 +39,19 @@ export default function CreditBadge({ personId, characterName, gender }: CreditB
     );
   }
 
-  const imdbLink = data.imdb_id ? `https://www.imdb.com/name/${data.imdb_id}` : undefined;
+  const imdbLink = person.imdb_id ? `https://www.imdb.com/name/${person.imdb_id}` : undefined;
   const creditContent = (
     <>
       <CSRImage
-        className={cx('profile-image', { 'not-found': !data.profile_path })}
-        src={UTILS.buildImageUrl(data.profile_path, 'w154')}
+        className={cx('profile-image', { 'not-found': !person.profile_path })}
+        src={UTILS.buildImageUrl(person.profile_path, 'w154')}
         width={128}
         height={196}
         alt={String(personId)}
         notFoundSrc={placeholderImage}
       />
-      <Tooltip className='text-center' anchorSelect={`#cast-${data.id}`} offset={2}>
-        <p className='text-lg text-green-300 font-semibold'>{data.name}</p>
+      <Tooltip className='text-center' anchorSelect={`#cast-${person.id}`} offset={2}>
+        <p className='text-lg text-green-300 font-semibold'>{person.name}</p>
         <p>
           as <span className='font-semibold'>{characterName}</span>
         </p>
@@ -61,14 +61,19 @@ export default function CreditBadge({ personId, characterName, gender }: CreditB
 
   if (imdbLink) {
     return (
-      <Link id={`cast-${data.id}`} className={cx('image-wrapper')} href={imdbLink} target='_blank'>
+      <Link
+        id={`cast-${person.id}`}
+        className={cx('image-wrapper')}
+        href={imdbLink}
+        target='_blank'
+      >
         {creditContent}
       </Link>
     );
   }
 
   return (
-    <div id={`cast-${data.id}`} className={cx('image-wrapper')}>
+    <div id={`cast-${person.id}`} className={cx('image-wrapper')}>
       {creditContent}
     </div>
   );

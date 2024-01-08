@@ -17,7 +17,7 @@
     "prisma:seed": "npx prisma db seed",
     "init:dev": "yarn docker:local & yarn prisma:generate & yarn prisma:seed",
     "docker:local": "cp .env docker/local/.env & docker compose -f ./docker/local/docker-compose.yml up --build -d",
-    "docker:dev": "cp .env.development docker/development/.env & docker compose -f ./docker/development/docker-compose.yml up --build -d",
+    "docker:dev": "cp .env.staging docker/staging/.env & docker compose -f ./docker/staging/docker-compose.yml up --build -d",
     "docker:server": "cp .env.production docker/production/.env & docker compose -f ./docker/production/docker-compose.yml up --build -d"
   },
   "dependencies": {
@@ -27,7 +27,6 @@
     "@plaiceholder/next": "^3.0.0",
     "@prisma/client": "5.5.2",
     "autoprefixer": "10.4.15",
-    "axios": "1.4.0",
     "bcryptjs": "2.4.3",
     "classnames": "2.3.2",
     "date-fns": "2.30.0",

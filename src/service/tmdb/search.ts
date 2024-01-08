@@ -12,9 +12,9 @@ export default class SearchService extends BaseService {
   }
 
   static search(type: SearchType, params: SearchParams & SortParams) {
-    return this.http.get<PaginationDiscoverVideos>(this.buildSearchURL(type), { params });
+    return this.get<PaginationDiscoverVideos>(this.buildSearchURL(type), { params });
   }
   static discover(type: DiscoverType, params: SearchParams & DiscoverParams & SortParams) {
-    return this.http.get<PaginationDiscoverVideos>(this.buildDiscoverURL(type), { params });
+    return this.get<PaginationDiscoverVideos>(this.buildDiscoverURL(type), { params });
   }
 }

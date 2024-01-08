@@ -6,15 +6,15 @@ import BaseService, { UTILS } from './base';
 
 export default class VideoService extends BaseService {
   static getDetails(type: DiscoverType, id: number, params?: LanguageParams) {
-    return this.http.get<VideoDetails>(`/${type}/${id}`, { params });
+    return this.get<VideoDetails>(`/${type}/${id}`, { params });
   }
 
   static getRecommendations(type: DiscoverType, id: number, params?: QueryParams) {
-    return this.http.get<PaginationDiscoverVideos>(`/${type}/${id}/recommendations`, { params });
+    return this.get<PaginationDiscoverVideos>(`/${type}/${id}/recommendations`, { params });
   }
 
   static getSimilarities(type: DiscoverType, id: number, params?: QueryParams) {
-    return this.http.get<PaginationDiscoverVideos>(`/${type}/${id}/similar`, { params });
+    return this.get<PaginationDiscoverVideos>(`/${type}/${id}/similar`, { params });
   }
 
   static async getImages(
@@ -23,12 +23,11 @@ export default class VideoService extends BaseService {
     params?: Omit<QueryParams, 'page'>,
     imageType?: ImageType
   ) {
-    const response = this.http.get<ImageResponse>(`/${type}/${id}/images`, { params });
+    const data = await this.get<ImageResponse>(`/${type}/${id}/images`, { params });
     if (imageType === undefined) {
-      return response;
+      return data;
     } else {
-      const images = await response;
-      return images[imageType];
+      return data && data[imageType];
     }
   }
 

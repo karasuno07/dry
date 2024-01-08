@@ -1,47 +1,31 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { RequestBaseConfig, RequestConfig, ResponseStatus, http } from '@lib/http';
 import { useState } from 'react';
-import { HttpMethod } from 'types/api';
+import { HttpError, HttpMethod } from 'types/api';
 
-type DefaultConfig = {
-  baseUrl?: string;
-};
-
-type FetchType<D> = Omit<AxiosRequestConfig<D>, 'method'>;
-type FetchStatus = { code: number; text: string };
-
-export function useApi<T = any, D = any>(defaultConfig?: DefaultConfig) {
+export function useApi<T = any>(defaultConfig?: Omit<RequestBaseConfig, 'internal'>) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [status, setStatus] = useState<FetchStatus | null>(null);
-  const [error, setError] = useState<AxiosError | undefined>(undefined);
+  const [status, setStatus] = useState<ResponseStatus | null>(null);
+  const [error, setError] = useState<HttpError | undefined>(undefined);
 
-  const fetch = async (method: HttpMethod, { url, ...config }: FetchType<D>) => {
+  const request = async (method: HttpMethod, url: string, config?: RequestConfig) => {
     setLoading(true);
     setError(undefined);
-    let status: FetchStatus | null = null;
+    let status: ResponseStatus = null;
     let data: T | null = null;
 
-    const apiUrl = defaultConfig?.baseUrl ? defaultConfig.baseUrl + url : url;
-
     try {
-      const response = await axios<T, AxiosResponse<T>, D>({
+      const response = await http({ internal: true, ...defaultConfig }).fetch<T>(
         method,
-        url: apiUrl,
-        ...config,
-      });
-      status = { code: response.status, text: response.statusText };
-
-      const acceptStatuses = ['GET', 'PUT', 'PATCH', 'DELETE'].includes(method)
-        ? [200]
-        : [200, 201];
-      if (!acceptStatuses.includes(response.status)) {
-        throw new Error(`Failed to get response from ${apiUrl}.`);
-      }
-
+        url,
+        config
+      );
+      status = response.status;
       data = response.data;
       setData(data);
     } catch (error) {
-      setError(error as AxiosError);
+      const httpError = error as HttpError;
+      setError(httpError);
     } finally {
       setLoading(false);
       setStatus(status);
@@ -58,10 +42,10 @@ export function useApi<T = any, D = any>(defaultConfig?: DefaultConfig) {
     loading,
     status,
     error,
-    GET: (config: FetchType<D>) => fetch('GET', config),
-    POST: (config: FetchType<D>) => fetch('POST', config),
-    PUT: (config: FetchType<D>) => fetch('PUT', config),
-    PATCH: (config: FetchType<D>) => fetch('PATCH', config),
-    DELETE: (config: FetchType<D>) => fetch('DELETE', config),
+    GET: (url: string, config?: RequestConfig) => request('GET', url, config),
+    POST: (url: string, config?: RequestConfig) => request('POST', url, config),
+    PUT: (url: string, config?: RequestConfig) => request('PUT', url, config),
+    PATCH: (url: string, config?: RequestConfig) => request('PATCH', url, config),
+    DELETE: (url: string, config?: RequestConfig) => request('DELETE', url, config),
   };
 }

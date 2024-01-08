@@ -12,13 +12,13 @@ import LayoutSelector from './LayoutSelector';
 const cx = classNames.bind(styles);
 
 async function getMovieCategories() {
-  const { genres } = await GenresService.getMovieGenres();
-  return genres.map((genre) => new CategoryResponse(genre));
+  const data = await GenresService.getMovieGenres();
+  return data?.genres.map((genre) => new CategoryResponse(genre));
 }
 
 async function getTvSeriesCategories() {
-  const { genres } = await GenresService.getTvSeriesGenres();
-  return genres.map((genre) => new CategoryResponse(genre));
+  const data = await GenresService.getTvSeriesGenres();
+  return data?.genres.map((genre) => new CategoryResponse(genre));
 }
 
 type Props = {

@@ -12,11 +12,11 @@ export const buildGetCreditsEndpoint = (type: DiscoverType, id: number) => `/${t
 export const buildGetPersonDetailsEndpoint = (personId: number) => `/person/${personId}`;
 
 export default class CreditsService extends BaseService {
-  static getCredits(type: DiscoverType, id: number) {
-    return this.http.get<CreditsResponse>(buildGetCreditsEndpoint(type, id));
+  static async getCredits(type: DiscoverType, id: number) {
+    return this.get<CreditsResponse>(buildGetCreditsEndpoint(type, id));
   }
 
-  static getPersonDetails(id: number) {
-    return this.http.get<Person>(buildGetPersonDetailsEndpoint(id));
+  static async getPersonDetails(id: number) {
+    return this.get<Person>(buildGetPersonDetailsEndpoint(id));
   }
 }

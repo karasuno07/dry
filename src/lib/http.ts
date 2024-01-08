@@ -1,65 +1,140 @@
-import cache from '@lib/cache';
 import { Prisma } from '@prisma/client';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { assign } from 'lodash';
 import { NextRequest, NextResponse } from 'next/server';
 import { HttpClientError, HttpMethod, HttpServerError } from 'types/api';
 
-interface HttpConfig<D> extends Omit<AxiosRequestConfig<D>, 'url' | 'method'> {
-  revalidateSeconds?: number;
-}
+export type RequestBaseConfig = {
+  baseURL?: string;
+  headers?: HeadersInit;
+  internal?: boolean;
+};
+export type RequestConfig<D = any> = Omit<RequestInit, 'method'> & {
+  json?: D;
+  params?: Record<string, any>;
+  responseType?: 'json' | 'text' | 'blob' | 'arraybuffer';
+};
+export type RequestHandlers<T = any> = {
+  onSuccess?: (data: T) => void;
+  onError?: (error: unknown) => void;
+};
+export type ResponseStatus = {
+  code: number;
+  text: string;
+} | null;
+export type ResponseData<T = any, R = unknown> = {
+  status: ResponseStatus;
+  data: T | null;
+  error: R;
+};
 
-const defaultAxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000',
-  headers: {},
-});
-
-export const http = (axiosInstance: AxiosInstance = defaultAxiosInstance) => {
-  async function fetch<T = any, D = any>(
+export const http = (baseConfig?: RequestBaseConfig) => {
+  async function request<T = any, D = any>(
     method: HttpMethod,
     url: string,
-    config?: HttpConfig<D>
-  ): Promise<T> {
-    const cachedKey = `${method}-${url}${
-      config?.params ? '-' + JSON.stringify(config.params) : ''
-    }`;
-    const revalidateSeconds = config?.revalidateSeconds || 1000;
-    const cachedData = cache.get<T>(cachedKey);
-
-    if (
-      cachedData !== undefined &&
-      cache.getTtl(cachedKey) !== undefined &&
-      (cache.getTtl(cachedKey) as number) > 0
-    ) {
-      return convertObjectToPromise(cachedData);
-    }
+    config?: RequestConfig<D>,
+    handlers?: RequestHandlers<T>
+  ): Promise<ResponseData<T>> {
+    const baseURL = baseConfig?.internal
+      ? process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000'
+      : baseConfig?.baseURL;
+    const baseHeaders = baseConfig?.headers;
+    let status: ResponseStatus = null;
 
     try {
-      const response = await axiosInstance<T, AxiosResponse<T, any>, D>({
+      const params = config?.params ? new URLSearchParams(config.params) : undefined;
+      const requestUrl = baseURL
+        ? concatSearchParams(concatURL(baseURL, url), params)
+        : concatSearchParams(url, params);
+      const headers = assign(config?.headers, baseHeaders);
+
+      const response = await fetch(requestUrl, {
         method,
-        url,
+        headers,
+        body: config?.json ? JSON.stringify(config.json) : config?.body,
         ...config,
       });
-      const data = response.data;
-      cache.set(cachedKey, data, revalidateSeconds);
-      return data satisfies T;
-    } catch (error) {
-      console.error(error);
-      return await Promise.reject(error);
+
+      const acceptStatuses = ['GET', 'PUT', 'PATCH', 'DELETE'].includes(method)
+        ? [200]
+        : [200, 201];
+      if (!acceptStatuses.includes(response.status)) {
+        throw new Error(`Fail to fetch request on ${requestUrl}`);
+      }
+
+      status = {
+        code: response.status,
+        text: response.statusText,
+      };
+
+      let data;
+      switch (config?.responseType) {
+        case 'text':
+          data = await response.text();
+          break;
+        case 'arraybuffer':
+          data = await response.arrayBuffer();
+          break;
+        case 'blob':
+          data = await response.blob();
+          break;
+        default:
+          data = await response.json();
+          break;
+      }
+
+      if (handlers?.onSuccess) {
+        handlers.onSuccess(data);
+      }
+
+      return {
+        status,
+        data,
+        error: null,
+      };
+    } catch (err: unknown) {
+      if (handlers?.onError) {
+        handlers.onError(err);
+      } else {
+        console.log(err);
+      }
+
+      return {
+        status,
+        data: null,
+        error: err,
+      };
     }
   }
 
   return {
-    get<T = any, D = any>(url: string, config?: HttpConfig<D>) {
-      return fetch<T, D>('GET', url, config);
+    fetch: request,
+    get<T = any, D = AnimationPlayState>(
+      url: string,
+      config?: RequestConfig,
+      handlers?: RequestHandlers
+    ) {
+      return request<T, D>('GET', url, config, handlers);
     },
-    post<T = any, D = any>(url: string, config?: HttpConfig<D>) {
-      return fetch<T, D>('POST', url, config);
+    post<T = any, D = AnimationPlayState>(
+      url: string,
+      config?: RequestConfig,
+      handlers?: RequestHandlers
+    ) {
+      return request<T, D>('POST', url, config, handlers);
     },
-    put<T = any, D = any>(url: string, config?: HttpConfig<D>) {
-      return fetch<T, D>('PUT', url, config);
+    put<T = any, D = AnimationPlayState>(
+      url: string,
+      config?: RequestConfig,
+      handlers?: RequestHandlers
+    ) {
+      return request<T, D>('PUT', url, config, handlers);
     },
-    delete<T = any, D = any>(url: string, config?: HttpConfig<D>) {
-      return fetch<T, D>('DELETE', url, config);
+    delete<T = any, D = AnimationPlayState>(
+      url: string,
+      config?: RequestConfig,
+      handlers?: RequestHandlers
+    ) {
+      return request<T, D>('DELETE', url, config, handlers);
     },
   };
 };
@@ -77,6 +152,7 @@ export function apiHandler(handler: { [method: string]: Function }) {
 
         // route handler
         const response: NextResponse = await handler[method](req, ...args);
+
         const body = await response.json();
 
         return NextResponse.json(body, {
@@ -105,19 +181,18 @@ function errorHandler(error: unknown) {
       );
     }
   } else if (error instanceof TypeError || error instanceof SyntaxError) {
-    return HttpClientError.json(
-      HttpClientError.badClient(error.message, error.cause as string)
-    );
+    return HttpClientError.json(HttpClientError.badClient(error.message, error.cause as string));
   } else {
     console.error(error);
-    return HttpServerError.json(
-      HttpServerError.internalServerError(error as string)
-    );
+    return HttpServerError.json(HttpServerError.internalServerError(error as string));
   }
 }
 
-function convertObjectToPromise<T>(obj: T): Promise<T> {
-  return new Promise<T>((resolve, _) => {
-    resolve(obj);
-  });
+function concatURL(base: string, ...urls: string[]) {
+  let result = base + urls.join('/');
+  return result.replace(/([^:\\/])\/+/g, '$1/');
+}
+
+function concatSearchParams(url: string, params?: URLSearchParams) {
+  return params ? url.concat(`?${params.toString()}`) : url;
 }

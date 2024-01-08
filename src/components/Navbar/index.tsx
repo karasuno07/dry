@@ -10,10 +10,6 @@ const cx = classNames.bind(styles);
 type Props = {};
 
 export default function NavBar({}: Props) {
-  // const user = await getCurrentUser();
-
-  // console.log('User:', user);
-
   return (
     <nav className={cx('root')}>
       <div className={cx('container')}>

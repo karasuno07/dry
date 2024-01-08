@@ -1,7 +1,6 @@
 import SessionProvider from '@components/providers/SessionProvider';
 import '@stylesheets/global.scss';
-import { NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { PropsWithChildren } from 'react';
 import { PropsWithLocale } from 'types/locale';
 import { SUPPORTED_LOCALES } from '~/constants/locales';
@@ -11,15 +10,11 @@ export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-export default async function LocalizationLayout({
+export default function LocalizationLayout({
   children,
   params: { locale },
 }: PropsWithChildren<PropsWithLocale>) {
-  if (!SUPPORTED_LOCALES.includes(locale as any)) {
-    notFound();
-  }
-
-  const messages = (await import(`~/dictionary/${locale}.json`)).default;
+  const messages = useMessages();
 
   return (
     <html lang={locale}>

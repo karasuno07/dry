@@ -1,6 +1,7 @@
 import Player from '@features/video/components/Player';
 import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
+import { Metadata } from 'next';
 import { SearchParams } from 'types/api';
 import { LocaleType } from 'types/locale';
 import { DiscoverType } from 'types/tmdb/api';
@@ -28,6 +29,16 @@ async function getVideoDetails(type: DiscoverType, id: number, language: LocaleT
   } else {
     return data as TvSeries;
   }
+}
+
+export async function generateMetadata({ params: { type, id, locale } }: Props): Promise<Metadata> {
+  const metadata = await getVideoDetails(type, id, locale);
+
+  const videoTitle = type === 'tv' ? (metadata as TvSeries).name : (metadata as Movie).title;
+
+  return {
+    title: `RavenZ | ${videoTitle}`,
+  };
 }
 
 export default async function WatchVideo({ params: { type, id, locale } }: Props) {

@@ -35,7 +35,10 @@ async function searchVideos(
   } else {
     response = await SearchService.discover(type, params);
   }
-  return { ...response, results: response.results.map((data) => new VideoResponse(data)) };
+  return {
+    ...response,
+    results: response?.results.map((data) => new VideoResponse(data)),
+  };
 }
 
 export default async function VideoList({ query, display, type, category, page }: ComponentProps) {
@@ -53,9 +56,8 @@ export default async function VideoList({ query, display, type, category, page }
 
   return (
     <section>
-      {videos.length > 0 && (
+      {videos && videos?.length > 0 && (
         <>
-          {' '}
           <Layout className={cx('root')} template='cols'>
             {videos.map((video) => (
               <Previewer
@@ -76,7 +78,7 @@ export default async function VideoList({ query, display, type, category, page }
           <Pagination totalPage={total_pages} itemPerPage={limit} />
         </>
       )}
-      {videos.length === 0 && <NotFound />}
+      {videos?.length === 0 && <NotFound />}
     </section>
   );
 }
