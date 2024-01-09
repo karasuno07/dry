@@ -81,7 +81,7 @@ services:
       - TZ=Etc/UTC
       - WEBUI_PORT=8080
     volumes:
-      - /mnt/Drive1/Configs/qBittorrent::/config
+      - /mnt/Drive1/Configs/qBittorrent:/config
       - /mnt/Drive1/qBittorrentDownloads:/downloads
     networks:
       - apps
