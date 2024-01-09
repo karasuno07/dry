@@ -62,7 +62,6 @@ export class ModelVaidation<T extends object> {
 
 export async function generatePlaceholderImage(src: string) {
   const response = await http().get(src, { responseType: 'arraybuffer' });
-  console.log(src);
   const buffer = Buffer.from(response.data);
 
   const {

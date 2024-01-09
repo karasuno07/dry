@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { assign } from 'lodash';
+import { assign, isUndefined, negate, pickBy } from 'lodash';
 import { NextRequest, NextResponse } from 'next/server';
 import { HttpClientError, HttpMethod, HttpServerError } from 'types/api';
 
@@ -41,7 +41,9 @@ export const http = (baseConfig?: RequestBaseConfig) => {
     let status: ResponseStatus = null;
 
     try {
-      const params = config?.params ? new URLSearchParams(config.params) : undefined;
+      const params = config?.params
+        ? new URLSearchParams(pickBy(config.params, negate(isUndefined)))
+        : undefined;
       const requestUrl = baseURL
         ? concatSearchParams(concatURL(baseURL, url), params)
         : concatSearchParams(url, params);
@@ -189,7 +191,7 @@ function errorHandler(error: unknown) {
 }
 
 function concatURL(base: string, ...urls: string[]) {
-  let result = base + urls.join('/');
+  let result = base + '/' + urls.join('/');
   return result.replace(/([^:\\/])\/+/g, '$1/');
 }
 

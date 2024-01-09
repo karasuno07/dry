@@ -4,7 +4,7 @@ import BaseService from './base';
 
 export default class SearchService extends BaseService {
   static buildSearchURL(type: SearchType) {
-    return `search/${type}`;
+    return `/search/${type}`;
   }
 
   static buildDiscoverURL(type: DiscoverType) {

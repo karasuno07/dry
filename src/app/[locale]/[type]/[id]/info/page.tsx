@@ -69,7 +69,7 @@ export default async function VideoInfo({ params: { locale, type, id } }: Props)
           <Genres genres={details.genres} />
           <div className={cx('overview')}>
             <span>{translate('overview')}</span>
-            <p>{details.overview || 'TBD'}</p>
+            <p title={details.overview}>{details.overview || 'TBD'}</p>
           </div>
           <div className='mt-auto'>
             <Credits

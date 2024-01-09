@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next && next build",
     "start:local": "node .next/standalone/server.js",
     "start:server": "node server.js",
     "lint": "next lint",
