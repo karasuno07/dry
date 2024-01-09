@@ -127,7 +127,7 @@ services:
       - LOG-LEVEL=debug
       - TZ=Asia/Tokyo
     volumes:
-      - overseerr-conf:/config
+      - /mnt/01DA276AC6BA5D90/Configs/overseer:/config
     networks:
       - apps
   jackett:
