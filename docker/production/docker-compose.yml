@@ -32,6 +32,7 @@ services:
       - '9000:8080'
     networks:
       - datasource
+      - server
   nextjs-app:
     container_name: nextjs_app
     build:
