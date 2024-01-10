@@ -1,5 +1,5 @@
 # FROM nginx:1.15-alpine
-FROM nginx:latest
+FROM ghcr.io/openappsec/nginx-attachment:latest
 # alpine is light weight, doesnot have any executable shells like bash
 # FROM nginx:latest is recommended. But 1.15-alpine has executable shell.
 
