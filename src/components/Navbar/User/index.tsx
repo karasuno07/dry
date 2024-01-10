@@ -9,8 +9,7 @@ import classNames from 'classnames/bind';
 import { capitalize, isEmpty } from 'lodash';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { FaCircleUser } from 'react-icons/fa6';
-import { IoPowerSharp } from 'react-icons/io5';
+import { FaCircleUser, FaPowerOff } from 'react-icons/fa6';
 import styles from './User.module.scss';
 import UserAvatar from './UserAvatar';
 import UserInfo from './UserInfo';
@@ -53,7 +52,7 @@ export default function User() {
                 variant='danger'
                 link={{ href: '/sign-out' }}
               >
-                <Icon icon={IoPowerSharp} size={24} />
+                <Icon icon={FaPowerOff} size={22} />
                 <span>{translate('signOutBtn')}</span>
               </Button>,
             ]}
