@@ -118,7 +118,7 @@ services:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
     ports:
-      - '8082:8989'
+      - '8082:7878'
     restart: unless-stopped
     environment:
       - PUID=1000
