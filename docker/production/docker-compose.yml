@@ -74,9 +74,9 @@ services:
     image: ghcr.io/openappsec/agent:latest
     ipc: host
     volumes:
-      - /mnt/d/Docker/Configs/openappsec/configs:/etc/cp/conf
-      - /mnt/d/Docker/Configs/openappsec/data:/etc/cp/data
-      - /mnt/d/Docker/Configs/openappsec/agent-logs:/var/log/nano_agent
+      - /mnt/Drive1/Docker/Configs/openappsec/configs:/etc/cp/conf
+      - /mnt/Drive1/Docker/Configs/openappsec/data:/etc/cp/data
+      - /mnt/Drive1/Docker/Configs/openappsec/agent-logs:/var/log/nano_agent
     environment:
       - user_email=kevingom43@gmail.com
     command: /cp-nano-agent --token ${OPEN_APPSEC_TOKEN}
