@@ -143,21 +143,6 @@ services:
       - /mnt/Drive1/Configs/overseer:/config
     networks:
       - apps
-  jackett:
-    container_name: jackett
-    image: lscr.io/linuxserver/jackett:latest
-    ports:
-      - '8085:9117'
-    restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Asia/Ho_Chi_Minh
-    volumes:
-      - /mnt/Drive1/Configs/jackett:/config
-      - /mnt/Drive1/Configs/jackett/blackhole:/downloads
-    networks:
-      - apps
   plex:
     container_name: plex
     image: plexinc/pms-docker
@@ -181,6 +166,21 @@ services:
       - /mnt/Drive1/Configs/plex/transcode:/transcode
       - /mnt/Drive1/Movies:/movies
       - /mnt/Drive1/TVSeries:/tvseries
+    networks:
+      - apps
+  jackett:
+    container_name: jackett
+    image: lscr.io/linuxserver/jackett:latest
+    ports:
+      - '8085:9117'
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Ho_Chi_Minh
+    volumes:
+      - /mnt/Drive1/Configs/jackett:/config
+      - /mnt/Drive1/Configs/jackett/blackhole:/downloads
     networks:
       - apps
 
