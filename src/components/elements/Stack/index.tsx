@@ -1,5 +1,5 @@
 import className from 'classnames/bind';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './Stack.module.scss';
 
 const cx = className.bind(styles);
@@ -8,6 +8,15 @@ type Props = {
   className?: string;
 };
 
-export default function Stack({ className, children }: React.PropsWithChildren<Props>) {
-  return <div className={cx('root', className)}>{children}</div>;
-}
+const Stack = forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(function Stack(
+  { className, children },
+  ref
+) {
+  return (
+    <div ref={ref} className={cx('root', className)}>
+      {children}
+    </div>
+  );
+});
+
+export default Stack;

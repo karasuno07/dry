@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { forwardRef } from 'react';
 
 type Props = {
   template: 'cols' | 'rows';
@@ -12,17 +13,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Grid({
-  template = 'cols',
-  className,
-  defaultClass,
-  sm,
-  md,
-  lg,
-  xl,
-  rounded = true,
-  children,
-}: Props) {
+const Grid = forwardRef<HTMLDivElement, Props>(function Grid(
+  { template = 'cols', className, defaultClass, sm, md, lg, xl, rounded = true, children },
+  ref
+) {
   const colTemplateClasses = 'grid-flow-row gap-2';
   const rowTemplateClasses = 'grid-flow-col gap-2';
 
@@ -56,5 +50,11 @@ export default function Grid({
     className
   );
 
-  return <div className={classes}>{children}</div>;
-}
+  return (
+    <div ref={ref} className={classes}>
+      {children}
+    </div>
+  );
+});
+
+export default Grid;
