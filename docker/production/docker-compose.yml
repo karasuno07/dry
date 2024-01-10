@@ -181,4 +181,6 @@ services:
       - /mnt/Drive1/Configs/plex/transcode:/transcode
       - /mnt/Drive1/Movies:/movies
       - /mnt/Drive1/TVSeries:/tvseries
+    networks:
+      - apps
 
