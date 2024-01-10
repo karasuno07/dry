@@ -25,6 +25,8 @@ volumes:
     name: jackett-blackhole
   jenkins:
     name: jenkins-data
+  open-appsec:
+    name: open-appsec-data
 services:
   postgres:
     container_name: dev-postgresql
@@ -64,8 +66,10 @@ services:
       - datasource
       - server
       - apps
-  nginx: 
+  nginx:
     container_name: dev-nginx
+    #
+    ipc: host
     build:
       context: nginx
       dockerfile: Dockerfile
@@ -82,12 +86,24 @@ services:
       - OVERSEERR_CONTAINER_ID=overseerr
       - JACKETT_CONTAINER_ID=jackett
       - ADMINER_CONTAINER_ID=adminer
-    command: ['sh', '/etc/nginx/convert-nginx.sh']
+    command: [ 'sh', '/etc/nginx/convert-nginx.sh' ]
     depends_on:
       - nextjs-app
     networks:
       - server
       - apps
+  open-appsec-agent:
+    container_name: open-appsec-agent
+    image: ghcr.io/openappsec/agent:latest
+    ipc: host
+    volumes:
+      - ./volumes/open-appsec/configs:/etc/cp/conf
+      - ./volumes/open-appsec/data:/etc/cp/data
+      - ./volumes/open-appsec/agent-logs:/var/log/nano_agent
+    environment:
+      - user_email=kevingom43@gmail.com
+    command: /cp-nano-agent --token ${OPEN_APPSEC_TOKEN}
+
   # qbittorrent:
   #   container_name: dev-qbittorrent
   #   image: lscr.io/linuxserver/qbittorrent:latest

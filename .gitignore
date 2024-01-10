@@ -39,6 +39,7 @@ volumes/
 
 # docker generated env file
 docker/**/.env
+docker/**/volumes
 
 # javascript runtime alternative lock files
 # yarn.lock

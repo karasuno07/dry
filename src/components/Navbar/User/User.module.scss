@@ -11,6 +11,13 @@
     height: 40px;
     cursor: pointer;
   }
+
+  .sign-out {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
 }
 
 .user-info {

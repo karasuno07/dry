@@ -10,7 +10,7 @@ import { capitalize, isEmpty } from 'lodash';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { FaCircleUser } from 'react-icons/fa6';
-import { IoLogOut } from 'react-icons/io5';
+import { IoPowerSharp } from 'react-icons/io5';
 import styles from './User.module.scss';
 import UserAvatar from './UserAvatar';
 import UserInfo from './UserInfo';
@@ -47,13 +47,13 @@ export default function User() {
               />,
               <Divider key='divider-01' />,
               <Button
-                className='text-center'
-                fullSize
                 key={'sign-out-btn'}
+                className={cx('sign-out')}
+                fullSize
                 variant='danger'
                 link={{ href: '/sign-out' }}
               >
-                <Icon icon={IoLogOut} size={20} />
+                <Icon icon={IoPowerSharp} size={24} />
                 <span>{translate('signOutBtn')}</span>
               </Button>,
             ]}
