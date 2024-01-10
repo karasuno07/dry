@@ -81,7 +81,7 @@ services:
       - user_email=kevingom43@gmail.com
     command: /cp-nano-agent --token ${OPEN_APPSEC_TOKEN}
   qbittorrent:
-    container_name: dev-qbittorrent
+    container_name: qbittorrent
     image: lscr.io/linuxserver/qbittorrent:latest
     ports:
       - '8080:8080'
@@ -99,7 +99,7 @@ services:
     networks:
       - apps
   sonarr:
-    container_name: dev-sonarr
+    container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
     ports:
       - '8081:8989'
@@ -107,15 +107,15 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Asia/Ho_Chi_Minh
     volumes:
-      - /mnt/01DA276AC6BA5D90/Configs/sonarr:/config
-      - /mnt/01DA276AC6BA5D90/TVSeries:/tv
-      - /mnt/01DA276AC6BA5D90/qBittorrentDownloads:/downloads
+      - /mnt/Drive1/Configs/sonarr:/config
+      - /mnt/Drive1/TVSeries:/tv
+      - /mnt/Drive1/qBittorrentDownloads:/downloads
     networks:
       - apps
   radarr:
-    container_name: dev-radarr
+    container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
     ports:
       - '8082:8989'
@@ -123,28 +123,28 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Asia/Ho_Chi_Minh"
     volumes:
-      - /mnt/01DA276AC6BA5D90/Configs/radarr:/config
-      - /mnt/01DA276AC6BA5D90/Movies:/movies
-      - /mnt/01DA276AC6BA5D90/qBittorrentDownloads:/downloads
+      - /mnt/Drive1/Configs/radarr:/config
+      - /mnt/Drive1/Movies:/movies
+      - /mnt/Drive1/qBittorrentDownloads:/downloads
     networks:
       - apps
   overseerr:
-    container_name: dev-overseerr
+    container_name: overseerr
     image: sctx/overseerr
     ports:
       - '8083:5055'
     restart: unless-stopped
     environment:
       - LOG-LEVEL=debug
-      - TZ=Asia/Tokyo
+      - TZ=Asia/Ho_Chi_Minh
     volumes:
-      - /mnt/01DA276AC6BA5D90/Configs/overseer:/config
+      - /mnt/Drive1/Configs/overseer:/config
     networks:
       - apps
   jackett:
-    container_name: dev-jackett
+    container_name: jackett
     image: lscr.io/linuxserver/jackett:latest
     ports:
       - '8085:9117'
@@ -152,10 +152,33 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Asia/Ho_Chi_Minh
     volumes:
-      - /mnt/01DA276AC6BA5D90/Configs/jackett:/config
-      - /mnt/01DA276AC6BA5D90/Configs/jackett/blackhole:/downloads
+      - /mnt/Drive1/Configs/jackett:/config
+      - /mnt/Drive1/Configs/jackett/blackhole:/downloads
     networks:
       - apps
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    ports:
+      - 8084:32400/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - PLEX_CLAIM=claim-oZfGBvSJFy1vdys5mpPj
+      - ADVERTISE_IP=http://192.168.1.151:8084
+    hostname: RavenZ
+    volumes:
+      - /mnt/Drive1/Configs/plex:/config
+      - /mnt/Drive1/Configs/plex/transcode:/transcode
+      - /mnt/Drive1/Movies:/movies
+      - /mnt/Drive1/TVSeries:/tvseries
 
