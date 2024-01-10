@@ -61,7 +61,8 @@
         "forgetPasswordLink": "Forget password?",
         "messages": {
           "missingParamsError": "The Username or password is missing!",
-          "credentialsMismatchError": "The username or password is incorrect!"
+          "credentialsMismatchError": "The username or password is incorrect!",
+          "exceedLoginAttemptsFailed": "You have exceeded the maximum number of failed login attempts. Your account has been banned for 5 minutes."
         }
       },
       "signUp": {

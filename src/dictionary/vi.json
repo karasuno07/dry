@@ -61,7 +61,8 @@
         "forgetPasswordLink": "Quên mật khẩu?",
         "messages": {
           "missingParamsError": "Nhập thiếu tên đăng nhập hoặc mật khẩu!",
-          "credentialsMismatchError": "Sai tên đăng nhập hoặc mật khẩu!"
+          "credentialsMismatchError": "Sai tên đăng nhập hoặc mật khẩu!",
+          "exceedLoginAttemptsFailed": "Bạn đã đăng nhập sai quá nhiều lần. Tài khoản của bạn sẽ bị khoá trong 5 phút."
         }
       },
       "signUp": {

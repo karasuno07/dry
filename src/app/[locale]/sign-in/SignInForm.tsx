@@ -87,6 +87,12 @@ export default function SignInForm({ oauthProviders }: SignInFormProps) {
                 router.push(`?${new URLSearchParams({ error: response.error })}`);
                 reset();
                 break;
+              case AUTH_ERROR.LOGIN_ATTEMPTS_FAILED:
+                console.log(response.error);
+                toast.error(translate('signIn.messages.exceedLoginAttemptsFailed'));
+                router.push(`?${new URLSearchParams({ error: response.error })}`);
+                reset();
+                break;
               default:
                 toast.error('UNKNOWN ERROR!');
                 reset();

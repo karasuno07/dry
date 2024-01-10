@@ -6,8 +6,14 @@ import { AuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+import NodeCache from 'node-cache';
 
 export const passwordSalt = genSaltSync(7);
+
+const loginAttemptsCache = new NodeCache({
+  stdTTL: 300,
+  checkperiod: 84600,
+});
 
 type TokenizedSession = Session & {
   id: string;
@@ -66,6 +72,15 @@ const authOptions: AuthOptions = {
           throw { name: 'AuthError', message: AUTH_ERROR.MISSING_AUTH_PARAMS };
         }
 
+        const loginAttemptTimes = loginAttemptsCache.get<number>(credentials.username) || 0;
+
+        if (loginAttemptTimes === 5) {
+          throw {
+            name: 'AuthError',
+            message: AUTH_ERROR.LOGIN_ATTEMPTS_FAILED,
+          };
+        }
+
         const user = await prisma.user.findUnique({
           where: {
             username: credentials.username,
@@ -73,6 +88,7 @@ const authOptions: AuthOptions = {
         });
 
         if (!user || !user.password || !(await compare(credentials.password, user.password))) {
+          loginAttemptsCache.set(credentials.username, loginAttemptTimes + 1);
           throw {
             name: 'AuthError',
             message: AUTH_ERROR.CREDENTIALS_MISMATCH,
