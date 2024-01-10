@@ -183,4 +183,33 @@ services:
       - /mnt/Drive1/Configs/jackett/blackhole:/downloads
     networks:
       - apps
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    ports:
+      - 8086:8096
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Ho_Chi_Minh
+    volumes:
+      - /mnt/Drive1/Configs/jellyfin:/config
+      - /mnt/Drive1/TVSeries:/data/tvshows
+      - /mnt/Drive1/Movies:/data/movies
+    networks:
+      - apps
+  flaresolverr:
+    container_name: flaresolverr
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    ports:
+      - 8087:8191 
+    restart: unless-stopped
+    environment:
+      - LOG_LEVEL=info
+    networks:
+      - apps
+      - server
+
+
 
