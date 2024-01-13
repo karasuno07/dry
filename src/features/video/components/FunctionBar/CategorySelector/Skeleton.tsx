@@ -7,7 +7,9 @@ import styles from './CategorySelector.module.scss';
 const cx = classNames.bind(styles);
 
 export default async function Skeleton() {
-  const translate = await getTranslations();
+  const translate = await getTranslations('videos');
+
+  const title = translate('types.movie') + ': ' + translate('category.default');
 
   return (
     <div className={cx('root')}>
@@ -20,7 +22,7 @@ export default async function Skeleton() {
         anchor={<FaThList className={cx('select-icon')} size={24} />}
         items={[]}
       />
-      <span className={cx('title')}>{translate('general.category.default')}</span>
+      <span className={cx('title')}>{title}</span>
     </div>
   );
 }

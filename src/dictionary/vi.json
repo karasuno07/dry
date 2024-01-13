@@ -9,9 +9,6 @@
         "abbreviation": "E",
         "name": "Tiếng Anh"
       }
-    },
-    "category": {
-      "default": "Discover"
     }
   },
   "components": {
@@ -121,6 +118,9 @@
     "types": {
       "movie": "Movie",
       "tv": "TV-Series"
+    },
+    "category": {
+      "default": "Discover"
     },
     "genres": "Thể loại",
     "overview": "Tóm tắt phim",

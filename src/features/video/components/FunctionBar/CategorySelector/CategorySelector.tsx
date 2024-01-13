@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function CategorySelector({ categories }: Props) {
-  const translate = useTranslations();
+  const translate = useTranslations('videos');
   const searchParams = useSearchParams();
 
   const currentType = (searchParams.get('type') as DiscoverType) || 'movie';
@@ -65,6 +65,11 @@ export default function CategorySelector({ categories }: Props) {
     </Link>
   ));
 
+  const currentGenreTitle =
+    translate(`types.${currentType === 'movie' ? 'movie' : 'tv'}`) +
+    ': ' +
+    (current?.name || translate('category.default'));
+
   return (
     <div className={cx('root')}>
       <Menu
@@ -81,20 +86,20 @@ export default function CategorySelector({ categories }: Props) {
                 className={cx('bypass-evt', { selected: currentType === 'movie' })}
                 href={onChangeTypeHandler('movie')}
               >
-                {translate('videos.types.movie')}
+                {translate('types.movie')}
               </Link>
               <Link
                 className={cx('bypass-evt', { selected: currentType === 'tv' })}
                 href={onChangeTypeHandler('tv')}
               >
-                {translate('videos.types.tv')}
+                {translate('types.tv')}
               </Link>
             </ul>
             <div className={cx('list')}>{currentType === 'movie' ? movieItems : tvItems}</div>
           </div>
         }
       />
-      <span className={cx('title')}>{current?.name || translate('general.category.default')}</span>
+      <span className={cx('title')}>{currentGenreTitle}</span>
     </div>
   );
 }
