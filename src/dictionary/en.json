@@ -19,7 +19,7 @@
       "signInBtn": "Sign In",
       "signOutBtn": "Sign Out",
       "search": {
-        "placeholder": "Search any video name..."
+        "placeholder": "Search any keyword..."
       }
     }
   },

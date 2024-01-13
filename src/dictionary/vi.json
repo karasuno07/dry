@@ -16,10 +16,10 @@
   },
   "components": {
     "navBar": {
-      "signInBtn": "Sign In",
-      "signOutBtn": "Sign Out",
+      "signInBtn": "Đăng nhập",
+      "signOutBtn": "Đăng xuất",
       "search": {
-        "placeholder": "Search any video name..."
+        "placeholder": "Tìm kiếm theo từ khoá..."
       }
     }
   },
@@ -74,8 +74,8 @@
       },
       "signOut": {
         "alert": {
-          "line1": "You have logged out from current session.",
-          "line2": " Redirecting to homepage after {seconds, plural, =0 {0 second} =1 {1 second} other {# seconds}}"
+          "line1": "Bạn vừa thoát khỏi phiên làm việc.",
+          "line2": "Chuyển hướng về trang chủ sau {seconds} giây."
         }
       }
     },
