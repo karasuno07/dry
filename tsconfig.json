@@ -27,7 +27,7 @@
       "@icons/*": ["./src/assets/icons/*"],
       "@features/*": ["./src/features/*"],
       "@services/*": ["./src/services/*"],
-      "@model/*": ["./src/model/*"],
+      "@model/*": ["src/service/tmdb/model/*"],
       "types/*": ["./src/types/*"],
       "~/*": ["./src/*"]
     }

@@ -2,7 +2,6 @@
 
 import CSRImage from '@components/elements/Image/client/CSRImage';
 import { Link } from '@lib/navigation';
-import { Person } from '@model/People';
 import classNames from 'classnames/bind';
 import { Tooltip } from 'react-tooltip';
 import useSWR from 'swr';
@@ -10,6 +9,7 @@ import BlankProfileFemale from '~/assets/icons/blank-profile-female.svg';
 import BlankProfileMale from '~/assets/icons/blank-profile-male.svg';
 import { UTILS } from '~/service/tmdb/base';
 import CreditsService, { buildGetPersonDetailsEndpoint } from '~/service/tmdb/credits';
+import { Person } from '~/service/tmdb/model/People';
 import styles from './Credits.module.scss';
 
 const cx = classNames.bind(styles);

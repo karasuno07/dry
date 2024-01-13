@@ -2,7 +2,7 @@ import AuthLayout from '@features/authentication/layout';
 import { getCurrentUser } from '@features/authentication/lib/session';
 import { redirect } from '@lib/navigation';
 import { getProviders } from 'next-auth/react';
-import SignInForm from './SignInForm';
+import SignInForm from './SignInFom';
 
 type Props = {
   params: {

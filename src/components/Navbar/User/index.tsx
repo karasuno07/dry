@@ -1,5 +1,6 @@
 'use client';
 
+import UserAvatar from '@components/elements/Avatar';
 import Button from '@components/elements/Button';
 import Divider from '@components/elements/Divider';
 import Icon from '@components/elements/Icon';
@@ -11,7 +12,6 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { FaCircleUser, FaPowerOff } from 'react-icons/fa6';
 import styles from './User.module.scss';
-import UserAvatar from './UserAvatar';
 import UserInfo from './UserInfo';
 
 const cx = classNames.bind(styles);
@@ -33,9 +33,7 @@ export default function User() {
           <Menu
             hover
             position='right'
-            anchor={
-              <UserAvatar className='rounded-full border border-gray-700' image={userImage} />
-            }
+            anchor={<UserAvatar className='border border-gray-700' image={userImage} />}
             items={[
               <UserInfo
                 key='user-info'

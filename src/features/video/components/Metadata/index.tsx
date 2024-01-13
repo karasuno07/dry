@@ -1,10 +1,10 @@
 import Grid from '@components/elements/Grid';
-import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { getTranslations } from 'next-intl/server';
 import { use } from 'react';
 import { DiscoverType } from 'types/tmdb/api';
+import { Movie, TvSeries } from '~/service/tmdb/model/Videos';
 import styles from './Metadata.module.scss';
 
 const cx = classNames.bind(styles);

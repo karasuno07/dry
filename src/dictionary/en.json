@@ -59,10 +59,13 @@
         "loginBtn": "Login",
         "createAccountLink": "Create an account",
         "forgetPasswordLink": "Forget password?",
+        "tryAgain": "Use another account",
+        "welcome": "Welcome, ",
         "messages": {
+          "invalidUsername": "User does not exist!",
           "missingParamsError": "The Username or password is missing!",
           "credentialsMismatchError": "The username or password is incorrect!",
-          "exceedLoginAttemptsFailed": "You have exceeded the maximum number of failed login attempts. Your account has been banned for 5 minutes."
+          "exceedLoginAttemptsFailed": "You have exceeded the maximum number of failed login attempts. Please try another time."
         }
       },
       "signUp": {

@@ -1,7 +1,7 @@
 import Badge from '@components/elements/Badge';
-import { Genre } from '@model/Categories';
 import classNames from 'classnames/bind';
 import { getTranslations } from 'next-intl/server';
+import { Genre } from '~/service/tmdb/model/Categories';
 import styles from './Genres.module.scss';
 
 const cx = classNames.bind(styles);

@@ -1,5 +1,5 @@
-import { Cast, Crew, Person } from '@model/People';
 import { DiscoverType } from 'types/tmdb/api';
+import { Cast, Crew, Person } from '~/service/tmdb/model/People';
 import BaseService from './base';
 
 export type CreditsResponse = {

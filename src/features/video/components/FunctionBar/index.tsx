@@ -1,9 +1,9 @@
-import { CategoryResponse } from '@model/Categories';
 import classNames from 'classnames/bind';
 import { Suspense } from 'react';
 import { SearchParams } from 'types/api';
 import { DisplayMode } from 'types/ui';
 import GenresService from '~/service/tmdb/genres';
+import { CategoryResponse } from '~/service/tmdb/model/Categories';
 import CategorySelector, { SkeletonCategorySelector } from './CategorySelector';
 import FilterBar from './FilterBar';
 import styles from './FunctionBar.module.scss';
@@ -58,4 +58,3 @@ export default async function FunctionBar({ searchParams }: Props) {
 }
 
 export { default as SkeletonFunctionBar } from './Skeleton';
-

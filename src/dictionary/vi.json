@@ -59,10 +59,13 @@
         "loginBtn": "Đăng nhập",
         "createAccountLink": "Tạo tài khoản",
         "forgetPasswordLink": "Quên mật khẩu?",
+        "tryAgain": "Sử dụng tài khoản khác",
+        "welcome": "Xin chào, ",
         "messages": {
+          "invalidUsername": "Nguời dùng không tồn tại!",
           "missingParamsError": "Nhập thiếu tên đăng nhập hoặc mật khẩu!",
           "credentialsMismatchError": "Sai tên đăng nhập hoặc mật khẩu!",
-          "exceedLoginAttemptsFailed": "Bạn đã đăng nhập sai quá nhiều lần. Tài khoản của bạn sẽ bị khoá trong 5 phút."
+          "exceedLoginAttemptsFailed": "Bạn đã đăng nhập sai quá nhiều lần. Vui lòng thử lại sau."
         }
       },
       "signUp": {

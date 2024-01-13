@@ -68,11 +68,13 @@ const authOptions: AuthOptions = {
         },
       },
       async authorize(credentials, req) {
+        const ipAddress = (req.headers?.['x-forwarded-for'] || '127.0.0.1').split(',')[0];
+
         if (!credentials?.username || !credentials?.password) {
           throw { name: 'AuthError', message: AUTH_ERROR.MISSING_AUTH_PARAMS };
         }
 
-        const loginAttemptTimes = loginAttemptsCache.get<number>(credentials.username) || 0;
+        const loginAttemptTimes = loginAttemptsCache.get<number>(ipAddress) || 0;
 
         if (loginAttemptTimes === 5) {
           throw {
@@ -88,7 +90,7 @@ const authOptions: AuthOptions = {
         });
 
         if (!user || !user.password || !(await compare(credentials.password, user.password))) {
-          loginAttemptsCache.set(credentials.username, loginAttemptTimes + 1);
+          loginAttemptsCache.set(ipAddress, loginAttemptTimes + 1);
           throw {
             name: 'AuthError',
             message: AUTH_ERROR.CREDENTIALS_MISMATCH,

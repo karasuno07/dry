@@ -6,7 +6,6 @@ import Genres from '@features/video/components/Genres';
 import Metadata from '@features/video/components/Metadata';
 import Rating from '@features/video/components/Rating';
 import RelatedVideos from '@features/video/components/RelatedVideos';
-import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { round } from 'lodash';
 import { getTranslations } from 'next-intl/server';
@@ -14,6 +13,7 @@ import { LocaleType } from 'types/locale';
 import { DiscoverType } from 'types/tmdb/api';
 import transparentBackgroundNotFoundImage from '~/assets/images/portrait-image-not-found.png';
 import { UTILS } from '~/service/tmdb/base';
+import { Movie, TvSeries } from '~/service/tmdb/model/Videos';
 import VideoService from '~/service/tmdb/videos';
 import styles from './Info.module.scss';
 

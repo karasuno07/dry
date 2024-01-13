@@ -36,7 +36,7 @@
       color: theme('colors.white');
       border: 1px solid #555;
 
-      &:focus-visible {
+      &:focus-visible:not(:read-only) {
         outline: -webkit-focus-ring-color auto 1px;
       }
     }
@@ -65,7 +65,7 @@
     }
 
     &.outline {
-      .input:focus-visible {
+      .input:focus-visible:not(:read-only) {
         outline-offset: -1px;
         outline-width: 2px;
         outline-style: outset;
@@ -83,7 +83,7 @@
     }
 
     &.outline {
-      .input:focus-visible {
+      .input:focus-visible:not(:read-only) {
         outline-offset: -1px;
         outline-width: 2px;
         outline-style: solid;

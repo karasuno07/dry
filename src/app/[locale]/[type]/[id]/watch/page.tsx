@@ -1,10 +1,10 @@
 import Player from '@features/video/components/Player';
-import { Movie, TvSeries } from '@model/Videos';
 import classNames from 'classnames/bind';
 import { Metadata } from 'next';
 import { SearchParams } from 'types/api';
 import { LocaleType } from 'types/locale';
 import { DiscoverType } from 'types/tmdb/api';
+import { Movie, TvSeries } from '~/service/tmdb/model/Videos';
 import VideoService from '~/service/tmdb/videos';
 import styles from './Watch.module.scss';
 

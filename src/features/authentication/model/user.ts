@@ -33,3 +33,12 @@ export class UserResponse extends autoImplement<User>() {
     this.image = user.image;
   }
 }
+
+export class UserBriefResponse extends autoImplement<User>() {
+  constructor(user: any) {
+    super();
+    this.username = user.username;
+    this.name = user.name;
+    this.image = user.image;
+  }
+}
