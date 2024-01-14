@@ -21,6 +21,7 @@ const cx = classNames.bind(styles);
 
 export type FormData = {
   username: string;
+  pwd: string;
   password: string;
 };
 

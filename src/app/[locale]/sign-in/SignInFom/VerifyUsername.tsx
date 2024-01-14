@@ -26,6 +26,12 @@ export default function VerifyUsername({ setUser }: Props) {
     !getFieldState('username').isDirty || !isEmpty(getFieldState('username').error);
 
   const onVerifyUsernameHandler = async () => {
+    const honeypot = getValues('pwd');
+    if (honeypot.length > 0) {
+      console.log(honeypot);
+      // Return Error
+    }
+
     const username = getValues('username');
     const { data } = await GET(`/api/auth/verify/username/${username}`);
     if (data) {
@@ -45,6 +51,7 @@ export default function VerifyUsername({ setUser }: Props) {
         labelText={translate('form.usernameLabel')}
         placeholder={translate('form.usernamePlaceholder')}
       />
+      <FormControl variant='standard' name='pwd' labelText='' type='hidden'/>
       <Button
         fullSize
         type='submit'
