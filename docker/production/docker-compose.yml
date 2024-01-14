@@ -58,9 +58,9 @@ services:
     image: ravenz_nginx_server
     ports:
       - '80:80'
-    volumes:
-      - nextjs-app-build:/app
     privileged: true
+    links:
+      - nextjs-app
     environment:
       - NEXTJS_CONTAINER_IP=nextjs-app
       - ADMINER_CONTAINER_ID=adminer
