@@ -93,6 +93,7 @@ function Menu({
       const itemProps = item.props as ClickableElementProps & ButtonAsLinkProps;
       const itemComponent = React.cloneElement(item, {
         ...itemProps,
+        className: cx(itemProps.className, { 'menu-item': menuType === 'free' }),
         onClick:
           itemProps.onClick || itemProps.link
             ? (evt: React.MouseEvent<Element>) => {
@@ -104,7 +105,7 @@ function Menu({
             : undefined,
       });
 
-      return elementType.name === 'Divider' ? (
+      return elementType.name === 'Divider' || menuType === 'free' ? (
         itemComponent
       ) : (
         <li
@@ -123,6 +124,7 @@ function Menu({
       return processItem(items);
     }
   };
+
 
   return (
     <div

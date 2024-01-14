@@ -1,3 +1,5 @@
+@import '@stylesheets/library';
+
 .root {
   position: fixed;
   top: 0;
@@ -17,7 +19,38 @@
     .container {
       background-color: theme('colors.black.0');
     }
-    
+  }
+}
+
+.desktop {
+  display: contents;
+  @include mobile {
+    display: none;
+  }
+}
+
+.mobile {
+  display: none;
+  @include mobile {
+    display: contents;
+
+    .mobile-nav-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: theme('variables.header-height');
+      height: theme('variables.header-height');
+
+      &:global(.active) {
+        color: theme('colors.rose.400');
+      }
+    }
+
+    .mobile-nav {
+      min-width: 200px;
+      min-height: 500px;
+      background-color: theme('colors.gray.700');
+    }
   }
 }
 
@@ -40,6 +73,7 @@
 
 .logo {
   display: block;
+  margin-right: auto;
   width: 75px;
   height: 34px;
   border-radius: 8px;
@@ -104,6 +138,11 @@
     input[type='search'] {
       animation: collapsing 0.4s ease-in-out forwards;
     }
+  }
+
+
+  @include mobile {
+    // width: 200px;
   }
 }
 

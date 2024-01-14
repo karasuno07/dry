@@ -9,9 +9,11 @@ import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
 
-type Props = {};
+type Props = {
+  className?: string;
+};
 
-export default function SearchBar({}: Props) {
+export default function SearchBar({ className }: Props) {
   const translate = useTranslations('components.navBar.search');
   const searchBarRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +42,7 @@ export default function SearchBar({}: Props) {
   }, []);
 
   return (
-    <div className={cx('search-bar')} ref={searchBarRef} onClick={onInboundClickHandler}>
+    <div className={cx('search-bar', className)} ref={searchBarRef} onClick={onInboundClickHandler}>
       <input
         ref={inputRef}
         type='search'
