@@ -34,9 +34,10 @@ export const http = (baseConfig?: RequestBaseConfig) => {
     config?: RequestConfig<D>,
     handlers?: RequestHandlers<T>
   ): Promise<ResponseData<T>> {
-    const baseURL = baseConfig?.external
-      ? process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000'
-      : baseConfig?.baseURL;
+    const baseURL =
+      baseConfig?.external || !baseConfig?.baseURL
+        ? process.env.NEXT_PUBLIC_API_DOMAIN_URL || 'http://localhost:3000'
+        : baseConfig.baseURL;
     const baseHeaders = baseConfig?.headers;
     let status: ResponseStatus = null;
 
