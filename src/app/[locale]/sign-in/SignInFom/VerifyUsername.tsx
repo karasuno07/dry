@@ -28,8 +28,7 @@ export default function VerifyUsername({ setUser }: Props) {
   const onVerifyUsernameHandler = async () => {
     const honeypot = getValues('pwd');
     if (honeypot.length > 0) {
-      console.log(honeypot);
-      // Return Error
+      return;
     }
 
     const username = getValues('username');
@@ -51,7 +50,7 @@ export default function VerifyUsername({ setUser }: Props) {
         labelText={translate('form.usernameLabel')}
         placeholder={translate('form.usernamePlaceholder')}
       />
-      <FormControl variant='standard' name='pwd' labelText='' type='hidden'/>
+      <FormControl variant='standard' name='pwd' labelText='' type='hidden' />
       <Button
         fullSize
         type='submit'
