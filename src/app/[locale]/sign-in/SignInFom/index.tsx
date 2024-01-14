@@ -21,8 +21,8 @@ const cx = classNames.bind(styles);
 
 export type FormData = {
   username: string;
-  pwd: string;
   password: string;
+  pwd?: string;
 };
 
 type SignInFormProps = {
@@ -37,6 +37,7 @@ export default function SignInForm({ oauthProviders }: SignInFormProps) {
   const defaultValues = {
     username: '',
     password: '',
+    pwd: undefined,
   };
 
   const validationSchema = yup
@@ -52,6 +53,7 @@ export default function SignInForm({ oauthProviders }: SignInFormProps) {
         .string()
         .min(6, messages('password.min', { length: 6 }))
         .required(messages('password.required')),
+      pwd: yup.string(),
     })
     .required();
 

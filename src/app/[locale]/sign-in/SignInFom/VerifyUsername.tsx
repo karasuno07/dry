@@ -27,7 +27,7 @@ export default function VerifyUsername({ setUser }: Props) {
 
   const onVerifyUsernameHandler = async () => {
     const honeypot = getValues('pwd');
-    if (honeypot.length > 0) {
+    if (!isEmpty(honeypot)) {
       return;
     }
 
