@@ -15,6 +15,8 @@ types {
     text/vnd.wap.wml                      wml;
     text/x-component                      htc;
 
+
+    image/avif                            avif;
     image/png                             png;
     image/tiff                            tif tiff;
     image/vnd.wap.wbmp                    wbmp;
@@ -25,7 +27,7 @@ types {
     image/webp                            webp;
 
     application/font-woff                 woff;
-    font/woff2    			  woff2;
+    font/woff2				  woff2;
     font/ttf                              ttf;
     font/opentype                         otf;
     
@@ -44,6 +46,11 @@ types {
     application/vnd.wap.wmlc              wmlc;
     application/vnd.google-earth.kml+xml  kml;
     application/vnd.google-earth.kmz      kmz;
+    application/vnd.oasis.opendocument.graphics      odg;
+    application/vnd.oasis.opendocument.presentation  odp;
+    application/vnd.oasis.opendocument.spreadsheet   ods;
+    application/vnd.oasis.opendocument.text          odt;
+    application/wasm                                 wasm;
     application/x-7z-compressed           7z;
     application/x-cocoa                   cco;
     application/x-java-archive-diff       jardiff;

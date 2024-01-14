@@ -49,7 +49,7 @@ services:
     networks:
       - datasource
       - server
-  nginx: 
+  nginx:
     container_name: nginx_proxy_server
     ipc: host
     build:
@@ -60,6 +60,7 @@ services:
       - '80:80'
     volumes:
       - nextjs-app-build:/app
+    privileged: true
     environment:
       - NEXTJS_CONTAINER_IP=nextjs-app
       - ADMINER_CONTAINER_ID=adminer
@@ -73,10 +74,12 @@ services:
     container_name: open-appsec-agent
     image: ghcr.io/openappsec/agent:latest
     ipc: host
+    privileged: true
     volumes:
-      - /mnt/Drive1/Configs/openappsec/configs:/etc/cp/conf
-      - /mnt/Drive1/Configs/openappsec/data:/etc/cp/data
-      - /mnt/Drive1/Configs/openappsec/agent-logs:/var/log/nano_agent
+      - /mnt/Drive1/Docker/Configs/openappsec/configs:/etc/cp/conf:rw
+      - /mnt/Drive1/Docker/Configs/openappsec/data:/etc/cp/data:rw
+      - /mnt/Drive1/Docker/Configs/openappsec/agent-logs:/var/log/nano_agent:rw
+      - /dev/shm/:/dev/shm/:rw
     environment:
       - user_email=kevingom43@gmail.com
     command: /cp-nano-agent --token ${OPEN_APPSEC_TOKEN}
@@ -140,7 +143,7 @@ services:
       - LOG-LEVEL=debug
       - TZ=Asia/Ho_Chi_Minh
     volumes:
-      - /mnt/Drive1/Configs/overseer:/config
+      - /mnt/Drive1/Configs/overseerr:/app/config
     networks:
       - apps
   plex:
