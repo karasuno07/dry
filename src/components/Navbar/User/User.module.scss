@@ -1,4 +1,12 @@
+@import '@stylesheets/library';
+
 .root {
+  display: none;
+
+  @include non-mobile {
+    display: block;
+  }
+  
   & > div {
     margin: 5px 0px;
   }

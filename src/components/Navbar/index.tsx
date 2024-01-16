@@ -1,6 +1,5 @@
 import SearchBar from '@components/Navbar/SearchBar';
 import Icon from '@components/elements/Icon';
-import Menu from '@components/elements/Menu';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { FaBars } from 'react-icons/fa';
@@ -17,22 +16,12 @@ export default function NavBar({}: Props) {
     <nav className={cx('root')}>
       <div className={cx('container')}>
         <Link className={cx('logo')} href='/'></Link>
-        <div className={cx('desktop')}>
+        <div className={cx('nav-items')}>
           <SearchBar />
           <LanguageSwitch />
           <User />
         </div>
-        <div className={cx('mobile')}>
-          <Menu
-            menuType='free'
-            classes={{
-              menuListClassName: cx('mobile-nav'),
-            }}
-            anchor={<Icon className={cx('mobile-nav-btn')} icon={FaBars} size={24} />}
-            items={[]}
-            position='right'
-          />
-        </div>
+        <Icon className={cx('mobile-nav-btn', 'activee')} icon={FaBars} size={24} />
       </div>
     </nav>
   );
