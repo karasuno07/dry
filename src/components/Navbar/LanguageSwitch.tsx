@@ -14,9 +14,11 @@ import styles from './Navbar.module.scss';
 
 const cx = classNames.bind(styles);
 
-type Props = {};
+type Props = {
+  type?: 'mobile' | 'desktop';
+};
 
-export default function LanguageSwitch({}: Props) {
+export default function LanguageSwitch({ type = 'desktop' }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const locale = useLocale() as LocaleType;
@@ -25,7 +27,7 @@ export default function LanguageSwitch({}: Props) {
   return (
     <Menu
       classes={{
-        menuClassName: cx('language-switch'),
+        menuClassName: cx('language-switch', { mobile: type === 'mobile' }),
         menuListClassName: cx('languages'),
       }}
       position='right'
