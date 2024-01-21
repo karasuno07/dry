@@ -1,5 +1,5 @@
-import Button from '@components/elements/Button';
-import FormControl from '@components/elements/FormControl';
+import Button from '@components/ui/Button';
+import FormControl from '@components/ui/FormControl';
 import { UserBriefResponse } from '@features/authentication/model/user';
 import { useApi } from '@hooks/useApi';
 import classNames from 'classnames/bind';

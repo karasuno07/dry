@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import { forwardRef } from 'react';
 import { IconBaseProps, IconType } from 'react-icons';
 
 interface IconProps extends Omit<IconBaseProps, 'onClick'> {
@@ -7,14 +8,10 @@ interface IconProps extends Omit<IconBaseProps, 'onClick'> {
   iconClassName?: string;
 }
 
-export default function Icon({
-  icon,
-  className,
-  onClick,
-  onDoubleClick,
-  iconClassName,
-  ...props
-}: IconProps) {
+const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(
+  { icon, className, onClick, onDoubleClick, iconClassName, ...props },
+  ref
+) {
   const iconProps = {
     ...props,
     className: iconClassName,
@@ -22,8 +19,10 @@ export default function Icon({
   const IconElement = icon;
 
   return (
-    <span className={cx('react-icons', className)} onClick={onClick}>
+    <span ref={ref} className={cx('react-icons', className)} onClick={onClick}>
       <IconElement {...iconProps} />
     </span>
   );
-}
+});
+
+export default Icon;

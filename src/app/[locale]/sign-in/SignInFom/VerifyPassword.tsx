@@ -1,6 +1,6 @@
-import UserAvatar from '@components/elements/Avatar';
-import Button from '@components/elements/Button';
-import FormControl from '@components/elements/FormControl';
+import UserAvatar from '@components/ui/Avatar';
+import Button from '@components/ui/Button';
+import FormControl from '@components/ui/FormControl';
 import { AUTH_ERROR } from '@features/authentication/constants';
 import { UserBriefResponse } from '@features/authentication/model/user';
 import classNames from 'classnames/bind';

@@ -1,6 +1,6 @@
 'use client';
 
-import Icon from '@components/elements/Icon';
+import Icon from '@components/ui/Icon';
 import { useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { useLocale } from 'next-intl';

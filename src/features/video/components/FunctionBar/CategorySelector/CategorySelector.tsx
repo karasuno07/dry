@@ -1,6 +1,6 @@
 'use client';
 
-import Menu from '@components/elements/Menu';
+import Menu from '@components/ui/Menu';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';

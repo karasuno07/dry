@@ -1,7 +1,7 @@
 'use client';
 
-import Button, { ButtonProps } from '@components/elements/Button';
-import Icon from '@components/elements/Icon';
+import Button, { ButtonProps } from '@components/ui/Button';
+import Icon from '@components/ui/Icon';
 import { useRouter } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { signIn } from 'next-auth/react';

@@ -1,6 +1,6 @@
-import Button from '@components/elements/Button';
-import Icon from '@components/elements/Icon';
-import SSRImage from '@components/elements/Image/server/SSRImage';
+import Button from '@components/ui/Button';
+import Icon from '@components/ui/Icon';
+import SSRImage from '@components/ui/Image/server/SSRImage';
 import classNames from 'classnames/bind';
 import { MdHome } from 'react-icons/md';
 import noData from '~/assets/images/no-data.png';

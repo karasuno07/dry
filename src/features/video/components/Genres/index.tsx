@@ -1,4 +1,4 @@
-import Badge from '@components/elements/Badge';
+import Badge from '@components/ui/Badge';
 import classNames from 'classnames/bind';
 import { getTranslations } from 'next-intl/server';
 import { Genre } from '~/service/tmdb/model/Categories';

@@ -1,5 +1,5 @@
-import LoadingImage from '@components/elements/Image/server/LoadingImage';
-import SSRImage from '@components/elements/Image/server/SSRImage';
+import LoadingImage from '@components/ui/Image/server/LoadingImage';
+import SSRImage from '@components/ui/Image/server/SSRImage';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { Suspense } from 'react';

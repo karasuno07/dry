@@ -1,6 +1,6 @@
 'use client';
 
-import Icon from '@components/elements/Icon';
+import Icon from '@components/ui/Icon';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { ceil, isUndefined, min } from 'lodash';

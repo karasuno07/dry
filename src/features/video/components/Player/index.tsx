@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@components/elements/Button';
-import Icon from '@components/elements/Icon';
-import Menu from '@components/elements/Menu';
+import Button from '@components/ui/Button';
+import Icon from '@components/ui/Icon';
+import Menu from '@components/ui/Menu';
 import servers, { SupportedServer } from '@features/video/constants/server';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';

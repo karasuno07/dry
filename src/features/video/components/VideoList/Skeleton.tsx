@@ -1,4 +1,4 @@
-import Grid from '@components/elements/Grid';
+import Grid from '@components/ui/Grid';
 import { SkeletonPreviewer } from '@features/video/components/Previewer';
 import classNames from 'classnames/bind';
 import styles from './VideoList.module.scss';

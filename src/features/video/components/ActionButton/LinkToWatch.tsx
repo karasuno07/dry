@@ -1,5 +1,5 @@
-import Button from '@components/elements/Button';
-import Icon from '@components/elements/Icon';
+import Button from '@components/ui/Button';
+import Icon from '@components/ui/Icon';
 import classNames from 'classnames/bind';
 import { getTranslations } from 'next-intl/server';
 import { FaPlay } from 'react-icons/fa6';

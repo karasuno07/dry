@@ -1,4 +1,4 @@
-import Grid from '@components/elements/Grid';
+import Grid from '@components/ui/Grid';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { getTranslations } from 'next-intl/server';

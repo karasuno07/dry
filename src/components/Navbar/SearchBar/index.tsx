@@ -1,11 +1,11 @@
 'use client';
 
-import Icon from '@components/elements/Icon';
+import Icon from '@components/ui/Icon';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
 import { MdOutlineSearch as Search } from 'react-icons/md';
-import styles from './Navbar.module.scss';
+import styles from './SearchBar.module.scss';
 
 const cx = classNames.bind(styles);
 

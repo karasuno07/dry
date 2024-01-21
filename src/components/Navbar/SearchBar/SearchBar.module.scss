@@ -1,0 +1,114 @@
+@import '@stylesheets/library';
+
+.search-bar {
+  $background-color: theme('colors.black.75');
+  $border-radius: 8px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  width: fit-content;
+  height: 40px;
+  border-radius: $border-radius;
+  overflow: hidden;
+
+  input[type='search'] {
+    width: 0;
+    margin-right: 40px;
+    height: 40px;
+    color: theme('colors.gray.300');
+    font-size: 15px;
+    background-color: $background-color;
+  }
+
+  .search-icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    border-radius: $border-radius;
+    padding: 4px;
+    background-color: theme('colors.white-liked.15');
+    color: theme('colors.white');
+    cursor: pointer;
+  }
+
+  &.expanded {
+    border: 1px solid theme('colors.white');
+
+    input[type='search'] {
+      animation: expanding 0.5s ease-in-out forwards;
+    }
+
+    .search-icon {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      background-color: $background-color;
+
+      &:active {
+        background-color: theme('colors.white-liked.15');
+      }
+    }
+  }
+
+  &.collapsed {
+    input[type='search'] {
+      animation: collapsing 0.4s ease-in-out forwards;
+    }
+  }
+
+  @include mobile {
+    width: calc(100% - 24px);
+    padding: {
+      top: 4px;
+      left: 4px;
+      bottom: 4px;
+      right: 0;
+    };
+    border: 1px solid theme('colors.white-liked.50');
+    background-color: $background-color;
+
+    &:hover {
+      border-color: theme('colors.white');
+    }
+
+    input[type='search'] {
+      width: 100%;
+      text-indent: 8px;
+    }
+
+    &.expanded, &.collapsed {
+      input[type='search'] {
+        animation: none;
+      }
+
+      .search-icon {
+        background-color: theme('colors.white-liked.15');
+      }
+    }
+
+  }
+}
+
+@keyframes expanding {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 280px;
+    padding: 4px 0 4px 12px;
+  }
+}
+
+@keyframes collapsing {
+  0% {
+    width: 280px;
+    padding: 4px 0 4px 12px;
+  }
+  100% {
+    width: 0;
+    padding: 0;
+  }
+}

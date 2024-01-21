@@ -1,6 +1,6 @@
 'use client';
 
-import Icon from '@components/elements/Icon';
+import Icon from '@components/ui/Icon';
 import useDebouncedSearch from '@features/video/hooks/useDebouncedSearch';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';

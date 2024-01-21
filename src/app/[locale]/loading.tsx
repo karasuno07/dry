@@ -1,5 +1,5 @@
-import Backdrop from '@components/elements/Backdrop';
+import Loading from '@components/ui/Loading';
 
-export default function Loading() {
-  return <Backdrop className='rounded-md' loadingAnimation='wave' />;
+export default function LoadingPage() {
+  return <Loading className='rounded-md' loadingAnimation='wave' />;
 }

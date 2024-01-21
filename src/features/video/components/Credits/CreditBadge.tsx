@@ -1,6 +1,6 @@
 'use client';
 
-import CSRImage from '@components/elements/Image/client/CSRImage';
+import CSRImage from '@components/ui/Image/client/CSRImage';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { Tooltip } from 'react-tooltip';

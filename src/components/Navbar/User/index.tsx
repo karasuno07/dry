@@ -1,10 +1,10 @@
 'use client';
 
-import UserAvatar from '@components/elements/Avatar';
-import Button from '@components/elements/Button';
-import Divider from '@components/elements/Divider';
-import Icon from '@components/elements/Icon';
-import Menu from '@components/elements/Menu';
+import UserAvatar from '@components/ui/Avatar';
+import Button from '@components/ui/Button';
+import Divider from '@components/ui/Divider';
+import Icon from '@components/ui/Icon';
+import Menu from '@components/ui/Menu';
 import defaultUser from '@icons/user-default-64.png';
 import classNames from 'classnames/bind';
 import { capitalize, isEmpty } from 'lodash';

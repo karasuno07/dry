@@ -1,6 +1,6 @@
 import Pagination from '@components/Pagination';
-import Grid from '@components/elements/Grid';
-import Stack from '@components/elements/Stack';
+import Grid from '@components/ui/Grid';
+import Stack from '@components/ui/Stack';
 import { CSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import classNames from 'classnames/bind';
 import { getLocale } from 'next-intl/server';

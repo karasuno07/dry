@@ -1,4 +1,4 @@
-import SSRImage from '@components/elements/Image/server/SSRImage';
+import SSRImage from '@components/ui/Image/server/SSRImage';
 import AddToWishlist from '@features/video/components/ActionButton/AddToWishlist';
 import LinkToWatch from '@features/video/components/ActionButton/LinkToWatch';
 import Credits from '@features/video/components/Credits';

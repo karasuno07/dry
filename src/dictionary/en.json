@@ -15,6 +15,7 @@
     "navBar": {
       "signInBtn": "Sign In",
       "signOutBtn": "Sign Out",
+      "signOutBtn_v2": "Logout",
       "search": {
         "placeholder": "Search any keyword..."
       }

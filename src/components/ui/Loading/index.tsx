@@ -10,9 +10,9 @@ export type LoadingProps = {
   className?: string;
 };
 
-export default function Backdrop({ loadingAnimation, className }: LoadingProps) {
+export default function Loading({ loadingAnimation, className }: LoadingProps) {
   return (
-    <div className={cx('backdrop', className)}>
+    <div className={cx('root', className)}>
       {loadingAnimation === 'wave' && <Waver />}
       {loadingAnimation === 'spin' && <Spinner />}
     </div>

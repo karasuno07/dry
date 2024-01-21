@@ -1,6 +1,6 @@
 'use client';
 
-import { ConnectForm } from '@components/elements/Form';
+import { ConnectForm } from '@components/ui/Form';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
 import { memo, useRef } from 'react';

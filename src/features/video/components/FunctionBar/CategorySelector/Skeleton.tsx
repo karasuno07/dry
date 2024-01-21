@@ -1,4 +1,4 @@
-import Menu from '@components/elements/Menu';
+import Menu from '@components/ui/Menu';
 import classNames from 'classnames/bind';
 import { getTranslations } from 'next-intl/server';
 import { FaThList } from 'react-icons/fa';

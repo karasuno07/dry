@@ -1,4 +1,4 @@
-import Button from '@components/elements/Button';
+import Button from '@components/ui/Button';
 import classNames from 'classnames/bind';
 import { BiSolidGridAlt } from 'react-icons/bi';
 import { HiSquare3Stack3D } from 'react-icons/hi2';

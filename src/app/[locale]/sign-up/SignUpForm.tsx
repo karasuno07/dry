@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@components/elements/Button';
-import Form from '@components/elements/Form';
-import FormControl from '@components/elements/FormControl';
+import Button from '@components/ui/Button';
+import Form from '@components/ui/Form';
+import FormControl from '@components/ui/FormControl';
 import AuthLayout from '@features/authentication/layout';
 import { UserResponse, UserUpsertRequest } from '@features/authentication/model/user';
 import { yupResolver } from '@hookform/resolvers/yup';

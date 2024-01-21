@@ -1,7 +1,7 @@
 'use client';
 
-import Form from '@components/elements/Form';
-import Icon from '@components/elements/Icon';
+import Form from '@components/ui/Form';
+import Icon from '@components/ui/Icon';
 import OAuthSignIn from '@features/authentication/components/oauth';
 import { UserBriefResponse } from '@features/authentication/model/user';
 import { yupResolver } from '@hookform/resolvers/yup';

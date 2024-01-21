@@ -1,8 +1,8 @@
 'use client';
 
-import Button from '@components/elements/Button';
-import Icon from '@components/elements/Icon';
-import Menu from '@components/elements/Menu';
+import Button from '@components/ui/Button';
+import Icon from '@components/ui/Icon';
+import Menu from '@components/ui/Menu';
 import { Link, usePathname } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { useLocale, useTranslations } from 'next-intl';
@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation';
 import { FaGlobeAmericas, FaGlobeAsia } from 'react-icons/fa';
 import { LocaleType } from 'types/locale';
 import { SUPPORTED_LOCALES } from '~/constants/locales';
-import styles from './Navbar.module.scss';
+import styles from './LanguageSwitch.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +27,7 @@ export default function LanguageSwitch({ type = 'desktop' }: Props) {
   return (
     <Menu
       classes={{
-        menuClassName: cx('language-switch', { mobile: type === 'mobile' }),
+        menuClassName: cx('root', { mobile: type === 'mobile' }),
         menuListClassName: cx('languages'),
       }}
       position='right'

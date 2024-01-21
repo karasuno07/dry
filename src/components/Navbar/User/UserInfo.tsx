@@ -1,6 +1,6 @@
 'use client';
 
-import UserAvatar from '@components/elements/Avatar';
+import UserAvatar from '@components/ui/Avatar';
 import classNames from 'classnames/bind';
 import { StaticImageData } from 'next/image';
 import { Tooltip } from 'react-tooltip';

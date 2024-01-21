@@ -15,6 +15,7 @@
     "navBar": {
       "signInBtn": "Đăng nhập",
       "signOutBtn": "Đăng xuất",
+      "signOutBtn_v2": "Đăng xuất",
       "search": {
         "placeholder": "Tìm kiếm theo từ khoá..."
       }
