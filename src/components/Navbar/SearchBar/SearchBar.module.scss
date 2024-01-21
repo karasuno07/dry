@@ -60,7 +60,7 @@
   }
 
   @include mobile {
-    width: calc(100% - 24px);
+    width: 100%;
     padding: {
       top: 4px;
       left: 4px;

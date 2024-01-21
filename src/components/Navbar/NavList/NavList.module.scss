@@ -38,8 +38,16 @@
     height: calc(100lvh - theme('variables.header-height'));
     min-width: 350px;
     max-width: 90lvw;
+    transform: translateX(100%);
     transform-origin: right;
-    animation: slideInRight 0.34s linear forwards;
+    
+    &.expanded {
+      animation: slideInRight 0.34s linear forwards;
+    }
+
+    &.collapsed {
+      animation: slideOutRight 0.22s linear forwards;
+    }
 
     & > * {
       margin: {
@@ -48,6 +56,12 @@
       };
     }
   }
+}
+
+.mobile-sign-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-sign-out {
@@ -62,5 +76,14 @@
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
   }
 }

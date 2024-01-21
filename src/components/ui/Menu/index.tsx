@@ -102,7 +102,7 @@ function Menu({
                   itemProps.onClick(evt);
                 }
               }
-            : undefined,
+            : inboundOnClickHandler,
       });
 
       return elementType.name === 'Divider' || menuType === 'free' ? (

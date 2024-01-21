@@ -15,10 +15,10 @@ import styles from './LanguageSwitch.module.scss';
 const cx = classNames.bind(styles);
 
 type Props = {
-  type?: 'mobile' | 'desktop';
+  type: 'mobile' | 'desktop';
 };
 
-export default function LanguageSwitch({ type = 'desktop' }: Props) {
+export default function LanguageSwitch({ type }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const locale = useLocale() as LocaleType;
@@ -39,7 +39,7 @@ export default function LanguageSwitch({ type = 'desktop' }: Props) {
       items={SUPPORTED_LOCALES.map((loc, idx) => (
         <div key={idx} className={cx('lang-item', { active: loc === locale })}>
           <span className={cx('abbreviation')}>{translate(`${loc}.abbreviation`)}</span>
-          <Link href={pathname + '?' + searchParams.toString()} locale={loc}>
+          <Link href={pathname + '?' + searchParams.toString()} hrefLang={loc} locale={loc}>
             {translate(`${loc}.name`)}
           </Link>
         </div>

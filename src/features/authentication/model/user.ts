@@ -10,6 +10,12 @@ type User = {
   image?: string;
 };
 
+export type SessionUser = {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+};
+
 export class UserUpsertRequest extends autoImplement<User>() {
   constructor(user: any) {
     super();

@@ -16,6 +16,13 @@
       "signInBtn": "Sign In",
       "signOutBtn": "Sign Out",
       "signOutBtn_v2": "Logout",
+      "signOutDialog": {
+        "title": "Logout Confirmation",
+        "message": "Are you sure want to logout?",
+        "cancel": "No, Thanks",
+        "ok": "Yes"
+
+      },
       "search": {
         "placeholder": "Search any keyword..."
       }

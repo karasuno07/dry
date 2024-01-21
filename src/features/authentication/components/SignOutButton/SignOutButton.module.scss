@@ -1,0 +1,19 @@
+.sign-out-popup {
+  width: 400px;
+  max-width: calc(100% - 20px);
+}
+
+.action-btn {
+  padding: 5px 12px;
+  min-width: 80px;
+  font-weight: bold;
+}
+
+.close {
+  border: 1px solid black;
+}
+
+.ok {
+  background-color: theme('colors.red.600');
+  color: theme('colors.white');
+}

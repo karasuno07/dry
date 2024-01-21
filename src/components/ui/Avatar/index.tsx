@@ -8,9 +8,10 @@ type Props = {
   className?: string;
   rounded?: boolean;
   image?: string | StaticImageData;
+  size?: number;
 };
 
-export default function UserAvatar({ className, rounded = true, image }: Props) {
+export default function UserAvatar({ className, rounded = true, image, size = 40 }: Props) {
   const preventDragAndDropEventHandler = (evt: React.DragEvent<HTMLImageElement>) => {
     evt.preventDefault();
   };
@@ -20,8 +21,8 @@ export default function UserAvatar({ className, rounded = true, image }: Props) 
       className={cx(className, { 'rounded-full': rounded })}
       src={image || defaultUser}
       alt='user-avatar'
-      width={40}
-      height={40}
+      width={size}
+      height={size}
       onDragStart={preventDragAndDropEventHandler}
       onDrop={preventDragAndDropEventHandler}
     />

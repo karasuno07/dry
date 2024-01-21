@@ -27,7 +27,6 @@ export default function LocalizationLayout({
         >
           <SessionProvider>{children}</SessionProvider>
         </NextIntlClientProvider>
-        <div id='backdrop' />
       </body>
     </html>
   );
