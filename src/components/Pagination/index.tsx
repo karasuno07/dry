@@ -1,6 +1,7 @@
 'use client';
 
 import Icon from '@components/ui/Icon';
+import { useIsMobile } from '@hooks/useMediaQuery';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { ceil, isUndefined, min } from 'lodash';
@@ -16,7 +17,6 @@ type Props = {
   totalItems?: number;
   totalPage?: number;
   itemPerPage?: number;
-  maxDisplayedPage?: number;
   maxTotalPage?: number;
   position?: 'left' | 'center' | 'right';
 };
@@ -25,7 +25,6 @@ export default function Pagination({
   totalItems,
   totalPage,
   itemPerPage = 12,
-  maxDisplayedPage = 5,
   maxTotalPage = 500,
   position = 'center',
 }: Props) {
@@ -36,15 +35,17 @@ export default function Pagination({
     );
   }
 
+  const isMobile = useIsMobile();
   const searchParams = useSearchParams();
 
+  const _maxDisplayedPage = isMobile ? 3 : 5;
   const _currentPage = Number(searchParams.get('page')) || 1;
   const _itemPerPage = Number(searchParams.get('limit')) || itemPerPage;
   const _totalPage = min([
     totalPage || ceil((totalItems as number) / _itemPerPage),
     maxTotalPage,
   ]) as number;
-  const _partNumber = ceil(_currentPage / maxDisplayedPage);
+  const _partNumber = ceil(_currentPage / _maxDisplayedPage);
 
   if (_currentPage > _totalPage) {
     notFound();
@@ -58,7 +59,7 @@ export default function Pagination({
         page = 1;
         break;
       case 'prev-part':
-        page = (_partNumber - 1) * maxDisplayedPage;
+        page = (_partNumber - 1) * _maxDisplayedPage;
         break;
       case 'prev':
         page = _currentPage > 1 ? _currentPage - 1 : _currentPage;
@@ -68,8 +69,8 @@ export default function Pagination({
         break;
       case 'next-part':
         page =
-          (_partNumber + 1) * maxDisplayedPage <= _totalPage
-            ? _partNumber * maxDisplayedPage + 1
+          (_partNumber + 1) * _maxDisplayedPage <= _totalPage
+            ? _partNumber * _maxDisplayedPage + 1
             : _totalPage;
         break;
       case 'last':
@@ -93,7 +94,7 @@ export default function Pagination({
 
     return (
       <>
-        {_currentPage > maxDisplayedPage && (
+        {_currentPage > _maxDisplayedPage && (
           <li className={cx('page-navigation')}>
             <Link
               className={cx('page-item', 'font-black')}
@@ -105,8 +106,10 @@ export default function Pagination({
           </li>
         )}
         {generateArrayValues(
-          (_partNumber - 1) * maxDisplayedPage,
-          _partNumber * maxDisplayedPage <= _totalPage ? _partNumber * maxDisplayedPage : _totalPage
+          (_partNumber - 1) * _maxDisplayedPage,
+          _partNumber * _maxDisplayedPage <= _totalPage
+            ? _partNumber * _maxDisplayedPage
+            : _totalPage
         ).map((val) => {
           const pageNumber = val + 1;
           return (
@@ -122,8 +125,8 @@ export default function Pagination({
             </li>
           );
         })}
-        {maxDisplayedPage * _partNumber < _totalPage &&
-          maxDisplayedPage * _partNumber >= maxDisplayedPage && (
+        {_maxDisplayedPage * _partNumber < _totalPage &&
+          _maxDisplayedPage * _partNumber >= _maxDisplayedPage && (
             <li className={cx('page-navigation')}>
               <Link
                 className={cx('page-item', 'font-black')}

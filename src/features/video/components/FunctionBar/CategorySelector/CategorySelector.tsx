@@ -48,7 +48,7 @@ export default function CategorySelector({ categories }: Props) {
   const movieItems = categories.movie.map((category) => (
     <Link
       key={category.id}
-      className='block w-full h-full'
+      className={cx('block w-full', { active: searchParams.get('category') === category.slug })}
       href={onChangeCategoryHandler(category.slug)}
     >
       {category.name}
