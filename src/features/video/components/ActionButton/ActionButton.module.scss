@@ -1,5 +1,8 @@
+@import '@stylesheets/library';
+
 @mixin button-style {
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 2px 12px;
   font-weight: 550;
@@ -8,6 +11,10 @@
   border-radius: 16px;
   border-color: transparent;
   transition: all 0.33s linear;
+
+  @include mobile {
+    padding: 5px 12px;
+  }
 }
 
 .play {

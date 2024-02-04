@@ -33,8 +33,8 @@ function Credits({ videoType, videoId, className, title = 'Casts' }: CreditsProp
       <span className={cx('title')}>{title}</span>
       <div className={cx('list')}>
         {credits &&
-          credits.cast.map((p) => (
-            <CreditBadge key={p.id} personId={p.id} characterName={p.character} gender={p.gender} />
+          credits.cast.map((p, idx) => (
+            <CreditBadge key={idx} personId={p.id} characterName={p.character} gender={p.gender} />
           ))}
       </div>
     </div>

@@ -57,7 +57,11 @@ body {
   background-color: theme('colors.black.35');
   max-width: 1600px;
   margin: auto;
-  overflow: hidden;
+  overflow: auto;
+
+  @include non-mobile {
+    overflow: hidden;
+  }
 }
 
 main {

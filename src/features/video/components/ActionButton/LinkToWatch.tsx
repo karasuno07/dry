@@ -1,7 +1,7 @@
 import Button from '@components/ui/Button';
 import Icon from '@components/ui/Icon';
 import classNames from 'classnames/bind';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { FaPlay } from 'react-icons/fa6';
 import styles from './ActionButton.module.scss';
 
@@ -11,8 +11,8 @@ type Props = {
   link: string;
 };
 
-export default async function LinkToWatch({ link }: Props) {
-  const translate = await getTranslations('features.video.actionButton');
+export default function LinkToWatch({ link }: Props) {
+  const translate = useTranslations('features.video.actionButton');
 
   return (
     <Button link={{ href: link }} className={cx('play')}>

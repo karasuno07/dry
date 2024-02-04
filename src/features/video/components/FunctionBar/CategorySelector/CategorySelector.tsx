@@ -56,11 +56,7 @@ export default function CategorySelector({ categories }: Props) {
   ));
 
   const tvItems = categories.tv.map((category) => (
-    <Link
-      key={category.id}
-      className='block w-full h-full'
-      href={onChangeCategoryHandler(category.slug)}
-    >
+    <Link key={category.id} className='block w-full' href={onChangeCategoryHandler(category.slug)}>
       {category.name}
     </Link>
   ));

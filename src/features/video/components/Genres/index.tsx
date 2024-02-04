@@ -1,6 +1,6 @@
 import Badge from '@components/ui/Badge';
 import classNames from 'classnames/bind';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { Genre } from '~/service/tmdb/model/Categories';
 import styles from './Genres.module.scss';
 
@@ -10,8 +10,8 @@ type Props = {
   genres: Genre[];
 };
 
-export default async function Genres({ genres }: Props) {
-  const translate = await getTranslations('videos');
+export default function Genres({ genres }: Props) {
+  const translate = useTranslations('videos');
 
   return (
     <div className={cx('root')}>

@@ -1,8 +1,7 @@
 import Grid from '@components/ui/Grid';
 import classNames from 'classnames/bind';
 import { isEmpty } from 'lodash';
-import { getTranslations } from 'next-intl/server';
-import { use } from 'react';
+import { useTranslations } from 'next-intl';
 import { DiscoverType } from 'types/tmdb/api';
 import { Movie, TvSeries } from '~/service/tmdb/model/Videos';
 import styles from './Metadata.module.scss';
@@ -16,7 +15,7 @@ type Props = {
 
 export default function Metadata({ type, data }: Props) {
   return (
-    <Grid template='cols' className={cx('root')}>
+    <Grid template='cols' className={cx('root')} defaultClass='grid-cols-2'>
       {type === 'movie' ? (
         <MovieMetadata {...(data as Movie)} />
       ) : (
@@ -42,7 +41,7 @@ const LanguageMetadata = (details: Movie | TvSeries) => {
 };
 
 const MovieMetadata = (details: Movie) => {
-  const translate = use(getTranslations('videos.metadata'));
+  const translate = useTranslations('videos.metadata');
 
   return (
     <>
@@ -69,7 +68,7 @@ const MovieMetadata = (details: Movie) => {
 };
 
 const TvSeriesMetadata = (details: TvSeries) => {
-  const translate = use(getTranslations('videos.metadata'));
+  const translate = useTranslations('videos.metadata');
 
   return (
     <>

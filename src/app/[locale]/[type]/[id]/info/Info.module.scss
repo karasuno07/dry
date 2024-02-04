@@ -1,60 +1,90 @@
+@import '@stylesheets/library';
+
 .root {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 75px);
   background-color: theme('colors.white-liked.25');
   border-radius: 6px;
+
+  @include non-mobile {
+    height: calc(100lvh - 75px);
+  }
 }
 
 .content-wrapper {
+  $poster-width: 450px;
+  $details-width: calc(100% - $poster-width);
   display: flex;
-  height: calc(100vh - 315px);
+  flex-direction: column;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   background-color: theme('colors.white');
-  margin: {
-    top: 10px;
-    left: 10px;
-    right: 10px;
+  padding: 10px;
+  margin: 10px;
+
+  @include non-mobile {
+    flex-direction: row;
+    overflow: hidden;
+    height: calc(100vh - 315px);
+    padding: 0;
+    margin-bottom: 0;
   }
-  overflow: hidden;
-  $poster-width: 450px;
-  $details-width: calc(100% - $poster-width);
 
   .poster {
     position: relative;
-    background-color: theme('colors.gray.200');
     box-sizing: content-box;
-    min-width: 400px;
+    width: 100%;
     border-radius: 15px;
-    margin: 5px;
-    overflow: hidden;
 
     img {
+      width: auto;
+      height: 480px;
+      aspect-ratio: auto 2 / 3;
+      margin: auto;
       border: 1px inset theme('colors.black.75');
-      border-radius: inherit;
-      aspect-ratio: auto 636 / 955;
-      width: 100%;
-      height: 100%;
+      border-radius: 15px;
       z-index: 999;
+    }
+
+    @include non-mobile {
+      background-color: theme('colors.gray.200');
+      min-width: 400px;
+      width: auto;
+      margin: 5px;
+
+      img {
+        height: 100%;
+      }
     }
   }
 
   .details {
     display: flex;
     flex-direction: column;
-    margin: 0 15px;
-    width: $details-width;
+    padding: 0 5px;
+
+    @include non-mobile {
+      margin: 0 15px;
+    }
+  
     color: theme('colors.gray.700');
 
     .title {
-      font-size: 40px;
+      font-size: 36px;
       font-weight: bold;
+
+      @include non-mobile {
+        font-size: 40px;
+      }
     }
 
     .tagline {
-      font-size: 22px;
+      font-size: 20px;
+
+      @include non-mobile {
+        font-size: 22px;
+      }
     }
 
     .rating {
@@ -70,10 +100,7 @@
 
     .overview {
       margin-top: 10px;
-      max-height: 125px;
-      overflow: hidden;
-
-
+  
       & > *:first-child {
         display: block;
         font-size: 20px;
@@ -81,11 +108,19 @@
       }
 
       & > *:last-child {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        overflow: hidden;
+        display: block;
         font-weight: 450;
+      }
+
+      @include non-mobile {
+        max-height: 125px;
+
+        & > *:last-child {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 4;
+          overflow: hidden;
+        }
       }
     }
 
@@ -94,6 +129,18 @@
       align-items: center;
       gap: 10px;
       height: 50px;
+
+      @include mobile {
+        justify-content: space-between;
+
+        a, button {
+          width: calc(50% - 5px);
+        }
+      }
+    }
+
+    @include non-mobile {
+      width: $details-width;
     }
   }
 }
