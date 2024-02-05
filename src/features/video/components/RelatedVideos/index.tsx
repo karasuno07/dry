@@ -22,6 +22,7 @@ export default function RelatedVideos({ className, videoType, videoId }: Props) 
       <div className={cx('list')}>
         {videos.map((video) => (
           <Previewer
+            className={cx('video')}
             render='server'
             key={video.id}
             id={video.id}
@@ -29,7 +30,6 @@ export default function RelatedVideos({ className, videoType, videoId }: Props) 
             overview={video.overview}
             type={videoType}
             backdropImage={UTILS.buildImageUrl(video.backdrop_path || video.poster_path, 'w500')}
-            className={cx('video')}
             size='sm'
           />
         ))}

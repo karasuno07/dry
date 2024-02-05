@@ -67,11 +67,11 @@
     @include non-mobile {
       margin: 0 15px;
     }
-  
+
     color: theme('colors.gray.700');
 
     .title {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: bold;
 
       @include non-mobile {
@@ -80,7 +80,7 @@
     }
 
     .tagline {
-      font-size: 20px;
+      font-size: 18px;
 
       @include non-mobile {
         font-size: 22px;
@@ -100,22 +100,30 @@
 
     .overview {
       margin-top: 10px;
-  
+      margin-bottom: 10px;
+
       & > *:first-child {
         display: block;
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
       }
 
       & > *:last-child {
         display: block;
+        font-size: 13px;
         font-weight: 450;
       }
 
       @include non-mobile {
         max-height: 125px;
+        margin-bottom: 0;
+
+        & > *:first-child {
+          font-size: 18px;
+        }
 
         & > *:last-child {
+          font-size: inherit;
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 4;
@@ -133,7 +141,8 @@
       @include mobile {
         justify-content: space-between;
 
-        a, button {
+        a,
+        button {
           width: calc(50% - 5px);
         }
       }
@@ -146,7 +155,6 @@
 }
 
 .related-videos {
-  height: 240px;
   background-color: theme('colors.white');
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
@@ -154,5 +162,9 @@
     bottom: 10px;
     left: 10px;
     right: 10px;
+  }
+
+  @include non-mobile {
+    height: 240px;
   }
 }

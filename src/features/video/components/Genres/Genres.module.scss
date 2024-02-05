@@ -1,9 +1,15 @@
+@import '@stylesheets/library';
+
 .root {
   margin-bottom: 10px;
 
   & > *:first-child {
     display: block;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
+
+    @include non-mobile {
+      font-size: 18px;
+    }
   }
 }

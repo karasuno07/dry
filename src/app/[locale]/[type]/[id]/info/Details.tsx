@@ -28,7 +28,7 @@ export default function Details({ id, type, details }: Props) {
   const title = type === 'tv' ? (details as TvSeries).name : (details as Movie).title;
   const originalTitle =
     type === 'tv' ? (details as TvSeries).original_name : (details as Movie).original_title;
-  const rating = Number(Math.round(details.vote_average / 2).toFixed(1));
+  const rating = Number((details.vote_average / 2).toFixed(1));
 
   const mobileView = (
     <>
