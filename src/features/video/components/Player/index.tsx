@@ -4,6 +4,7 @@ import Button from '@components/ui/Button';
 import Icon from '@components/ui/Icon';
 import Menu from '@components/ui/Menu';
 import servers, { SupportedServer } from '@features/video/constants/server';
+import { useIsDesktop } from '@hooks/useMediaQuery';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
@@ -29,6 +30,7 @@ type Props = {
 };
 
 export default function Player({ type, id, name, seasons = [] }: Props) {
+  const isDesktop = useIsDesktop();
   const translate = useTranslations('pages.video.play');
 
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -83,9 +85,9 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
   }, [lightStatus]);
 
   return (
-    <div className={cx('root')}>
+    <div className={cx('root', { theater: !lightStatus })}>
       <div className={cx('head')}>
-        <h1 className={cx('title', { theater: !lightStatus })}>
+        <h1 className={cx('title')}>
           {translate.rich('title', {
             name: season ? name + ` (${season?.name})` : name,
             link: (chunks) => (
@@ -97,13 +99,15 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
         </h1>
 
         <div ref={toolRef} className={cx('tool')}>
-          <Button onClick={() => switchLight((prevStatus) => !prevStatus)}>
-            <Icon icon={lightStatus ? FaLightbulb : FaRegLightbulb} size={20} />
-            <span>
-              {translate('theaterMode')}
-              <b>{lightStatus ? 'OFF' : 'ON'}</b>
-            </span>
-          </Button>
+          {isDesktop && (
+            <Button onClick={() => switchLight((prevStatus) => !prevStatus)}>
+              <Icon icon={lightStatus ? FaLightbulb : FaRegLightbulb} size={20} />
+              <span>
+                {translate('theaterMode')}
+                <b>{lightStatus ? 'OFF' : 'ON'}</b>
+              </span>
+            </Button>
+          )}
           {type == 'tv' && seasons && season && (
             <>
               <Menu
@@ -151,13 +155,12 @@ export default function Player({ type, id, name, seasons = [] }: Props) {
           )}
         </div>
       </div>
-      <iframe
-        ref={frameRef}
-        className={cx({ 'up-front': !lightStatus })}
-        src={buildVideoSrc()}
-        allowFullScreen
+      <iframe ref={frameRef} src={buildVideoSrc()} allowFullScreen />
+      <ServerList
+        theaterMode={!lightStatus}
+        current={videoServer}
+        onChangeServer={onChangeServerHandler}
       />
-      <ServerList current={videoServer} onChangeServer={onChangeServerHandler} />
     </div>
   );
 }

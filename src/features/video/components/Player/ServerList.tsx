@@ -3,6 +3,7 @@
 import Button from '@components/ui/Button';
 import Icon from '@components/ui/Icon';
 import servers, { SupportedServer } from '@features/video/constants/server';
+import { useIsDesktop } from '@hooks/useMediaQuery';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { MdInfo } from 'react-icons/md';
@@ -11,17 +12,19 @@ import styles from './Player.module.scss';
 const cx = classNames.bind(styles);
 
 type Props = {
+  theaterMode: boolean;
   current: SupportedServer;
   onChangeServer: (serverName: SupportedServer) => void;
 };
 
-export default function ServerList({ current, onChangeServer }: Props) {
+export default function ServerList({ theaterMode, current, onChangeServer }: Props) {
+  const isDesktop = useIsDesktop();
   const translate = useTranslations('pages.video.play');
 
   return (
-    <div className={cx('servers')}>
+    <div className={cx('servers', { hidden: theaterMode })}>
       <p className={cx('alert')}>
-        <Icon icon={MdInfo} size={25} />
+        <Icon icon={MdInfo} size={isDesktop ? 25 : 16} />
         <span>{translate('serverAlert')}</span>
       </p>
       <div className={cx('server-list')}>
