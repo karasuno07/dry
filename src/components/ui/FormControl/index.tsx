@@ -1,8 +1,8 @@
 'use client';
 
 import { ConnectForm } from '@components/ui/Form';
+import { isEmpty } from '@lib/object';
 import classNames from 'classnames/bind';
-import { isEmpty } from 'lodash';
 import { memo, useRef } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Tooltip } from 'react-tooltip';
@@ -109,7 +109,7 @@ const InputControl = memo(
               {...inputProps}
             />
           )}
-          {!isEmpty(error) && error.message !== undefined && (
+          {error && error.message !== undefined && (
             <Tooltip
               {...errorProps}
               noArrow

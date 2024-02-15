@@ -2,8 +2,8 @@
 
 import Icon from '@components/ui/Icon';
 import useDebouncedSearch from '@features/video/hooks/useDebouncedSearch';
+import { isEmpty } from '@lib/object';
 import classNames from 'classnames/bind';
-import { isEmpty } from 'lodash';
 import { useTranslations } from 'next-intl';
 import { ChangeEvent, useRef, useState } from 'react';
 import { MdFilterAlt as Filter } from 'react-icons/md';

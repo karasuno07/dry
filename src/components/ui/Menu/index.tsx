@@ -2,7 +2,6 @@
 
 import { ButtonAsLinkProps } from '@components/ui/Button';
 import classNames from 'classnames/bind';
-import { isArray } from 'lodash';
 import React, { JSXElementConstructor, useEffect, useRef, useState } from 'react';
 import styles from './Menu.module.scss';
 
@@ -118,7 +117,7 @@ function Menu({
       );
     }
 
-    if (isArray(items)) {
+    if (Array.isArray(items)) {
       return items.map((item, idx) => processItem(item, idx));
     } else {
       return processItem(items);

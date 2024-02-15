@@ -1,5 +1,5 @@
+import { isUndefined, negate, pickBy } from '@lib/object';
 import { Prisma } from '@prisma/client';
-import { assign, isUndefined, negate, pickBy } from 'lodash';
 import { NextRequest, NextResponse } from 'next/server';
 import { HttpClientError, HttpMethod, HttpServerError } from 'types/api';
 
@@ -48,7 +48,7 @@ export const http = (baseConfig?: RequestBaseConfig) => {
       const requestUrl = baseURL
         ? concatSearchParams(concatURL(baseURL, url), params)
         : concatSearchParams(url, params);
-      const headers = assign(config?.headers, baseHeaders);
+      const headers = { ...config?.headers, ...baseHeaders };
 
       const response = await fetch(requestUrl, {
         method,

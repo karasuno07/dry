@@ -1,5 +1,5 @@
 import { generatePlaceholderImage } from '@lib/helper';
-import { isEmpty } from 'lodash';
+import { isEmpty } from '@lib/object';
 import Image, { ImageProps, StaticImageData } from 'next/image';
 import notFound from '~/assets/images/404-not-found.svg';
 

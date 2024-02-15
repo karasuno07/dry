@@ -8,8 +8,8 @@ import { UserResponse, UserUpsertRequest } from '@features/authentication/model/
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useApi } from '@hooks/useApi';
 import { useRouter } from '@lib/navigation';
+import { isEmpty } from '@lib/object';
 import classNames from 'classnames/bind';
-import { entries, isEmpty } from 'lodash';
 import { useTranslations } from 'next-intl';
 import * as yup from 'yup';
 import styles from './SignUp.module.scss';
@@ -79,7 +79,8 @@ export default function SignUpForm() {
         resolver={yupResolver(validationSchema)}
       >
         {({ formState: { errors, dirtyFields }, handleSubmit }) => {
-          const isDirtyAll = entries(dirtyFields).length === entries(defaultValues).length;
+          const isDirtyAll =
+            Object.entries(dirtyFields).length === Object.entries(defaultValues).length;
           const isDisabled = !isDirtyAll || !isEmpty(errors);
 
           const onSubmitCreateUserHandlder = async (formData: FormData, evt: any) => {

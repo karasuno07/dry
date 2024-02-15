@@ -3,8 +3,8 @@
 import Icon from '@components/ui/Icon';
 import { useIsMobile } from '@hooks/useMediaQuery';
 import { Link } from '@lib/navigation';
+import { isUndefined, math } from '@lib/object';
 import classNames from 'classnames/bind';
-import { ceil, isUndefined, min } from 'lodash';
 import { notFound, useSearchParams } from 'next/navigation';
 import { LuChevronFirst, LuChevronLast, LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import styles from './Pagination.module.scss';
@@ -41,11 +41,11 @@ export default function Pagination({
   const _maxDisplayedPage = isMobile ? 3 : 5;
   const _currentPage = Number(searchParams.get('page')) || 1;
   const _itemPerPage = Number(searchParams.get('limit')) || itemPerPage;
-  const _totalPage = min([
-    totalPage || ceil((totalItems as number) / _itemPerPage),
-    maxTotalPage,
-  ]) as number;
-  const _partNumber = ceil(_currentPage / _maxDisplayedPage);
+  const _totalPage = math.min(
+    totalPage || math.ceil((totalItems as number) / _itemPerPage),
+    maxTotalPage
+  ) as number;
+  const _partNumber = math.ceil(_currentPage / _maxDisplayedPage);
 
   if (_currentPage > _totalPage) {
     notFound();

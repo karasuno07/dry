@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { isEmpty, isUndefined } from '@lib/object';
 import { format as formatter, toDate } from 'date-fns';
-import { isEmpty, isUndefined } from 'lodash';
+import { useState } from 'react';
 
-import useInterval from './useInterval';
 import { DATE_FORMAT } from '~/constants/date-format';
+import useInterval from './useInterval';
 
 type Props = {
   refreshCycle?: number;

@@ -1,4 +1,3 @@
-import { forEach } from 'lodash';
 import { getPlaiceholder } from 'plaiceholder';
 import { HttpClientError } from 'types/api';
 import { ValidationSchema } from 'types/validation';
@@ -42,7 +41,7 @@ export class ModelVaidation<T extends object> {
     }
 
     if (this.schema?.required && this.schema.required.length > 0) {
-      forEach(this.schema.required, (field) => {
+      this.schema.required.forEach((field) => {
         if (!objFields.includes(field)) {
           missingFields.push(field);
         }

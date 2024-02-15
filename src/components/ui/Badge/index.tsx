@@ -1,6 +1,6 @@
 import { Link } from '@lib/navigation';
+import { isUndefined } from '@lib/object';
 import cx from 'classnames';
-import { isUndefined } from 'lodash';
 
 type Props = {
   href?: string;

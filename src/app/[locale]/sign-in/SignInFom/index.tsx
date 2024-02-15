@@ -7,7 +7,6 @@ import { UserBriefResponse } from '@features/authentication/model/user';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from '@lib/navigation';
 import classNames from 'classnames/bind';
-import { isNull } from 'lodash';
 import { ClientSafeProvider } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -71,11 +70,11 @@ export default function SignInForm({ oauthProviders }: SignInFormProps) {
 
         return (
           <>
-            {isNull(user) && <VerifyUsername setUser={setUser} />}
-            {!isNull(user) && <VerifyPassword user={user} />}
+            {user === null && <VerifyUsername setUser={setUser} />}
+            {user !== null && <VerifyPassword user={user} />}
 
             <div className='flex mt-[10px]'>
-              {isNull(user) && (
+              {user === null && (
                 <>
                   <Link className={cx('link', 'mr-auto')} href='sign-up'>
                     {translate('signIn.createAccountLink')}
@@ -85,7 +84,7 @@ export default function SignInForm({ oauthProviders }: SignInFormProps) {
                   </Link>
                 </>
               )}
-              {!isNull(user) && (
+              {!user === null && (
                 <p className={cx('retry')} onClick={resetFormHandler}>
                   <Icon icon={FaRegCircleUser} size={16} />
                   <span>{translate('signIn.tryAgain')}</span>

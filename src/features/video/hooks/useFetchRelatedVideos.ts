@@ -1,4 +1,4 @@
-import { random, shuffle, union } from 'lodash';
+import { random, shuffle, union } from '@lib/object';
 import { use } from 'react';
 import { DiscoverType } from 'types/tmdb/api';
 import { VideoResponse } from '~/service/tmdb/model/Videos';
@@ -22,7 +22,5 @@ export default function useFetchRelatedVideos({ type, id }: { type: DiscoverType
     results = data?.results || [];
   }
 
-  return shuffle(results)
-    .slice(0, 6)
-    .map((item) => new VideoResponse(item));
+  return [...shuffle(results)].slice(0, 6).map((item) => new VideoResponse(item));
 }

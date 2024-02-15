@@ -8,8 +8,8 @@ import Menu from '@components/ui/Menu';
 import SignOutButton from '@features/authentication/components/SignOutButton';
 import { SessionUser } from '@features/authentication/model/user';
 import defaultUser from '@icons/user-default-64.png';
+import { capitalize } from '@lib/object';
 import classNames from 'classnames/bind';
-import { capitalize, isEmpty } from 'lodash';
 import { FaCircleUser } from 'react-icons/fa6';
 import styles from './User.module.scss';
 import UserInfo from './UserInfo';
@@ -36,11 +36,7 @@ export default function User({ user, type }: Props) {
       )}
       {type === 'desktop' && (
         <div className={cx('flex justify-center items-center gap-4')}>
-          {isEmpty(user) ? (
-            <Button className={cx('sign-in')} paddingLess link={{ href: '/sign-in' }}>
-              <Icon icon={FaCircleUser} size={30} />
-            </Button>
-          ) : (
+          {user ? (
             <Menu
               hover
               position='right'
@@ -58,6 +54,10 @@ export default function User({ user, type }: Props) {
                 <SignOutButton key='sign-out' type='desktop' />,
               ]}
             />
+          ) : (
+            <Button className={cx('sign-in')} paddingLess link={{ href: '/sign-in' }}>
+              <Icon icon={FaCircleUser} size={30} />
+            </Button>
           )}
         </div>
       )}

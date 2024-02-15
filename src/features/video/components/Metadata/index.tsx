@@ -1,6 +1,6 @@
 import Grid from '@components/ui/Grid';
+import { isEmpty } from '@lib/object';
 import classNames from 'classnames/bind';
-import { isEmpty } from 'lodash';
 import { useTranslations } from 'next-intl';
 import { DiscoverType } from 'types/tmdb/api';
 import { Movie, TvSeries } from '~/service/tmdb/model/Videos';
