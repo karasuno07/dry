@@ -1,9 +1,9 @@
 'use client';
 
+import CreditsService, { CreditsResponse, buildGetCreditsEndpoint } from '@services/tmdb/credits';
 import classNames from 'classnames/bind';
 import useSWR from 'swr';
 import { DiscoverType } from 'types/tmdb/api';
-import CreditsService, { CreditsResponse, buildGetCreditsEndpoint } from '~/service/tmdb/credits';
 import CreditBadge from './CreditBadge';
 import styles from './Credits.module.scss';
 

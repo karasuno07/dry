@@ -1,10 +1,18 @@
 import SessionProvider from '@components/providers/SessionProvider';
 import '@stylesheets/global.scss';
+import { Metadata } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { PropsWithChildren } from 'react';
 import { PropsWithLocale } from 'types/locale';
 import { SUPPORTED_LOCALES } from '~/constants/locales';
 import { customErrorHandler, getMessageFallback } from '~/dictionary/handler';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | RavenZ',
+    default: 'RavenZ',
+  },
+};
 
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));

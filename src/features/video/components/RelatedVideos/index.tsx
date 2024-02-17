@@ -1,8 +1,8 @@
 import { SSRPreviewer as Previewer } from '@features/video/components/Previewer';
 import useFetchRelatedVideos from '@features/video/hooks/useFetchRelatedVideos';
+import { UTILS } from '@services/tmdb/base';
 import classNames from 'classnames/bind';
 import { DiscoverType } from 'types/tmdb/api';
-import { UTILS } from '~/service/tmdb/base';
 import styles from './RelatedVideos.module.scss';
 
 const cx = classNames.bind(styles);

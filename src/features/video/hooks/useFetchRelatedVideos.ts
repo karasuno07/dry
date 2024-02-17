@@ -1,9 +1,9 @@
 import { random, shuffle, union } from '@lib/object';
+import { VideoResponse } from '@services/tmdb/model/Videos';
+import SearchService from '@services/tmdb/search';
+import VideoService from '@services/tmdb/videos';
 import { use } from 'react';
 import { DiscoverType } from 'types/tmdb/api';
-import { VideoResponse } from '~/service/tmdb/model/Videos';
-import SearchService from '~/service/tmdb/search';
-import VideoService from '~/service/tmdb/videos';
 
 export default function useFetchRelatedVideos({ type, id }: { type: DiscoverType; id: number }) {
   const similariesPromise = VideoService.getSimilarities(type, id, { page: random(1, 500, false) });

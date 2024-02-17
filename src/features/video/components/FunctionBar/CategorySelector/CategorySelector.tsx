@@ -2,12 +2,12 @@
 
 import Menu from '@components/ui/Menu';
 import { Link } from '@lib/navigation';
+import { CategoryResponse } from '@services/tmdb/model/Categories';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { FaThList } from 'react-icons/fa';
 import { DiscoverType } from 'types/tmdb/api';
-import { CategoryResponse } from '~/service/tmdb/model/Categories';
 import styles from './CategorySelector.module.scss';
 
 const cx = classNames.bind(styles);

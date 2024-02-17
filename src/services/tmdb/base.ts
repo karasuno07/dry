@@ -1,6 +1,6 @@
 import { RequestConfig, http } from '@lib/http';
+import { Image } from '@services/tmdb/model/Images';
 import { BackdropSize, LogoSize, PosterSize } from 'types/tmdb/image';
-import { Image } from '~/service/tmdb/model/Images';
 
 export const BASE_URL = 'https://api.themoviedb.org/3';
 

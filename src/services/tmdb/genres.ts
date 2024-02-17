@@ -1,4 +1,4 @@
-import { CategoryResponse, Genre } from '~/service/tmdb/model/Categories';
+import { CategoryResponse, Genre } from '@services/tmdb/model/Categories';
 import BaseService from './base';
 
 export type Genres = { genres: Genre[] };

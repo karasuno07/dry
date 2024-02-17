@@ -7,7 +7,7 @@ import Genres from '@features/video/components/Genres';
 import Metadata from '@features/video/components/Metadata';
 import Rating from '@features/video/components/Rating';
 import { useIsMobile } from '@hooks/useMediaQuery';
-import { Movie, TvSeries, VideoDetails } from '@model/Videos';
+import { Movie, TvSeries, VideoDetails } from '@services/tmdb/model/Videos';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { DiscoverType } from 'types/tmdb/api';

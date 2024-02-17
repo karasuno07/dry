@@ -1,9 +1,9 @@
 import Grid from '@components/ui/Grid';
 import { isEmpty } from '@lib/object';
+import { Movie, TvSeries } from '@services/tmdb/model/Videos';
 import classNames from 'classnames/bind';
 import { useTranslations } from 'next-intl';
 import { DiscoverType } from 'types/tmdb/api';
-import { Movie, TvSeries } from '~/service/tmdb/model/Videos';
 import styles from './Metadata.module.scss';
 
 const cx = classNames.bind(styles);

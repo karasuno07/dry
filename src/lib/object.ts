@@ -63,8 +63,8 @@ export const math = {
   min(...values: number[]): number | undefined {
     if (values.length > 0) return Math.min(...values);
   },
-  ceil(value: number, precision: number = 1): number {
-    const modifier = 10 ** precision;
+  ceil(value: number, precision?: number | undefined): number {
+    const modifier = precision ? 10 * precision : 1;
     return Math.ceil(value * modifier) / modifier;
   },
 };
