@@ -34,32 +34,32 @@ export default function User({ user, type }: Props) {
       {type === 'mobile' && (
         <UserInfo type='mobile' username={userName} email={user?.email || ''} icon={userImage} />
       )}
-      {type === 'desktop' && (
-        <div className={cx('flex justify-center items-center gap-4')}>
-          {user ? (
-            <Menu
-              hover
-              position='right'
-              anchor={<UserAvatar className='border border-gray-700' image={userImage} />}
-              items={[
-                <UserInfo
-                  key='user-info'
-                  type='desktop'
-                  username={userName}
-                  email={user.email || ''}
-                  icon={userImage}
-                  tooltipPosition='left'
-                />,
-                <Divider key='divider-01' />,
-                <SignOutButton key='sign-out' type='desktop' />,
-              ]}
-            />
-          ) : (
-            <Button className={cx('sign-in')} paddingLess link={{ href: '/sign-in' }}>
-              <Icon icon={FaCircleUser} size={30} />
+      {type === 'desktop' && user ? (
+        <Menu
+          hover
+          position='right'
+          anchor={
+            <Button className='flex justify-center items-center' paddingLess>
+              <UserAvatar className='border border-gray-700' image={userImage} />
             </Button>
-          )}
-        </div>
+          }
+          items={[
+            <UserInfo
+              key='user-info'
+              type='desktop'
+              username={userName}
+              email={user.email || ''}
+              icon={userImage}
+              tooltipPosition='left'
+            />,
+            <Divider key='divider-01' />,
+            <SignOutButton key='sign-out' className={cx('sign-out')} type='desktop' />,
+          ]}
+        />
+      ) : (
+        <Button className={cx('sign-in')} paddingLess link={{ href: '/sign-in' }}>
+          <Icon icon={FaCircleUser} size={30} />
+        </Button>
       )}
     </div>
   );

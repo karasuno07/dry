@@ -41,6 +41,7 @@ function Menu({
 
   const inboundOnClickHandler = (evt: React.MouseEvent<Element>) => {
     const target = evt.target as HTMLElement;
+    console.log(target);
     if (target.classList.contains('bypass-evt')) {
       return;
     }
@@ -71,14 +72,9 @@ function Menu({
       const childProps = anchor.props as ClickableElementProps;
       const props: ClickableElementProps = {
         ...childProps,
-        className: cx(
-          childProps.className,
-          'cursor-pointer',
-          {
-            active: show,
-          },
-          childProps.className
-        ),
+        className: cx(childProps.className, 'cursor-pointer', {
+          active: show,
+        }),
         onClick: !hover ? inboundOnClickHandler : undefined,
       };
       return React.cloneElement(anchor, props);
