@@ -1,14 +1,16 @@
-export function isUndefined(value: unknown) {
+export function isUndefined(value: unknown): value is undefined {
   return value === undefined;
 }
-export function isNull(value: unknown) {
+export function isNull(value: unknown): value is null {
   return value === null;
 }
 
 export function isEmpty(value: unknown) {
   return (
     value == null ||
-    (typeof value === 'object' && Object.keys(value).length === 0) ||
+    (typeof value === 'object' && Array.isArray(value)
+      ? value.length === 0
+      : Object.keys(value).length === 0) ||
     (typeof value === 'string' && value.trim().length === 0)
   );
 }
@@ -22,7 +24,7 @@ export function negate(func: Function) {
 }
 
 export function pickBy(obj: object, predicate = (v: unknown) => v) {
-  const target: any = {};
+  const target: Record<string, any> = {};
   for (const [key, value] of Object.entries(obj)) {
     if (predicate(value)) target[key] = value;
   }

@@ -1,3 +1,4 @@
+import { isUndefined } from '@lib/object';
 import { Image, ImageResponse } from '@services/tmdb/model/Images';
 import { PaginationDiscoverVideos, VideoDetails } from '@services/tmdb/model/Videos';
 import { DiscoverType, LanguageParams, QueryParams } from 'types/tmdb/api';
@@ -24,7 +25,7 @@ export default class VideoService extends BaseService {
     imageType?: ImageType
   ) {
     const data = await this.get<ImageResponse>(`/${type}/${id}/images`, { params });
-    if (imageType === undefined) {
+    if (isUndefined(imageType)) {
       return data;
     } else {
       return data && data[imageType];
