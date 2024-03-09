@@ -70,7 +70,7 @@ export default async function VideoList({ query, display, type, category, page }
                 display={display === 'stack' ? 'detailed' : 'simple'}
                 backdropImage={UTILS.buildImageUrl(
                   video.backdrop_path,
-                  display === 'stack' ? 'w1920' : 'w1280'
+                  display === 'stack' ? 'original' : 'w1280'
                 )}
               />
             ))}
