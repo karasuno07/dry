@@ -60,7 +60,7 @@ services:
       dockerfile: Dockerfile
     image: ravenz_nginx_server
     ports:
-      - '80:80'
+      - '81:80'
     privileged: true
     links:
       - nextjs-app
