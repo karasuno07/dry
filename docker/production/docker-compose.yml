@@ -1,5 +1,8 @@
-version: '3.9'
 networks:
+  interconnection:
+    name: interconnection-network
+    external: true
+    driver: bridge
   datasource:
     name: datasource_network
   server:
@@ -65,10 +68,9 @@ services:
       - NEXTJS_CONTAINER_IP=nextjs-app
       - ADMINER_CONTAINER_ID=adminer
       - WEBSITE_DOMAIN_NAME=${DOMAIN_NAME}
-    command: ['sh', '/etc/nginx/convert-nginx.sh']
+    command: [ 'sh', '/etc/nginx/convert-nginx.sh' ]
     depends_on:
       - nextjs-app
     networks:
       - server
       - interconnection
-
