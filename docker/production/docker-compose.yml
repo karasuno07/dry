@@ -28,6 +28,7 @@ services:
       - db:/var/lib/postgresql/data
     networks:
       - datasource
+    restart: unless-stopped
   adminer:
     container_name: database-monitor
     image: adminer
